@@ -46,6 +46,7 @@ extension Detective {
         }
 
         public func validate(name: String) throws {
+            try self.graphArn.forEach {}
             try self.validate(self.graphArn, name: "graphArn", parent: name, pattern: "^arn:aws[-\\w]{0,10}?:detective:[-\\w]{2,20}?:\\d{12}?:graph:[abcdef\\d]{32}?$")
         }
 
@@ -66,9 +67,11 @@ extension Detective {
         }
 
         public func validate(name: String) throws {
+            try self.accountId.forEach {}
             try self.validate(self.accountId, name: "accountId", parent: name, max: 12)
             try self.validate(self.accountId, name: "accountId", parent: name, min: 12)
             try self.validate(self.accountId, name: "accountId", parent: name, pattern: "^[0-9]+$")
+            try self.emailAddress.forEach {}
             try self.validate(self.emailAddress, name: "emailAddress", parent: name, max: 64)
             try self.validate(self.emailAddress, name: "emailAddress", parent: name, min: 1)
             try self.validate(self.emailAddress, name: "emailAddress", parent: name, pattern: "^.+@.+$")
@@ -114,9 +117,12 @@ extension Detective {
             try self.accounts.forEach {
                 try $0.validate(name: "\(name).accounts[]")
             }
+            try self.accounts.forEach {}
             try self.validate(self.accounts, name: "accounts", parent: name, max: 50)
             try self.validate(self.accounts, name: "accounts", parent: name, min: 1)
+            try self.graphArn.forEach {}
             try self.validate(self.graphArn, name: "graphArn", parent: name, pattern: "^arn:aws[-\\w]{0,10}?:detective:[-\\w]{2,20}?:\\d{12}?:graph:[abcdef\\d]{32}?$")
+            try self.message?.forEach {}
             try self.validate(self.message, name: "message", parent: name, max: 1000)
             try self.validate(self.message, name: "message", parent: name, min: 1)
         }
@@ -155,6 +161,7 @@ extension Detective {
         }
 
         public func validate(name: String) throws {
+            try self.graphArn.forEach {}
             try self.validate(self.graphArn, name: "graphArn", parent: name, pattern: "^arn:aws[-\\w]{0,10}?:detective:[-\\w]{2,20}?:\\d{12}?:graph:[abcdef\\d]{32}?$")
         }
 
@@ -180,8 +187,10 @@ extension Detective {
                 try validate($0, name: "accountIds[]", parent: name, min: 12)
                 try validate($0, name: "accountIds[]", parent: name, pattern: "^[0-9]+$")
             }
+            try self.accountIds.forEach {}
             try self.validate(self.accountIds, name: "accountIds", parent: name, max: 50)
             try self.validate(self.accountIds, name: "accountIds", parent: name, min: 1)
+            try self.graphArn.forEach {}
             try self.validate(self.graphArn, name: "graphArn", parent: name, pattern: "^arn:aws[-\\w]{0,10}?:detective:[-\\w]{2,20}?:\\d{12}?:graph:[abcdef\\d]{32}?$")
         }
 
@@ -217,6 +226,7 @@ extension Detective {
         }
 
         public func validate(name: String) throws {
+            try self.graphArn.forEach {}
             try self.validate(self.graphArn, name: "graphArn", parent: name, pattern: "^arn:aws[-\\w]{0,10}?:detective:[-\\w]{2,20}?:\\d{12}?:graph:[abcdef\\d]{32}?$")
         }
 
@@ -242,8 +252,10 @@ extension Detective {
                 try validate($0, name: "accountIds[]", parent: name, min: 12)
                 try validate($0, name: "accountIds[]", parent: name, pattern: "^[0-9]+$")
             }
+            try self.accountIds.forEach {}
             try self.validate(self.accountIds, name: "accountIds", parent: name, max: 50)
             try self.validate(self.accountIds, name: "accountIds", parent: name, min: 1)
+            try self.graphArn.forEach {}
             try self.validate(self.graphArn, name: "graphArn", parent: name, pattern: "^arn:aws[-\\w]{0,10}?:detective:[-\\w]{2,20}?:\\d{12}?:graph:[abcdef\\d]{32}?$")
         }
 
@@ -300,8 +312,10 @@ extension Detective {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 200)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 1)
+            try self.nextToken?.forEach {}
             try self.validate(self.nextToken, name: "nextToken", parent: name, max: 1024)
             try self.validate(self.nextToken, name: "nextToken", parent: name, min: 1)
         }
@@ -341,8 +355,10 @@ extension Detective {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 200)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 1)
+            try self.nextToken?.forEach {}
             try self.validate(self.nextToken, name: "nextToken", parent: name, max: 1024)
             try self.validate(self.nextToken, name: "nextToken", parent: name, min: 1)
         }
@@ -385,9 +401,12 @@ extension Detective {
         }
 
         public func validate(name: String) throws {
+            try self.graphArn.forEach {}
             try self.validate(self.graphArn, name: "graphArn", parent: name, pattern: "^arn:aws[-\\w]{0,10}?:detective:[-\\w]{2,20}?:\\d{12}?:graph:[abcdef\\d]{32}?$")
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 200)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 1)
+            try self.nextToken?.forEach {}
             try self.validate(self.nextToken, name: "nextToken", parent: name, max: 1024)
             try self.validate(self.nextToken, name: "nextToken", parent: name, min: 1)
         }
@@ -477,6 +496,7 @@ extension Detective {
         }
 
         public func validate(name: String) throws {
+            try self.graphArn.forEach {}
             try self.validate(self.graphArn, name: "graphArn", parent: name, pattern: "^arn:aws[-\\w]{0,10}?:detective:[-\\w]{2,20}?:\\d{12}?:graph:[abcdef\\d]{32}?$")
         }
 
@@ -497,9 +517,11 @@ extension Detective {
         }
 
         public func validate(name: String) throws {
+            try self.accountId.forEach {}
             try self.validate(self.accountId, name: "accountId", parent: name, max: 12)
             try self.validate(self.accountId, name: "accountId", parent: name, min: 12)
             try self.validate(self.accountId, name: "accountId", parent: name, pattern: "^[0-9]+$")
+            try self.graphArn.forEach {}
             try self.validate(self.graphArn, name: "graphArn", parent: name, pattern: "^arn:aws[-\\w]{0,10}?:detective:[-\\w]{2,20}?:\\d{12}?:graph:[abcdef\\d]{32}?$")
         }
 

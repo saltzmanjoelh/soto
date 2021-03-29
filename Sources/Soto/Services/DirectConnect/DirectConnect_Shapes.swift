@@ -241,6 +241,7 @@ extension DirectConnect {
             try self.tags?.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags?.forEach {}
             try self.validate(self.tags, name: "tags", parent: name, min: 1)
         }
 
@@ -270,6 +271,7 @@ extension DirectConnect {
 
         public func validate(name: String) throws {
             try self.newPrivateVirtualInterfaceAllocation.validate(name: "\(name).newPrivateVirtualInterfaceAllocation")
+            try self.newPrivateVirtualInterfaceAllocation.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -295,6 +297,7 @@ extension DirectConnect {
 
         public func validate(name: String) throws {
             try self.newPublicVirtualInterfaceAllocation.validate(name: "\(name).newPublicVirtualInterfaceAllocation")
+            try self.newPublicVirtualInterfaceAllocation.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -320,6 +323,7 @@ extension DirectConnect {
 
         public func validate(name: String) throws {
             try self.newTransitVirtualInterfaceAllocation.validate(name: "\(name).newTransitVirtualInterfaceAllocation")
+            try self.newTransitVirtualInterfaceAllocation.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -725,6 +729,7 @@ extension DirectConnect {
             try self.tags?.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags?.forEach {}
             try self.validate(self.tags, name: "tags", parent: name, min: 1)
         }
 
@@ -875,6 +880,7 @@ extension DirectConnect {
             try self.tags?.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags?.forEach {}
             try self.validate(self.tags, name: "tags", parent: name, min: 1)
         }
 
@@ -921,10 +927,12 @@ extension DirectConnect {
             try self.childConnectionTags?.forEach {
                 try $0.validate(name: "\(name).childConnectionTags[]")
             }
+            try self.childConnectionTags?.forEach {}
             try self.validate(self.childConnectionTags, name: "childConnectionTags", parent: name, min: 1)
             try self.tags?.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags?.forEach {}
             try self.validate(self.tags, name: "tags", parent: name, min: 1)
         }
 
@@ -953,6 +961,7 @@ extension DirectConnect {
 
         public func validate(name: String) throws {
             try self.newPrivateVirtualInterface.validate(name: "\(name).newPrivateVirtualInterface")
+            try self.newPrivateVirtualInterface.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -974,6 +983,7 @@ extension DirectConnect {
 
         public func validate(name: String) throws {
             try self.newPublicVirtualInterface.validate(name: "\(name).newPublicVirtualInterface")
+            try self.newPublicVirtualInterface.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -995,6 +1005,7 @@ extension DirectConnect {
 
         public func validate(name: String) throws {
             try self.newTransitVirtualInterface.validate(name: "\(name).newTransitVirtualInterface")
+            try self.newTransitVirtualInterface.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -1334,7 +1345,7 @@ extension DirectConnect {
         public let maxResults: Int?
         /// The token provided in the previous call to retrieve the next page.
         public let nextToken: String?
-        /// The ID of the virtual private gateway.
+        /// The ID of the virtual private gateway or transit gateway.
         public let virtualGatewayId: String?
 
         public init(associatedGatewayId: String? = nil, associationId: String? = nil, directConnectGatewayId: String? = nil, maxResults: Int? = nil, nextToken: String? = nil, virtualGatewayId: String? = nil) {
@@ -2111,6 +2122,7 @@ extension DirectConnect {
             try self.tags?.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags?.forEach {}
             try self.validate(self.tags, name: "tags", parent: name, min: 1)
         }
 
@@ -2165,6 +2177,7 @@ extension DirectConnect {
             try self.tags?.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags?.forEach {}
             try self.validate(self.tags, name: "tags", parent: name, min: 1)
         }
 
@@ -2217,6 +2230,7 @@ extension DirectConnect {
             try self.tags?.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags?.forEach {}
             try self.validate(self.tags, name: "tags", parent: name, min: 1)
         }
 
@@ -2269,6 +2283,7 @@ extension DirectConnect {
             try self.tags?.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags?.forEach {}
             try self.validate(self.tags, name: "tags", parent: name, min: 1)
         }
 
@@ -2324,6 +2339,7 @@ extension DirectConnect {
             try self.tags?.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags?.forEach {}
             try self.validate(self.tags, name: "tags", parent: name, min: 1)
         }
 
@@ -2377,6 +2393,7 @@ extension DirectConnect {
             try self.tags?.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags?.forEach {}
             try self.validate(self.tags, name: "tags", parent: name, min: 1)
         }
 
@@ -2495,9 +2512,11 @@ extension DirectConnect {
         }
 
         public func validate(name: String) throws {
+            try self.key.forEach {}
             try self.validate(self.key, name: "key", parent: name, max: 128)
             try self.validate(self.key, name: "key", parent: name, min: 1)
             try self.validate(self.key, name: "key", parent: name, pattern: "^([\\p{L}\\p{Z}\\p{N}_.:/=+\\-@]*)$")
+            try self.value?.forEach {}
             try self.validate(self.value, name: "value", parent: name, max: 256)
             try self.validate(self.value, name: "value", parent: name, min: 0)
             try self.validate(self.value, name: "value", parent: name, pattern: "^([\\p{L}\\p{Z}\\p{N}_.:/=+\\-@]*)$")
@@ -2524,6 +2543,7 @@ extension DirectConnect {
             try self.tags.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags.forEach {}
             try self.validate(self.tags, name: "tags", parent: name, min: 1)
         }
 
@@ -2554,6 +2574,7 @@ extension DirectConnect {
                 try validate($0, name: "tagKeys[]", parent: name, min: 1)
                 try validate($0, name: "tagKeys[]", parent: name, pattern: "^([\\p{L}\\p{Z}\\p{N}_.:/=+\\-@]*)$")
             }
+            try self.tagKeys.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {

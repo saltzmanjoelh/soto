@@ -380,6 +380,7 @@ extension WAFV2 {
             try self.statements.forEach {
                 try $0.validate(name: "\(name).statements[]")
             }
+            try self.statements.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -399,9 +400,11 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.resourceArn.forEach {}
             try self.validate(self.resourceArn, name: "resourceArn", parent: name, max: 2048)
             try self.validate(self.resourceArn, name: "resourceArn", parent: name, min: 20)
             try self.validate(self.resourceArn, name: "resourceArn", parent: name, pattern: ".*\\S.*")
+            try self.webACLArn.forEach {}
             try self.validate(self.webACLArn, name: "webACLArn", parent: name, max: 2048)
             try self.validate(self.webACLArn, name: "webACLArn", parent: name, min: 20)
             try self.validate(self.webACLArn, name: "webACLArn", parent: name, pattern: ".*\\S.*")
@@ -444,9 +447,11 @@ extension WAFV2 {
 
         public func validate(name: String) throws {
             try self.fieldToMatch.validate(name: "\(name).fieldToMatch")
+            try self.fieldToMatch.forEach {}
             try self.textTransformations.forEach {
                 try $0.validate(name: "\(name).textTransformations[]")
             }
+            try self.textTransformations.forEach {}
             try self.validate(self.textTransformations, name: "textTransformations", parent: name, min: 1)
         }
 
@@ -473,6 +478,7 @@ extension WAFV2 {
             try self.rules.forEach {
                 try $0.validate(name: "\(name).rules[]")
             }
+            try self.rules.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -499,7 +505,7 @@ extension WAFV2 {
     }
 
     public struct CreateIPSetRequest: AWSEncodableShape {
-        /// Contains an array of strings that specify one or more IP addresses or blocks of IP addresses in Classless Inter-Domain Routing (CIDR) notation. AWS WAF supports all address ranges for IP versions IPv4 and IPv6.  Examples:    To configure AWS WAF to allow, block, or count requests that originated from the IP address 192.0.2.44, specify 192.0.2.44/32.   To configure AWS WAF to allow, block, or count requests that originated from IP addresses from 192.0.2.0 to 192.0.2.255, specify 192.0.2.0/24.   To configure AWS WAF to allow, block, or count requests that originated from the IP address 1111:0000:0000:0000:0000:0000:0000:0111, specify 1111:0000:0000:0000:0000:0000:0000:0111/128.   To configure AWS WAF to allow, block, or count requests that originated from IP addresses 1111:0000:0000:0000:0000:0000:0000:0000 to 1111:0000:0000:0000:ffff:ffff:ffff:ffff, specify 1111:0000:0000:0000:0000:0000:0000:0000/64.   For more information about CIDR notation, see the Wikipedia entry Classless Inter-Domain Routing.
+        /// Contains an array of strings that specify one or more IP addresses or blocks of IP addresses in Classless Inter-Domain Routing (CIDR) notation. AWS WAF supports all IPv4 and IPv6 CIDR ranges except for /0.  Examples:    To configure AWS WAF to allow, block, or count requests that originated from the IP address 192.0.2.44, specify 192.0.2.44/32.   To configure AWS WAF to allow, block, or count requests that originated from IP addresses from 192.0.2.0 to 192.0.2.255, specify 192.0.2.0/24.   To configure AWS WAF to allow, block, or count requests that originated from the IP address 1111:0000:0000:0000:0000:0000:0000:0111, specify 1111:0000:0000:0000:0000:0000:0000:0111/128.   To configure AWS WAF to allow, block, or count requests that originated from IP addresses 1111:0000:0000:0000:0000:0000:0000:0000 to 1111:0000:0000:0000:ffff:ffff:ffff:ffff, specify 1111:0000:0000:0000:0000:0000:0000:0000/64.   For more information about CIDR notation, see the Wikipedia entry Classless Inter-Domain Routing.
         public let addresses: [String]
         /// A description of the IP set that helps with identification.
         public let description: String?
@@ -527,15 +533,19 @@ extension WAFV2 {
                 try validate($0, name: "addresses[]", parent: name, min: 1)
                 try validate($0, name: "addresses[]", parent: name, pattern: ".*\\S.*")
             }
+            try self.addresses.forEach {}
+            try self.description?.forEach {}
             try self.validate(self.description, name: "description", parent: name, max: 256)
             try self.validate(self.description, name: "description", parent: name, min: 1)
             try self.validate(self.description, name: "description", parent: name, pattern: "^[\\w+=:#@/\\-,\\.][\\w+=:#@/\\-,\\.\\s]+[\\w+=:#@/\\-,\\.]$")
+            try self.name.forEach {}
             try self.validate(self.name, name: "name", parent: name, max: 128)
             try self.validate(self.name, name: "name", parent: name, min: 1)
             try self.validate(self.name, name: "name", parent: name, pattern: "^[\\w\\-]+$")
             try self.tags?.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags?.forEach {}
             try self.validate(self.tags, name: "tags", parent: name, min: 1)
         }
 
@@ -583,18 +593,22 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.description?.forEach {}
             try self.validate(self.description, name: "description", parent: name, max: 256)
             try self.validate(self.description, name: "description", parent: name, min: 1)
             try self.validate(self.description, name: "description", parent: name, pattern: "^[\\w+=:#@/\\-,\\.][\\w+=:#@/\\-,\\.\\s]+[\\w+=:#@/\\-,\\.]$")
+            try self.name.forEach {}
             try self.validate(self.name, name: "name", parent: name, max: 128)
             try self.validate(self.name, name: "name", parent: name, min: 1)
             try self.validate(self.name, name: "name", parent: name, pattern: "^[\\w\\-]+$")
             try self.regularExpressionList.forEach {
                 try $0.validate(name: "\(name).regularExpressionList[]")
             }
+            try self.regularExpressionList.forEach {}
             try self.tags?.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags?.forEach {}
             try self.validate(self.tags, name: "tags", parent: name, min: 1)
         }
 
@@ -647,21 +661,27 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.capacity.forEach {}
             try self.validate(self.capacity, name: "capacity", parent: name, min: 1)
+            try self.description?.forEach {}
             try self.validate(self.description, name: "description", parent: name, max: 256)
             try self.validate(self.description, name: "description", parent: name, min: 1)
             try self.validate(self.description, name: "description", parent: name, pattern: "^[\\w+=:#@/\\-,\\.][\\w+=:#@/\\-,\\.\\s]+[\\w+=:#@/\\-,\\.]$")
+            try self.name.forEach {}
             try self.validate(self.name, name: "name", parent: name, max: 128)
             try self.validate(self.name, name: "name", parent: name, min: 1)
             try self.validate(self.name, name: "name", parent: name, pattern: "^[\\w\\-]+$")
             try self.rules?.forEach {
                 try $0.validate(name: "\(name).rules[]")
             }
+            try self.rules?.forEach {}
             try self.tags?.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags?.forEach {}
             try self.validate(self.tags, name: "tags", parent: name, min: 1)
             try self.visibilityConfig.validate(name: "\(name).visibilityConfig")
+            try self.visibilityConfig.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -715,20 +735,25 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.description?.forEach {}
             try self.validate(self.description, name: "description", parent: name, max: 256)
             try self.validate(self.description, name: "description", parent: name, min: 1)
             try self.validate(self.description, name: "description", parent: name, pattern: "^[\\w+=:#@/\\-,\\.][\\w+=:#@/\\-,\\.\\s]+[\\w+=:#@/\\-,\\.]$")
+            try self.name.forEach {}
             try self.validate(self.name, name: "name", parent: name, max: 128)
             try self.validate(self.name, name: "name", parent: name, min: 1)
             try self.validate(self.name, name: "name", parent: name, pattern: "^[\\w\\-]+$")
             try self.rules?.forEach {
                 try $0.validate(name: "\(name).rules[]")
             }
+            try self.rules?.forEach {}
             try self.tags?.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags?.forEach {}
             try self.validate(self.tags, name: "tags", parent: name, min: 1)
             try self.visibilityConfig.validate(name: "\(name).visibilityConfig")
+            try self.visibilityConfig.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -784,9 +809,11 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.webACLArn.forEach {}
             try self.validate(self.webACLArn, name: "webACLArn", parent: name, max: 2048)
             try self.validate(self.webACLArn, name: "webACLArn", parent: name, min: 20)
             try self.validate(self.webACLArn, name: "webACLArn", parent: name, pattern: ".*\\S.*")
+            try self.webACLLockToken.forEach {}
             try self.validate(self.webACLLockToken, name: "webACLLockToken", parent: name, max: 36)
             try self.validate(self.webACLLockToken, name: "webACLLockToken", parent: name, min: 1)
             try self.validate(self.webACLLockToken, name: "webACLLockToken", parent: name, pattern: "^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$")
@@ -829,12 +856,15 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.id.forEach {}
             try self.validate(self.id, name: "id", parent: name, max: 36)
             try self.validate(self.id, name: "id", parent: name, min: 1)
             try self.validate(self.id, name: "id", parent: name, pattern: "^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$")
+            try self.lockToken.forEach {}
             try self.validate(self.lockToken, name: "lockToken", parent: name, max: 36)
             try self.validate(self.lockToken, name: "lockToken", parent: name, min: 1)
             try self.validate(self.lockToken, name: "lockToken", parent: name, pattern: "^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$")
+            try self.name.forEach {}
             try self.validate(self.name, name: "name", parent: name, max: 128)
             try self.validate(self.name, name: "name", parent: name, min: 1)
             try self.validate(self.name, name: "name", parent: name, pattern: "^[\\w\\-]+$")
@@ -861,6 +891,7 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.resourceArn.forEach {}
             try self.validate(self.resourceArn, name: "resourceArn", parent: name, max: 2048)
             try self.validate(self.resourceArn, name: "resourceArn", parent: name, min: 20)
             try self.validate(self.resourceArn, name: "resourceArn", parent: name, pattern: ".*\\S.*")
@@ -884,6 +915,7 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.resourceArn.forEach {}
             try self.validate(self.resourceArn, name: "resourceArn", parent: name, max: 2048)
             try self.validate(self.resourceArn, name: "resourceArn", parent: name, min: 20)
             try self.validate(self.resourceArn, name: "resourceArn", parent: name, pattern: ".*\\S.*")
@@ -916,12 +948,15 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.id.forEach {}
             try self.validate(self.id, name: "id", parent: name, max: 36)
             try self.validate(self.id, name: "id", parent: name, min: 1)
             try self.validate(self.id, name: "id", parent: name, pattern: "^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$")
+            try self.lockToken.forEach {}
             try self.validate(self.lockToken, name: "lockToken", parent: name, max: 36)
             try self.validate(self.lockToken, name: "lockToken", parent: name, min: 1)
             try self.validate(self.lockToken, name: "lockToken", parent: name, pattern: "^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$")
+            try self.name.forEach {}
             try self.validate(self.name, name: "name", parent: name, max: 128)
             try self.validate(self.name, name: "name", parent: name, min: 1)
             try self.validate(self.name, name: "name", parent: name, pattern: "^[\\w\\-]+$")
@@ -957,12 +992,15 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.id.forEach {}
             try self.validate(self.id, name: "id", parent: name, max: 36)
             try self.validate(self.id, name: "id", parent: name, min: 1)
             try self.validate(self.id, name: "id", parent: name, pattern: "^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$")
+            try self.lockToken.forEach {}
             try self.validate(self.lockToken, name: "lockToken", parent: name, max: 36)
             try self.validate(self.lockToken, name: "lockToken", parent: name, min: 1)
             try self.validate(self.lockToken, name: "lockToken", parent: name, pattern: "^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$")
+            try self.name.forEach {}
             try self.validate(self.name, name: "name", parent: name, max: 128)
             try self.validate(self.name, name: "name", parent: name, min: 1)
             try self.validate(self.name, name: "name", parent: name, pattern: "^[\\w\\-]+$")
@@ -998,12 +1036,15 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.id.forEach {}
             try self.validate(self.id, name: "id", parent: name, max: 36)
             try self.validate(self.id, name: "id", parent: name, min: 1)
             try self.validate(self.id, name: "id", parent: name, pattern: "^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$")
+            try self.lockToken.forEach {}
             try self.validate(self.lockToken, name: "lockToken", parent: name, max: 36)
             try self.validate(self.lockToken, name: "lockToken", parent: name, min: 1)
             try self.validate(self.lockToken, name: "lockToken", parent: name, pattern: "^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$")
+            try self.name.forEach {}
             try self.validate(self.name, name: "name", parent: name, max: 128)
             try self.validate(self.name, name: "name", parent: name, min: 1)
             try self.validate(self.name, name: "name", parent: name, pattern: "^[\\w\\-]+$")
@@ -1036,9 +1077,11 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.name.forEach {}
             try self.validate(self.name, name: "name", parent: name, max: 128)
             try self.validate(self.name, name: "name", parent: name, min: 1)
             try self.validate(self.name, name: "name", parent: name, pattern: "^[\\w\\-]+$")
+            try self.vendorName.forEach {}
             try self.validate(self.vendorName, name: "vendorName", parent: name, max: 128)
             try self.validate(self.vendorName, name: "vendorName", parent: name, min: 1)
             try self.validate(self.vendorName, name: "vendorName", parent: name, pattern: ".*\\S.*")
@@ -1076,6 +1119,7 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.resourceArn.forEach {}
             try self.validate(self.resourceArn, name: "resourceArn", parent: name, max: 2048)
             try self.validate(self.resourceArn, name: "resourceArn", parent: name, min: 20)
             try self.validate(self.resourceArn, name: "resourceArn", parent: name, pattern: ".*\\S.*")
@@ -1099,6 +1143,7 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.name.forEach {}
             try self.validate(self.name, name: "name", parent: name, max: 128)
             try self.validate(self.name, name: "name", parent: name, min: 1)
             try self.validate(self.name, name: "name", parent: name, pattern: "^[\\w\\-]+$")
@@ -1120,9 +1165,9 @@ extension WAFV2 {
         public let method: Method?
         /// Inspect the query string. This is the part of a URL that appears after a ? character, if any.
         public let queryString: QueryString?
-        /// Inspect a single header. Provide the name of the header to inspect, for example, User-Agent or Referer. This setting isn't case sensitive.
+        /// Inspect a single header. Provide the name of the header to inspect, for example, User-Agent or Referer. This setting isn't case sensitive. Example JSON: "SingleHeader": { "Name": "haystack" }
         public let singleHeader: SingleHeader?
-        /// Inspect a single query argument. Provide the name of the query argument to inspect, such as UserName or SalesRegion. The name can be up to 30 characters long and isn't case sensitive.  This is used only to indicate the web request component for AWS WAF to inspect, in the FieldToMatch specification.
+        /// Inspect a single query argument. Provide the name of the query argument to inspect, such as UserName or SalesRegion. The name can be up to 30 characters long and isn't case sensitive.  This is used only to indicate the web request component for AWS WAF to inspect, in the FieldToMatch specification.  Example JSON: "SingleQueryArgument": { "Name": "myArgument" }
         public let singleQueryArgument: SingleQueryArgument?
         /// Inspect the request URI path. This is the part of a web request that identifies a resource, for example, /images/daily-ad.jpg.
         public let uriPath: UriPath?
@@ -1140,8 +1185,11 @@ extension WAFV2 {
 
         public func validate(name: String) throws {
             try self.jsonBody?.validate(name: "\(name).jsonBody")
+            try self.jsonBody?.forEach {}
             try self.singleHeader?.validate(name: "\(name).singleHeader")
+            try self.singleHeader?.forEach {}
             try self.singleQueryArgument?.validate(name: "\(name).singleQueryArgument")
+            try self.singleQueryArgument?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -1210,6 +1258,7 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.headerName.forEach {}
             try self.validate(self.headerName, name: "headerName", parent: name, max: 255)
             try self.validate(self.headerName, name: "headerName", parent: name, min: 1)
             try self.validate(self.headerName, name: "headerName", parent: name, pattern: "^[a-zA-Z0-9-]+$")
@@ -1233,8 +1282,10 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.countryCodes?.forEach {}
             try self.validate(self.countryCodes, name: "countryCodes", parent: name, min: 1)
             try self.forwardedIPConfig?.validate(name: "\(name).forwardedIPConfig")
+            try self.forwardedIPConfig?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -1258,9 +1309,11 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.id.forEach {}
             try self.validate(self.id, name: "id", parent: name, max: 36)
             try self.validate(self.id, name: "id", parent: name, min: 1)
             try self.validate(self.id, name: "id", parent: name, pattern: "^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$")
+            try self.name.forEach {}
             try self.validate(self.name, name: "name", parent: name, max: 128)
             try self.validate(self.name, name: "name", parent: name, min: 1)
             try self.validate(self.name, name: "name", parent: name, pattern: "^[\\w\\-]+$")
@@ -1298,6 +1351,7 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.resourceArn.forEach {}
             try self.validate(self.resourceArn, name: "resourceArn", parent: name, max: 2048)
             try self.validate(self.resourceArn, name: "resourceArn", parent: name, min: 20)
             try self.validate(self.resourceArn, name: "resourceArn", parent: name, pattern: ".*\\S.*")
@@ -1330,6 +1384,7 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.resourceArn.forEach {}
             try self.validate(self.resourceArn, name: "resourceArn", parent: name, max: 2048)
             try self.validate(self.resourceArn, name: "resourceArn", parent: name, min: 20)
             try self.validate(self.resourceArn, name: "resourceArn", parent: name, pattern: ".*\\S.*")
@@ -1371,12 +1426,15 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.ruleName.forEach {}
             try self.validate(self.ruleName, name: "ruleName", parent: name, max: 128)
             try self.validate(self.ruleName, name: "ruleName", parent: name, min: 1)
             try self.validate(self.ruleName, name: "ruleName", parent: name, pattern: "^[\\w\\-]+$")
+            try self.webACLId.forEach {}
             try self.validate(self.webACLId, name: "webACLId", parent: name, max: 36)
             try self.validate(self.webACLId, name: "webACLId", parent: name, min: 1)
             try self.validate(self.webACLId, name: "webACLId", parent: name, pattern: "^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$")
+            try self.webACLName.forEach {}
             try self.validate(self.webACLName, name: "webACLName", parent: name, max: 128)
             try self.validate(self.webACLName, name: "webACLName", parent: name, min: 1)
             try self.validate(self.webACLName, name: "webACLName", parent: name, pattern: "^[\\w\\-]+$")
@@ -1422,9 +1480,11 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.id.forEach {}
             try self.validate(self.id, name: "id", parent: name, max: 36)
             try self.validate(self.id, name: "id", parent: name, min: 1)
             try self.validate(self.id, name: "id", parent: name, pattern: "^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$")
+            try self.name.forEach {}
             try self.validate(self.name, name: "name", parent: name, max: 128)
             try self.validate(self.name, name: "name", parent: name, min: 1)
             try self.validate(self.name, name: "name", parent: name, pattern: "^[\\w\\-]+$")
@@ -1468,9 +1528,11 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.id.forEach {}
             try self.validate(self.id, name: "id", parent: name, max: 36)
             try self.validate(self.id, name: "id", parent: name, min: 1)
             try self.validate(self.id, name: "id", parent: name, pattern: "^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$")
+            try self.name.forEach {}
             try self.validate(self.name, name: "name", parent: name, max: 128)
             try self.validate(self.name, name: "name", parent: name, min: 1)
             try self.validate(self.name, name: "name", parent: name, pattern: "^[\\w\\-]+$")
@@ -1520,11 +1582,14 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxItems.forEach {}
             try self.validate(self.maxItems, name: "maxItems", parent: name, max: 500)
             try self.validate(self.maxItems, name: "maxItems", parent: name, min: 1)
+            try self.ruleMetricName.forEach {}
             try self.validate(self.ruleMetricName, name: "ruleMetricName", parent: name, max: 255)
             try self.validate(self.ruleMetricName, name: "ruleMetricName", parent: name, min: 1)
             try self.validate(self.ruleMetricName, name: "ruleMetricName", parent: name, pattern: "^[\\w#:\\.\\-/]+$")
+            try self.webAclArn.forEach {}
             try self.validate(self.webAclArn, name: "webAclArn", parent: name, max: 2048)
             try self.validate(self.webAclArn, name: "webAclArn", parent: name, min: 20)
             try self.validate(self.webAclArn, name: "webAclArn", parent: name, pattern: ".*\\S.*")
@@ -1569,6 +1634,7 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.resourceArn.forEach {}
             try self.validate(self.resourceArn, name: "resourceArn", parent: name, max: 2048)
             try self.validate(self.resourceArn, name: "resourceArn", parent: name, min: 20)
             try self.validate(self.resourceArn, name: "resourceArn", parent: name, pattern: ".*\\S.*")
@@ -1607,9 +1673,11 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.id.forEach {}
             try self.validate(self.id, name: "id", parent: name, max: 36)
             try self.validate(self.id, name: "id", parent: name, min: 1)
             try self.validate(self.id, name: "id", parent: name, pattern: "^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$")
+            try self.name.forEach {}
             try self.validate(self.name, name: "name", parent: name, max: 128)
             try self.validate(self.name, name: "name", parent: name, min: 1)
             try self.validate(self.name, name: "name", parent: name, pattern: "^[\\w\\-]+$")
@@ -1690,7 +1758,7 @@ extension WAFV2 {
     }
 
     public struct IPSet: AWSDecodableShape {
-        /// Contains an array of strings that specify one or more IP addresses or blocks of IP addresses in Classless Inter-Domain Routing (CIDR) notation. AWS WAF supports all address ranges for IP versions IPv4 and IPv6.  Examples:    To configure AWS WAF to allow, block, or count requests that originated from the IP address 192.0.2.44, specify 192.0.2.44/32.   To configure AWS WAF to allow, block, or count requests that originated from IP addresses from 192.0.2.0 to 192.0.2.255, specify 192.0.2.0/24.   To configure AWS WAF to allow, block, or count requests that originated from the IP address 1111:0000:0000:0000:0000:0000:0000:0111, specify 1111:0000:0000:0000:0000:0000:0000:0111/128.   To configure AWS WAF to allow, block, or count requests that originated from IP addresses 1111:0000:0000:0000:0000:0000:0000:0000 to 1111:0000:0000:0000:ffff:ffff:ffff:ffff, specify 1111:0000:0000:0000:0000:0000:0000:0000/64.   For more information about CIDR notation, see the Wikipedia entry Classless Inter-Domain Routing.
+        /// Contains an array of strings that specify one or more IP addresses or blocks of IP addresses in Classless Inter-Domain Routing (CIDR) notation. AWS WAF supports all IPv4 and IPv6 CIDR ranges except for /0.  Examples:    To configure AWS WAF to allow, block, or count requests that originated from the IP address 192.0.2.44, specify 192.0.2.44/32.   To configure AWS WAF to allow, block, or count requests that originated from IP addresses from 192.0.2.0 to 192.0.2.255, specify 192.0.2.0/24.   To configure AWS WAF to allow, block, or count requests that originated from the IP address 1111:0000:0000:0000:0000:0000:0000:0111, specify 1111:0000:0000:0000:0000:0000:0000:0111/128.   To configure AWS WAF to allow, block, or count requests that originated from IP addresses 1111:0000:0000:0000:0000:0000:0000:0000 to 1111:0000:0000:0000:ffff:ffff:ffff:ffff, specify 1111:0000:0000:0000:0000:0000:0000:0000/64.   For more information about CIDR notation, see the Wikipedia entry Classless Inter-Domain Routing.
         public let addresses: [String]
         /// The Amazon Resource Name (ARN) of the entity.
         public let arn: String
@@ -1737,6 +1805,7 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.headerName.forEach {}
             try self.validate(self.headerName, name: "headerName", parent: name, max: 255)
             try self.validate(self.headerName, name: "headerName", parent: name, min: 1)
             try self.validate(self.headerName, name: "headerName", parent: name, pattern: "^[a-zA-Z0-9-]+$")
@@ -1761,10 +1830,12 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.arn.forEach {}
             try self.validate(self.arn, name: "arn", parent: name, max: 2048)
             try self.validate(self.arn, name: "arn", parent: name, min: 20)
             try self.validate(self.arn, name: "arn", parent: name, pattern: ".*\\S.*")
             try self.iPSetForwardedIPConfig?.validate(name: "\(name).iPSetForwardedIPConfig")
+            try self.iPSetForwardedIPConfig?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -1803,7 +1874,7 @@ extension WAFV2 {
     }
 
     public struct JsonBody: AWSEncodableShape & AWSDecodableShape {
-        /// The inspection behavior to fall back to if the JSON in the request body is invalid. For AWS WAF, invalid JSON is any content that isn't complete syntactical JSON, content whose root node isn't an object or an array, and duplicate keys in the content.  You can specify the following fallback behaviors:    MATCH - Treat the web request as matching the rule statement. AWS WAF applies the rule action to the request.    NO_MATCH - Treat the web request as not matching the rule statement.    EVALUATE_AS_STRING - Inspect the body as plain text. This option applies the text transformations and inspection criteria that you defined for the JSON inspection to the body text string.    If you don't provide this setting, when AWS WAF encounters invalid JSON, it parses and inspects what it can, up to the first invalid JSON that it encounters.
+        /// What AWS WAF should do if it fails to completely parse the JSON body. The options are the following:    EVALUATE_AS_STRING - Inspect the body as plain text. AWS WAF applies the text transformations and inspection criteria that you defined for the JSON inspection to the body text string.    MATCH - Treat the web request as matching the rule statement. AWS WAF applies the rule action to the request.    NO_MATCH - Treat the web request as not matching the rule statement.   If you don't provide this setting, AWS WAF parses and evaluates the content only up to the first parsing failure that it encounters.  AWS WAF does its best to parse the entire JSON body, but might be forced to stop for reasons such as invalid characters, duplicate keys, truncation, and any content whose root node isn't an object or an array.  AWS WAF parses the JSON in the following examples as two valid key, value pairs:    Missing comma: {"key1":"value1""key2":"value2"}    Missing colon: {"key1":"value1","key2""value2"}    Extra colons: {"key1"::"value1","key2""value2"}
         public let invalidFallbackBehavior: BodyParsingFallbackBehavior?
         /// The patterns to look for in the JSON body. AWS WAF inspects the results of these pattern matches against the rule inspection criteria.
         public let matchPattern: JsonMatchPattern
@@ -1818,6 +1889,7 @@ extension WAFV2 {
 
         public func validate(name: String) throws {
             try self.matchPattern.validate(name: "\(name).matchPattern")
+            try self.matchPattern.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -1844,6 +1916,7 @@ extension WAFV2 {
                 try validate($0, name: "includedPaths[]", parent: name, min: 1)
                 try validate($0, name: "includedPaths[]", parent: name, pattern: "([/])|([/](([^~])|(~[01]))+)")
             }
+            try self.includedPaths?.forEach {}
             try self.validate(self.includedPaths, name: "includedPaths", parent: name, min: 1)
         }
 
@@ -1868,8 +1941,10 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.limit?.forEach {}
             try self.validate(self.limit, name: "limit", parent: name, max: 100)
             try self.validate(self.limit, name: "limit", parent: name, min: 1)
+            try self.nextMarker?.forEach {}
             try self.validate(self.nextMarker, name: "nextMarker", parent: name, max: 256)
             try self.validate(self.nextMarker, name: "nextMarker", parent: name, min: 1)
             try self.validate(self.nextMarker, name: "nextMarker", parent: name, pattern: ".*\\S.*")
@@ -1913,8 +1988,10 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.limit?.forEach {}
             try self.validate(self.limit, name: "limit", parent: name, max: 100)
             try self.validate(self.limit, name: "limit", parent: name, min: 1)
+            try self.nextMarker?.forEach {}
             try self.validate(self.nextMarker, name: "nextMarker", parent: name, max: 256)
             try self.validate(self.nextMarker, name: "nextMarker", parent: name, min: 1)
             try self.validate(self.nextMarker, name: "nextMarker", parent: name, pattern: ".*\\S.*")
@@ -1959,8 +2036,10 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.limit?.forEach {}
             try self.validate(self.limit, name: "limit", parent: name, max: 100)
             try self.validate(self.limit, name: "limit", parent: name, min: 1)
+            try self.nextMarker?.forEach {}
             try self.validate(self.nextMarker, name: "nextMarker", parent: name, max: 256)
             try self.validate(self.nextMarker, name: "nextMarker", parent: name, min: 1)
             try self.validate(self.nextMarker, name: "nextMarker", parent: name, pattern: ".*\\S.*")
@@ -2004,8 +2083,10 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.limit?.forEach {}
             try self.validate(self.limit, name: "limit", parent: name, max: 100)
             try self.validate(self.limit, name: "limit", parent: name, min: 1)
+            try self.nextMarker?.forEach {}
             try self.validate(self.nextMarker, name: "nextMarker", parent: name, max: 256)
             try self.validate(self.nextMarker, name: "nextMarker", parent: name, min: 1)
             try self.validate(self.nextMarker, name: "nextMarker", parent: name, pattern: ".*\\S.*")
@@ -2046,6 +2127,7 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.webACLArn.forEach {}
             try self.validate(self.webACLArn, name: "webACLArn", parent: name, max: 2048)
             try self.validate(self.webACLArn, name: "webACLArn", parent: name, min: 20)
             try self.validate(self.webACLArn, name: "webACLArn", parent: name, pattern: ".*\\S.*")
@@ -2085,8 +2167,10 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.limit?.forEach {}
             try self.validate(self.limit, name: "limit", parent: name, max: 100)
             try self.validate(self.limit, name: "limit", parent: name, min: 1)
+            try self.nextMarker?.forEach {}
             try self.validate(self.nextMarker, name: "nextMarker", parent: name, max: 256)
             try self.validate(self.nextMarker, name: "nextMarker", parent: name, min: 1)
             try self.validate(self.nextMarker, name: "nextMarker", parent: name, pattern: ".*\\S.*")
@@ -2130,11 +2214,14 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.limit?.forEach {}
             try self.validate(self.limit, name: "limit", parent: name, max: 100)
             try self.validate(self.limit, name: "limit", parent: name, min: 1)
+            try self.nextMarker?.forEach {}
             try self.validate(self.nextMarker, name: "nextMarker", parent: name, max: 256)
             try self.validate(self.nextMarker, name: "nextMarker", parent: name, min: 1)
             try self.validate(self.nextMarker, name: "nextMarker", parent: name, pattern: ".*\\S.*")
+            try self.resourceARN.forEach {}
             try self.validate(self.resourceARN, name: "resourceARN", parent: name, max: 2048)
             try self.validate(self.resourceARN, name: "resourceARN", parent: name, min: 20)
             try self.validate(self.resourceARN, name: "resourceARN", parent: name, pattern: ".*\\S.*")
@@ -2179,8 +2266,10 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.limit?.forEach {}
             try self.validate(self.limit, name: "limit", parent: name, max: 100)
             try self.validate(self.limit, name: "limit", parent: name, min: 1)
+            try self.nextMarker?.forEach {}
             try self.validate(self.nextMarker, name: "nextMarker", parent: name, max: 256)
             try self.validate(self.nextMarker, name: "nextMarker", parent: name, min: 1)
             try self.validate(self.nextMarker, name: "nextMarker", parent: name, pattern: ".*\\S.*")
@@ -2232,12 +2321,15 @@ extension WAFV2 {
                 try validate($0, name: "logDestinationConfigs[]", parent: name, min: 20)
                 try validate($0, name: "logDestinationConfigs[]", parent: name, pattern: ".*\\S.*")
             }
+            try self.logDestinationConfigs.forEach {}
             try self.validate(self.logDestinationConfigs, name: "logDestinationConfigs", parent: name, max: 100)
             try self.validate(self.logDestinationConfigs, name: "logDestinationConfigs", parent: name, min: 1)
             try self.redactedFields?.forEach {
                 try $0.validate(name: "\(name).redactedFields[]")
             }
+            try self.redactedFields?.forEach {}
             try self.validate(self.redactedFields, name: "redactedFields", parent: name, max: 100)
+            try self.resourceArn.forEach {}
             try self.validate(self.resourceArn, name: "resourceArn", parent: name, max: 2048)
             try self.validate(self.resourceArn, name: "resourceArn", parent: name, min: 20)
             try self.validate(self.resourceArn, name: "resourceArn", parent: name, pattern: ".*\\S.*")
@@ -2269,9 +2361,12 @@ extension WAFV2 {
             try self.excludedRules?.forEach {
                 try $0.validate(name: "\(name).excludedRules[]")
             }
+            try self.excludedRules?.forEach {}
+            try self.name.forEach {}
             try self.validate(self.name, name: "name", parent: name, max: 128)
             try self.validate(self.name, name: "name", parent: name, min: 1)
             try self.validate(self.name, name: "name", parent: name, pattern: "^[\\w\\-]+$")
+            try self.vendorName.forEach {}
             try self.validate(self.vendorName, name: "vendorName", parent: name, max: 128)
             try self.validate(self.vendorName, name: "vendorName", parent: name, min: 1)
             try self.validate(self.vendorName, name: "vendorName", parent: name, pattern: ".*\\S.*")
@@ -2323,6 +2418,7 @@ extension WAFV2 {
 
         public func validate(name: String) throws {
             try self.statement.validate(name: "\(name).statement")
+            try self.statement.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -2342,6 +2438,7 @@ extension WAFV2 {
             try self.statements.forEach {
                 try $0.validate(name: "\(name).statements[]")
             }
+            try self.statements.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -2375,6 +2472,7 @@ extension WAFV2 {
 
         public func validate(name: String) throws {
             try self.loggingConfiguration.validate(name: "\(name).loggingConfiguration")
+            try self.loggingConfiguration.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -2406,9 +2504,11 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.policy.forEach {}
             try self.validate(self.policy, name: "policy", parent: name, max: 395_000)
             try self.validate(self.policy, name: "policy", parent: name, min: 1)
             try self.validate(self.policy, name: "policy", parent: name, pattern: ".*\\S.*")
+            try self.resourceArn.forEach {}
             try self.validate(self.resourceArn, name: "resourceArn", parent: name, max: 2048)
             try self.validate(self.resourceArn, name: "resourceArn", parent: name, min: 20)
             try self.validate(self.resourceArn, name: "resourceArn", parent: name, pattern: ".*\\S.*")
@@ -2447,9 +2547,12 @@ extension WAFV2 {
 
         public func validate(name: String) throws {
             try self.forwardedIPConfig?.validate(name: "\(name).forwardedIPConfig")
+            try self.forwardedIPConfig?.forEach {}
+            try self.limit.forEach {}
             try self.validate(self.limit, name: "limit", parent: name, max: 2_000_000_000)
             try self.validate(self.limit, name: "limit", parent: name, min: 100)
             try self.scopeDownStatement?.validate(name: "\(name).scopeDownStatement")
+            try self.scopeDownStatement?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -2485,6 +2588,7 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.regexString?.forEach {}
             try self.validate(self.regexString, name: "regexString", parent: name, max: 512)
             try self.validate(self.regexString, name: "regexString", parent: name, min: 1)
             try self.validate(self.regexString, name: "regexString", parent: name, pattern: ".*")
@@ -2539,13 +2643,16 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.arn.forEach {}
             try self.validate(self.arn, name: "arn", parent: name, max: 2048)
             try self.validate(self.arn, name: "arn", parent: name, min: 20)
             try self.validate(self.arn, name: "arn", parent: name, pattern: ".*\\S.*")
             try self.fieldToMatch.validate(name: "\(name).fieldToMatch")
+            try self.fieldToMatch.forEach {}
             try self.textTransformations.forEach {
                 try $0.validate(name: "\(name).textTransformations[]")
             }
+            try self.textTransformations.forEach {}
             try self.validate(self.textTransformations, name: "textTransformations", parent: name, min: 1)
         }
 
@@ -2609,12 +2716,16 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.name.forEach {}
             try self.validate(self.name, name: "name", parent: name, max: 128)
             try self.validate(self.name, name: "name", parent: name, min: 1)
             try self.validate(self.name, name: "name", parent: name, pattern: "^[\\w\\-]+$")
+            try self.priority.forEach {}
             try self.validate(self.priority, name: "priority", parent: name, min: 0)
             try self.statement.validate(name: "\(name).statement")
+            try self.statement.forEach {}
             try self.visibilityConfig.validate(name: "\(name).visibilityConfig")
+            try self.visibilityConfig.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -2697,12 +2808,14 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.arn.forEach {}
             try self.validate(self.arn, name: "arn", parent: name, max: 2048)
             try self.validate(self.arn, name: "arn", parent: name, min: 20)
             try self.validate(self.arn, name: "arn", parent: name, pattern: ".*\\S.*")
             try self.excludedRules?.forEach {
                 try $0.validate(name: "\(name).excludedRules[]")
             }
+            try self.excludedRules?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -2794,6 +2907,7 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.name.forEach {}
             try self.validate(self.name, name: "name", parent: name, max: 64)
             try self.validate(self.name, name: "name", parent: name, min: 1)
             try self.validate(self.name, name: "name", parent: name, pattern: ".*\\S.*")
@@ -2813,6 +2927,7 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.name.forEach {}
             try self.validate(self.name, name: "name", parent: name, max: 64)
             try self.validate(self.name, name: "name", parent: name, min: 1)
             try self.validate(self.name, name: "name", parent: name, pattern: ".*\\S.*")
@@ -2842,11 +2957,14 @@ extension WAFV2 {
 
         public func validate(name: String) throws {
             try self.fieldToMatch.validate(name: "\(name).fieldToMatch")
+            try self.fieldToMatch.forEach {}
+            try self.size.forEach {}
             try self.validate(self.size, name: "size", parent: name, max: 21_474_836_480)
             try self.validate(self.size, name: "size", parent: name, min: 0)
             try self.textTransformations.forEach {
                 try $0.validate(name: "\(name).textTransformations[]")
             }
+            try self.textTransformations.forEach {}
             try self.validate(self.textTransformations, name: "textTransformations", parent: name, min: 1)
         }
 
@@ -2871,9 +2989,11 @@ extension WAFV2 {
 
         public func validate(name: String) throws {
             try self.fieldToMatch.validate(name: "\(name).fieldToMatch")
+            try self.fieldToMatch.forEach {}
             try self.textTransformations.forEach {
                 try $0.validate(name: "\(name).textTransformations[]")
             }
+            try self.textTransformations.forEach {}
             try self.validate(self.textTransformations, name: "textTransformations", parent: name, min: 1)
         }
 
@@ -2929,18 +3049,31 @@ extension WAFV2 {
 
         public func validate(name: String) throws {
             try self.andStatement?.validate(name: "\(name).andStatement")
+            try self.andStatement?.forEach {}
             try self.byteMatchStatement?.validate(name: "\(name).byteMatchStatement")
+            try self.byteMatchStatement?.forEach {}
             try self.geoMatchStatement?.validate(name: "\(name).geoMatchStatement")
+            try self.geoMatchStatement?.forEach {}
             try self.iPSetReferenceStatement?.validate(name: "\(name).iPSetReferenceStatement")
+            try self.iPSetReferenceStatement?.forEach {}
             try self.managedRuleGroupStatement?.validate(name: "\(name).managedRuleGroupStatement")
+            try self.managedRuleGroupStatement?.forEach {}
             try self.notStatement?.validate(name: "\(name).notStatement")
+            try self.notStatement?.forEach {}
             try self.orStatement?.validate(name: "\(name).orStatement")
+            try self.orStatement?.forEach {}
             try self.rateBasedStatement?.validate(name: "\(name).rateBasedStatement")
+            try self.rateBasedStatement?.forEach {}
             try self.regexPatternSetReferenceStatement?.validate(name: "\(name).regexPatternSetReferenceStatement")
+            try self.regexPatternSetReferenceStatement?.forEach {}
             try self.ruleGroupReferenceStatement?.validate(name: "\(name).ruleGroupReferenceStatement")
+            try self.ruleGroupReferenceStatement?.forEach {}
             try self.sizeConstraintStatement?.validate(name: "\(name).sizeConstraintStatement")
+            try self.sizeConstraintStatement?.forEach {}
             try self.sqliMatchStatement?.validate(name: "\(name).sqliMatchStatement")
+            try self.sqliMatchStatement?.forEach {}
             try self.xssMatchStatement?.validate(name: "\(name).xssMatchStatement")
+            try self.xssMatchStatement?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -2972,9 +3105,11 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.key.forEach {}
             try self.validate(self.key, name: "key", parent: name, max: 128)
             try self.validate(self.key, name: "key", parent: name, min: 1)
             try self.validate(self.key, name: "key", parent: name, pattern: "^([\\p{L}\\p{Z}\\p{N}_.:/=+\\-@]*)$")
+            try self.value.forEach {}
             try self.validate(self.value, name: "value", parent: name, max: 256)
             try self.validate(self.value, name: "value", parent: name, min: 0)
             try self.validate(self.value, name: "value", parent: name, pattern: "^([\\p{L}\\p{Z}\\p{N}_.:/=+\\-@]*)$")
@@ -3015,12 +3150,14 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.resourceARN.forEach {}
             try self.validate(self.resourceARN, name: "resourceARN", parent: name, max: 2048)
             try self.validate(self.resourceARN, name: "resourceARN", parent: name, min: 20)
             try self.validate(self.resourceARN, name: "resourceARN", parent: name, pattern: ".*\\S.*")
             try self.tags.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags.forEach {}
             try self.validate(self.tags, name: "tags", parent: name, min: 1)
         }
 
@@ -3046,6 +3183,7 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.priority.forEach {}
             try self.validate(self.priority, name: "priority", parent: name, min: 0)
         }
 
@@ -3084,6 +3222,7 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.resourceARN.forEach {}
             try self.validate(self.resourceARN, name: "resourceARN", parent: name, max: 2048)
             try self.validate(self.resourceARN, name: "resourceARN", parent: name, min: 20)
             try self.validate(self.resourceARN, name: "resourceARN", parent: name, pattern: ".*\\S.*")
@@ -3092,6 +3231,7 @@ extension WAFV2 {
                 try validate($0, name: "tagKeys[]", parent: name, min: 1)
                 try validate($0, name: "tagKeys[]", parent: name, pattern: "^([\\p{L}\\p{Z}\\p{N}_.:/=+\\-@]*)$")
             }
+            try self.tagKeys.forEach {}
             try self.validate(self.tagKeys, name: "tagKeys", parent: name, min: 1)
         }
 
@@ -3106,7 +3246,7 @@ extension WAFV2 {
     }
 
     public struct UpdateIPSetRequest: AWSEncodableShape {
-        /// Contains an array of strings that specify one or more IP addresses or blocks of IP addresses in Classless Inter-Domain Routing (CIDR) notation. AWS WAF supports all address ranges for IP versions IPv4 and IPv6.  Examples:    To configure AWS WAF to allow, block, or count requests that originated from the IP address 192.0.2.44, specify 192.0.2.44/32.   To configure AWS WAF to allow, block, or count requests that originated from IP addresses from 192.0.2.0 to 192.0.2.255, specify 192.0.2.0/24.   To configure AWS WAF to allow, block, or count requests that originated from the IP address 1111:0000:0000:0000:0000:0000:0000:0111, specify 1111:0000:0000:0000:0000:0000:0000:0111/128.   To configure AWS WAF to allow, block, or count requests that originated from IP addresses 1111:0000:0000:0000:0000:0000:0000:0000 to 1111:0000:0000:0000:ffff:ffff:ffff:ffff, specify 1111:0000:0000:0000:0000:0000:0000:0000/64.   For more information about CIDR notation, see the Wikipedia entry Classless Inter-Domain Routing.
+        /// Contains an array of strings that specify one or more IP addresses or blocks of IP addresses in Classless Inter-Domain Routing (CIDR) notation. AWS WAF supports all IPv4 and IPv6 CIDR ranges except for /0.  Examples:    To configure AWS WAF to allow, block, or count requests that originated from the IP address 192.0.2.44, specify 192.0.2.44/32.   To configure AWS WAF to allow, block, or count requests that originated from IP addresses from 192.0.2.0 to 192.0.2.255, specify 192.0.2.0/24.   To configure AWS WAF to allow, block, or count requests that originated from the IP address 1111:0000:0000:0000:0000:0000:0000:0111, specify 1111:0000:0000:0000:0000:0000:0000:0111/128.   To configure AWS WAF to allow, block, or count requests that originated from IP addresses 1111:0000:0000:0000:0000:0000:0000:0000 to 1111:0000:0000:0000:ffff:ffff:ffff:ffff, specify 1111:0000:0000:0000:0000:0000:0000:0000/64.   For more information about CIDR notation, see the Wikipedia entry Classless Inter-Domain Routing.
         public let addresses: [String]
         /// A description of the IP set that helps with identification.
         public let description: String?
@@ -3134,15 +3274,20 @@ extension WAFV2 {
                 try validate($0, name: "addresses[]", parent: name, min: 1)
                 try validate($0, name: "addresses[]", parent: name, pattern: ".*\\S.*")
             }
+            try self.addresses.forEach {}
+            try self.description?.forEach {}
             try self.validate(self.description, name: "description", parent: name, max: 256)
             try self.validate(self.description, name: "description", parent: name, min: 1)
             try self.validate(self.description, name: "description", parent: name, pattern: "^[\\w+=:#@/\\-,\\.][\\w+=:#@/\\-,\\.\\s]+[\\w+=:#@/\\-,\\.]$")
+            try self.id.forEach {}
             try self.validate(self.id, name: "id", parent: name, max: 36)
             try self.validate(self.id, name: "id", parent: name, min: 1)
             try self.validate(self.id, name: "id", parent: name, pattern: "^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$")
+            try self.lockToken.forEach {}
             try self.validate(self.lockToken, name: "lockToken", parent: name, max: 36)
             try self.validate(self.lockToken, name: "lockToken", parent: name, min: 1)
             try self.validate(self.lockToken, name: "lockToken", parent: name, pattern: "^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$")
+            try self.name.forEach {}
             try self.validate(self.name, name: "name", parent: name, max: 128)
             try self.validate(self.name, name: "name", parent: name, min: 1)
             try self.validate(self.name, name: "name", parent: name, pattern: "^[\\w\\-]+$")
@@ -3194,21 +3339,26 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.description?.forEach {}
             try self.validate(self.description, name: "description", parent: name, max: 256)
             try self.validate(self.description, name: "description", parent: name, min: 1)
             try self.validate(self.description, name: "description", parent: name, pattern: "^[\\w+=:#@/\\-,\\.][\\w+=:#@/\\-,\\.\\s]+[\\w+=:#@/\\-,\\.]$")
+            try self.id.forEach {}
             try self.validate(self.id, name: "id", parent: name, max: 36)
             try self.validate(self.id, name: "id", parent: name, min: 1)
             try self.validate(self.id, name: "id", parent: name, pattern: "^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$")
+            try self.lockToken.forEach {}
             try self.validate(self.lockToken, name: "lockToken", parent: name, max: 36)
             try self.validate(self.lockToken, name: "lockToken", parent: name, min: 1)
             try self.validate(self.lockToken, name: "lockToken", parent: name, pattern: "^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$")
+            try self.name.forEach {}
             try self.validate(self.name, name: "name", parent: name, max: 128)
             try self.validate(self.name, name: "name", parent: name, min: 1)
             try self.validate(self.name, name: "name", parent: name, pattern: "^[\\w\\-]+$")
             try self.regularExpressionList.forEach {
                 try $0.validate(name: "\(name).regularExpressionList[]")
             }
+            try self.regularExpressionList.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -3261,22 +3411,28 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.description?.forEach {}
             try self.validate(self.description, name: "description", parent: name, max: 256)
             try self.validate(self.description, name: "description", parent: name, min: 1)
             try self.validate(self.description, name: "description", parent: name, pattern: "^[\\w+=:#@/\\-,\\.][\\w+=:#@/\\-,\\.\\s]+[\\w+=:#@/\\-,\\.]$")
+            try self.id.forEach {}
             try self.validate(self.id, name: "id", parent: name, max: 36)
             try self.validate(self.id, name: "id", parent: name, min: 1)
             try self.validate(self.id, name: "id", parent: name, pattern: "^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$")
+            try self.lockToken.forEach {}
             try self.validate(self.lockToken, name: "lockToken", parent: name, max: 36)
             try self.validate(self.lockToken, name: "lockToken", parent: name, min: 1)
             try self.validate(self.lockToken, name: "lockToken", parent: name, pattern: "^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$")
+            try self.name.forEach {}
             try self.validate(self.name, name: "name", parent: name, max: 128)
             try self.validate(self.name, name: "name", parent: name, min: 1)
             try self.validate(self.name, name: "name", parent: name, pattern: "^[\\w\\-]+$")
             try self.rules?.forEach {
                 try $0.validate(name: "\(name).rules[]")
             }
+            try self.rules?.forEach {}
             try self.visibilityConfig.validate(name: "\(name).visibilityConfig")
+            try self.visibilityConfig.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -3333,22 +3489,28 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.description?.forEach {}
             try self.validate(self.description, name: "description", parent: name, max: 256)
             try self.validate(self.description, name: "description", parent: name, min: 1)
             try self.validate(self.description, name: "description", parent: name, pattern: "^[\\w+=:#@/\\-,\\.][\\w+=:#@/\\-,\\.\\s]+[\\w+=:#@/\\-,\\.]$")
+            try self.id.forEach {}
             try self.validate(self.id, name: "id", parent: name, max: 36)
             try self.validate(self.id, name: "id", parent: name, min: 1)
             try self.validate(self.id, name: "id", parent: name, pattern: "^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$")
+            try self.lockToken.forEach {}
             try self.validate(self.lockToken, name: "lockToken", parent: name, max: 36)
             try self.validate(self.lockToken, name: "lockToken", parent: name, min: 1)
             try self.validate(self.lockToken, name: "lockToken", parent: name, pattern: "^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$")
+            try self.name.forEach {}
             try self.validate(self.name, name: "name", parent: name, max: 128)
             try self.validate(self.name, name: "name", parent: name, min: 1)
             try self.validate(self.name, name: "name", parent: name, pattern: "^[\\w\\-]+$")
             try self.rules?.forEach {
                 try $0.validate(name: "\(name).rules[]")
             }
+            try self.rules?.forEach {}
             try self.visibilityConfig.validate(name: "\(name).visibilityConfig")
+            try self.visibilityConfig.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -3395,6 +3557,7 @@ extension WAFV2 {
         }
 
         public func validate(name: String) throws {
+            try self.metricName.forEach {}
             try self.validate(self.metricName, name: "metricName", parent: name, max: 255)
             try self.validate(self.metricName, name: "metricName", parent: name, min: 1)
             try self.validate(self.metricName, name: "metricName", parent: name, pattern: "^[\\w#:\\.\\-/]+$")
@@ -3502,9 +3665,11 @@ extension WAFV2 {
 
         public func validate(name: String) throws {
             try self.fieldToMatch.validate(name: "\(name).fieldToMatch")
+            try self.fieldToMatch.forEach {}
             try self.textTransformations.forEach {
                 try $0.validate(name: "\(name).textTransformations[]")
             }
+            try self.textTransformations.forEach {}
             try self.validate(self.textTransformations, name: "textTransformations", parent: name, min: 1)
         }
 

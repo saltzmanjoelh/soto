@@ -131,8 +131,10 @@ extension FraudDetector {
             try self.tags?.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags?.forEach {}
             try self.validate(self.tags, name: "tags", parent: name, max: 200)
             try self.validate(self.tags, name: "tags", parent: name, min: 0)
+            try self.variableEntries.forEach {}
             try self.validate(self.variableEntries, name: "variableEntries", parent: name, max: 25)
             try self.validate(self.variableEntries, name: "variableEntries", parent: name, min: 1)
         }
@@ -186,6 +188,7 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.names.forEach {}
             try self.validate(self.names, name: "names", parent: name, max: 100)
             try self.validate(self.names, name: "names", parent: name, min: 1)
         }
@@ -239,20 +242,25 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.description?.forEach {}
             try self.validate(self.description, name: "description", parent: name, max: 128)
             try self.validate(self.description, name: "description", parent: name, min: 1)
+            try self.detectorId.forEach {}
             try self.validate(self.detectorId, name: "detectorId", parent: name, max: 64)
             try self.validate(self.detectorId, name: "detectorId", parent: name, min: 1)
             try self.validate(self.detectorId, name: "detectorId", parent: name, pattern: "^[0-9a-z_-]+$")
             try self.modelVersions?.forEach {
                 try $0.validate(name: "\(name).modelVersions[]")
             }
+            try self.modelVersions?.forEach {}
             try self.rules.forEach {
                 try $0.validate(name: "\(name).rules[]")
             }
+            try self.rules.forEach {}
             try self.tags?.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags?.forEach {}
             try self.validate(self.tags, name: "tags", parent: name, max: 200)
             try self.validate(self.tags, name: "tags", parent: name, min: 0)
         }
@@ -310,14 +318,17 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.description?.forEach {}
             try self.validate(self.description, name: "description", parent: name, max: 128)
             try self.validate(self.description, name: "description", parent: name, min: 1)
+            try self.modelId.forEach {}
             try self.validate(self.modelId, name: "modelId", parent: name, max: 64)
             try self.validate(self.modelId, name: "modelId", parent: name, min: 1)
             try self.validate(self.modelId, name: "modelId", parent: name, pattern: "^[0-9a-z_]+$")
             try self.tags?.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags?.forEach {}
             try self.validate(self.tags, name: "tags", parent: name, max: 200)
             try self.validate(self.tags, name: "tags", parent: name, min: 0)
         }
@@ -360,12 +371,15 @@ extension FraudDetector {
 
         public func validate(name: String) throws {
             try self.externalEventsDetail?.validate(name: "\(name).externalEventsDetail")
+            try self.externalEventsDetail?.forEach {}
+            try self.modelId.forEach {}
             try self.validate(self.modelId, name: "modelId", parent: name, max: 64)
             try self.validate(self.modelId, name: "modelId", parent: name, min: 1)
             try self.validate(self.modelId, name: "modelId", parent: name, pattern: "^[0-9a-z_]+$")
             try self.tags?.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags?.forEach {}
             try self.validate(self.tags, name: "tags", parent: name, max: 200)
             try self.validate(self.tags, name: "tags", parent: name, min: 0)
         }
@@ -432,20 +446,26 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.description?.forEach {}
             try self.validate(self.description, name: "description", parent: name, max: 128)
             try self.validate(self.description, name: "description", parent: name, min: 1)
+            try self.detectorId.forEach {}
             try self.validate(self.detectorId, name: "detectorId", parent: name, max: 64)
             try self.validate(self.detectorId, name: "detectorId", parent: name, min: 1)
             try self.validate(self.detectorId, name: "detectorId", parent: name, pattern: "^[0-9a-z_-]+$")
+            try self.expression.forEach {}
             try self.validate(self.expression, name: "expression", parent: name, max: 4096)
             try self.validate(self.expression, name: "expression", parent: name, min: 1)
+            try self.outcomes.forEach {}
             try self.validate(self.outcomes, name: "outcomes", parent: name, min: 1)
+            try self.ruleId.forEach {}
             try self.validate(self.ruleId, name: "ruleId", parent: name, max: 64)
             try self.validate(self.ruleId, name: "ruleId", parent: name, min: 1)
             try self.validate(self.ruleId, name: "ruleId", parent: name, pattern: "^[0-9a-z_-]+$")
             try self.tags?.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags?.forEach {}
             try self.validate(self.tags, name: "tags", parent: name, max: 200)
             try self.validate(self.tags, name: "tags", parent: name, min: 0)
         }
@@ -504,6 +524,7 @@ extension FraudDetector {
             try self.tags?.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags?.forEach {}
             try self.validate(self.tags, name: "tags", parent: name, max: 200)
             try self.validate(self.tags, name: "tags", parent: name, min: 0)
         }
@@ -549,6 +570,7 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.detectorId.forEach {}
             try self.validate(self.detectorId, name: "detectorId", parent: name, max: 64)
             try self.validate(self.detectorId, name: "detectorId", parent: name, min: 1)
             try self.validate(self.detectorId, name: "detectorId", parent: name, pattern: "^[0-9a-z_-]+$")
@@ -575,9 +597,11 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.detectorId.forEach {}
             try self.validate(self.detectorId, name: "detectorId", parent: name, max: 64)
             try self.validate(self.detectorId, name: "detectorId", parent: name, min: 1)
             try self.validate(self.detectorId, name: "detectorId", parent: name, pattern: "^[0-9a-z_-]+$")
+            try self.detectorVersionId.forEach {}
             try self.validate(self.detectorVersionId, name: "detectorVersionId", parent: name, max: 5)
             try self.validate(self.detectorVersionId, name: "detectorVersionId", parent: name, min: 1)
             try self.validate(self.detectorVersionId, name: "detectorVersionId", parent: name, pattern: "^([1-9][0-9]*)$")
@@ -602,6 +626,7 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.name.forEach {}
             try self.validate(self.name, name: "name", parent: name, max: 64)
             try self.validate(self.name, name: "name", parent: name, min: 1)
             try self.validate(self.name, name: "name", parent: name, pattern: "^[0-9a-z_-]+$")
@@ -628,9 +653,11 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.eventId.forEach {}
             try self.validate(self.eventId, name: "eventId", parent: name, max: 64)
             try self.validate(self.eventId, name: "eventId", parent: name, min: 1)
             try self.validate(self.eventId, name: "eventId", parent: name, pattern: "^[0-9a-z_-]+$")
+            try self.eventTypeName.forEach {}
             try self.validate(self.eventTypeName, name: "eventTypeName", parent: name, max: 64)
             try self.validate(self.eventTypeName, name: "eventTypeName", parent: name, min: 1)
             try self.validate(self.eventTypeName, name: "eventTypeName", parent: name, pattern: "^[0-9a-z_-]+$")
@@ -655,6 +682,7 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.name.forEach {}
             try self.validate(self.name, name: "name", parent: name, max: 64)
             try self.validate(self.name, name: "name", parent: name, min: 1)
             try self.validate(self.name, name: "name", parent: name, pattern: "^[0-9a-z_-]+$")
@@ -678,6 +706,7 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.modelEndpoint.forEach {}
             try self.validate(self.modelEndpoint, name: "modelEndpoint", parent: name, max: 63)
             try self.validate(self.modelEndpoint, name: "modelEndpoint", parent: name, min: 1)
             try self.validate(self.modelEndpoint, name: "modelEndpoint", parent: name, pattern: "^[0-9A-Za-z_-]+$")
@@ -701,6 +730,7 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.name.forEach {}
             try self.validate(self.name, name: "name", parent: name, max: 64)
             try self.validate(self.name, name: "name", parent: name, min: 1)
             try self.validate(self.name, name: "name", parent: name, pattern: "^[0-9a-z_-]+$")
@@ -727,6 +757,7 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.modelId.forEach {}
             try self.validate(self.modelId, name: "modelId", parent: name, max: 64)
             try self.validate(self.modelId, name: "modelId", parent: name, min: 1)
             try self.validate(self.modelId, name: "modelId", parent: name, pattern: "^[0-9a-z_]+$")
@@ -757,9 +788,11 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.modelId.forEach {}
             try self.validate(self.modelId, name: "modelId", parent: name, max: 64)
             try self.validate(self.modelId, name: "modelId", parent: name, min: 1)
             try self.validate(self.modelId, name: "modelId", parent: name, pattern: "^[0-9a-z_]+$")
+            try self.modelVersionNumber.forEach {}
             try self.validate(self.modelVersionNumber, name: "modelVersionNumber", parent: name, max: 7)
             try self.validate(self.modelVersionNumber, name: "modelVersionNumber", parent: name, min: 3)
             try self.validate(self.modelVersionNumber, name: "modelVersionNumber", parent: name, pattern: "^[1-9][0-9]{0,3}\\.[0-9]{1,2}$")
@@ -785,6 +818,7 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.name.forEach {}
             try self.validate(self.name, name: "name", parent: name, max: 64)
             try self.validate(self.name, name: "name", parent: name, min: 1)
             try self.validate(self.name, name: "name", parent: name, pattern: "^[0-9a-z_-]+$")
@@ -808,6 +842,7 @@ extension FraudDetector {
 
         public func validate(name: String) throws {
             try self.rule.validate(name: "\(name).rule")
+            try self.rule.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -851,9 +886,11 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.detectorId.forEach {}
             try self.validate(self.detectorId, name: "detectorId", parent: name, max: 64)
             try self.validate(self.detectorId, name: "detectorId", parent: name, min: 1)
             try self.validate(self.detectorId, name: "detectorId", parent: name, pattern: "^[0-9a-z_-]+$")
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 2500)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 1000)
         }
@@ -911,11 +948,14 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 10)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 1)
+            try self.modelId?.forEach {}
             try self.validate(self.modelId, name: "modelId", parent: name, max: 64)
             try self.validate(self.modelId, name: "modelId", parent: name, min: 1)
             try self.validate(self.modelId, name: "modelId", parent: name, pattern: "^[0-9a-z_]+$")
+            try self.modelVersionNumber?.forEach {}
             try self.validate(self.modelVersionNumber, name: "modelVersionNumber", parent: name, max: 7)
             try self.validate(self.modelVersionNumber, name: "modelVersionNumber", parent: name, min: 3)
             try self.validate(self.modelVersionNumber, name: "modelVersionNumber", parent: name, pattern: "^[1-9][0-9]{0,3}\\.[0-9]{1,2}$")
@@ -1017,6 +1057,7 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.entityId.forEach {}
             try self.validate(self.entityId, name: "entityId", parent: name, max: 64)
             try self.validate(self.entityId, name: "entityId", parent: name, min: 1)
             try self.validate(self.entityId, name: "entityId", parent: name, pattern: "^[0-9a-z_-]+$")
@@ -1110,9 +1151,11 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.dataAccessRoleArn.forEach {}
             try self.validate(self.dataAccessRoleArn, name: "dataAccessRoleArn", parent: name, max: 256)
             try self.validate(self.dataAccessRoleArn, name: "dataAccessRoleArn", parent: name, min: 1)
             try self.validate(self.dataAccessRoleArn, name: "dataAccessRoleArn", parent: name, pattern: "^arn\\:aws[a-z-]{0,15}\\:iam\\:\\:[0-9]{12}\\:role\\/[^\\s]{2,64}$")
+            try self.dataLocation.forEach {}
             try self.validate(self.dataLocation, name: "dataLocation", parent: name, max: 512)
             try self.validate(self.dataLocation, name: "dataLocation", parent: name, min: 1)
             try self.validate(self.dataLocation, name: "dataLocation", parent: name, pattern: "^s3:\\/\\/(.+)$")
@@ -1231,9 +1274,11 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.detectorId.forEach {}
             try self.validate(self.detectorId, name: "detectorId", parent: name, max: 64)
             try self.validate(self.detectorId, name: "detectorId", parent: name, min: 1)
             try self.validate(self.detectorId, name: "detectorId", parent: name, pattern: "^[0-9a-z_-]+$")
+            try self.detectorVersionId.forEach {}
             try self.validate(self.detectorVersionId, name: "detectorVersionId", parent: name, max: 5)
             try self.validate(self.detectorVersionId, name: "detectorVersionId", parent: name, min: 1)
             try self.validate(self.detectorVersionId, name: "detectorVersionId", parent: name, pattern: "^([1-9][0-9]*)$")
@@ -1313,9 +1358,11 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.detectorId?.forEach {}
             try self.validate(self.detectorId, name: "detectorId", parent: name, max: 64)
             try self.validate(self.detectorId, name: "detectorId", parent: name, min: 1)
             try self.validate(self.detectorId, name: "detectorId", parent: name, pattern: "^[0-9a-z_-]+$")
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 10)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -1359,8 +1406,10 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 10)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
+            try self.name?.forEach {}
             try self.validate(self.name, name: "name", parent: name, max: 64)
             try self.validate(self.name, name: "name", parent: name, min: 1)
             try self.validate(self.name, name: "name", parent: name, pattern: "^[0-9a-z_-]+$")
@@ -1420,12 +1469,14 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.detectorVersionId?.forEach {}
             try self.validate(self.detectorVersionId, name: "detectorVersionId", parent: name, max: 5)
             try self.validate(self.detectorVersionId, name: "detectorVersionId", parent: name, min: 1)
             try self.validate(self.detectorVersionId, name: "detectorVersionId", parent: name, pattern: "^([1-9][0-9]*)$")
             try self.entities.forEach {
                 try $0.validate(name: "\(name).entities[]")
             }
+            try self.entities.forEach {}
             try self.eventVariables.forEach {
                 try validate($0.key, name: "eventVariables.key", parent: name, max: 64)
                 try validate($0.key, name: "eventVariables.key", parent: name, min: 1)
@@ -1481,8 +1532,10 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 10)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
+            try self.name?.forEach {}
             try self.validate(self.name, name: "name", parent: name, max: 64)
             try self.validate(self.name, name: "name", parent: name, min: 1)
             try self.validate(self.name, name: "name", parent: name, pattern: "^[0-9a-z_-]+$")
@@ -1527,6 +1580,7 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 10)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -1583,8 +1637,10 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 50)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 10)
+            try self.name?.forEach {}
             try self.validate(self.name, name: "name", parent: name, max: 64)
             try self.validate(self.name, name: "name", parent: name, min: 1)
             try self.validate(self.name, name: "name", parent: name, pattern: "^[0-9a-z_-]+$")
@@ -1629,9 +1685,11 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.modelId.forEach {}
             try self.validate(self.modelId, name: "modelId", parent: name, max: 64)
             try self.validate(self.modelId, name: "modelId", parent: name, min: 1)
             try self.validate(self.modelId, name: "modelId", parent: name, pattern: "^[0-9a-z_]+$")
+            try self.modelVersionNumber.forEach {}
             try self.validate(self.modelVersionNumber, name: "modelVersionNumber", parent: name, max: 7)
             try self.validate(self.modelVersionNumber, name: "modelVersionNumber", parent: name, min: 3)
             try self.validate(self.modelVersionNumber, name: "modelVersionNumber", parent: name, pattern: "^[1-9][0-9]{0,3}\\.[0-9]{1,2}$")
@@ -1703,8 +1761,10 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 10)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 1)
+            try self.modelId?.forEach {}
             try self.validate(self.modelId, name: "modelId", parent: name, max: 64)
             try self.validate(self.modelId, name: "modelId", parent: name, min: 1)
             try self.validate(self.modelId, name: "modelId", parent: name, pattern: "^[0-9a-z_]+$")
@@ -1750,8 +1810,10 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 100)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 50)
+            try self.name?.forEach {}
             try self.validate(self.name, name: "name", parent: name, max: 64)
             try self.validate(self.name, name: "name", parent: name, min: 1)
             try self.validate(self.name, name: "name", parent: name, pattern: "^[0-9a-z_-]+$")
@@ -1802,14 +1864,18 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.detectorId.forEach {}
             try self.validate(self.detectorId, name: "detectorId", parent: name, max: 64)
             try self.validate(self.detectorId, name: "detectorId", parent: name, min: 1)
             try self.validate(self.detectorId, name: "detectorId", parent: name, pattern: "^[0-9a-z_-]+$")
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 100)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 50)
+            try self.ruleId?.forEach {}
             try self.validate(self.ruleId, name: "ruleId", parent: name, max: 64)
             try self.validate(self.ruleId, name: "ruleId", parent: name, min: 1)
             try self.validate(self.ruleId, name: "ruleId", parent: name, pattern: "^[0-9a-z_-]+$")
+            try self.ruleVersion?.forEach {}
             try self.validate(self.ruleVersion, name: "ruleVersion", parent: name, max: 5)
             try self.validate(self.ruleVersion, name: "ruleVersion", parent: name, min: 1)
             try self.validate(self.ruleVersion, name: "ruleVersion", parent: name, pattern: "^([1-9][0-9]*)$")
@@ -1856,6 +1922,7 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 100)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 50)
         }
@@ -1954,8 +2021,10 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 50)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 50)
+            try self.resourceARN.forEach {}
             try self.validate(self.resourceARN, name: "resourceARN", parent: name, max: 256)
             try self.validate(self.resourceARN, name: "resourceARN", parent: name, min: 1)
             try self.validate(self.resourceARN, name: "resourceARN", parent: name, pattern: "^arn\\:aws[a-z-]{0,15}\\:frauddetector\\:[a-z0-9-]{3,20}\\:[0-9]{12}\\:[^\\s]{2,128}$")
@@ -2059,6 +2128,7 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.contentType?.forEach {}
             try self.validate(self.contentType, name: "contentType", parent: name, max: 1024)
             try self.validate(self.contentType, name: "contentType", parent: name, min: 1)
         }
@@ -2090,6 +2160,7 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.eventTypeName?.forEach {}
             try self.validate(self.eventTypeName, name: "eventTypeName", parent: name, max: 64)
             try self.validate(self.eventTypeName, name: "eventTypeName", parent: name, min: 1)
             try self.validate(self.eventTypeName, name: "eventTypeName", parent: name, pattern: "^[0-9a-z_-]+$")
@@ -2160,12 +2231,15 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.arn?.forEach {}
             try self.validate(self.arn, name: "arn", parent: name, max: 256)
             try self.validate(self.arn, name: "arn", parent: name, min: 1)
             try self.validate(self.arn, name: "arn", parent: name, pattern: "^arn\\:aws[a-z-]{0,15}\\:frauddetector\\:[a-z0-9-]{3,20}\\:[0-9]{12}\\:[^\\s]{2,128}$")
+            try self.modelId.forEach {}
             try self.validate(self.modelId, name: "modelId", parent: name, max: 64)
             try self.validate(self.modelId, name: "modelId", parent: name, min: 1)
             try self.validate(self.modelId, name: "modelId", parent: name, pattern: "^[0-9a-z_]+$")
+            try self.modelVersionNumber.forEach {}
             try self.validate(self.modelVersionNumber, name: "modelVersionNumber", parent: name, min: 1)
         }
 
@@ -2277,17 +2351,21 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.description?.forEach {}
             try self.validate(self.description, name: "description", parent: name, max: 128)
             try self.validate(self.description, name: "description", parent: name, min: 1)
+            try self.detectorId.forEach {}
             try self.validate(self.detectorId, name: "detectorId", parent: name, max: 64)
             try self.validate(self.detectorId, name: "detectorId", parent: name, min: 1)
             try self.validate(self.detectorId, name: "detectorId", parent: name, pattern: "^[0-9a-z_-]+$")
+            try self.eventTypeName.forEach {}
             try self.validate(self.eventTypeName, name: "eventTypeName", parent: name, max: 64)
             try self.validate(self.eventTypeName, name: "eventTypeName", parent: name, min: 1)
             try self.validate(self.eventTypeName, name: "eventTypeName", parent: name, pattern: "^[0-9a-z_-]+$")
             try self.tags?.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags?.forEach {}
             try self.validate(self.tags, name: "tags", parent: name, max: 200)
             try self.validate(self.tags, name: "tags", parent: name, min: 0)
         }
@@ -2319,14 +2397,17 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.description?.forEach {}
             try self.validate(self.description, name: "description", parent: name, max: 128)
             try self.validate(self.description, name: "description", parent: name, min: 1)
+            try self.name.forEach {}
             try self.validate(self.name, name: "name", parent: name, max: 64)
             try self.validate(self.name, name: "name", parent: name, min: 1)
             try self.validate(self.name, name: "name", parent: name, pattern: "^[0-9a-z_-]+$")
             try self.tags?.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags?.forEach {}
             try self.validate(self.tags, name: "tags", parent: name, max: 200)
             try self.validate(self.tags, name: "tags", parent: name, min: 0)
         }
@@ -2366,16 +2447,21 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.description?.forEach {}
             try self.validate(self.description, name: "description", parent: name, max: 128)
             try self.validate(self.description, name: "description", parent: name, min: 1)
+            try self.entityTypes.forEach {}
             try self.validate(self.entityTypes, name: "entityTypes", parent: name, min: 1)
+            try self.eventVariables.forEach {}
             try self.validate(self.eventVariables, name: "eventVariables", parent: name, min: 1)
+            try self.name.forEach {}
             try self.validate(self.name, name: "name", parent: name, max: 64)
             try self.validate(self.name, name: "name", parent: name, min: 1)
             try self.validate(self.name, name: "name", parent: name, pattern: "^[0-9a-z_-]+$")
             try self.tags?.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags?.forEach {}
             try self.validate(self.tags, name: "tags", parent: name, max: 200)
             try self.validate(self.tags, name: "tags", parent: name, min: 0)
         }
@@ -2422,12 +2508,15 @@ extension FraudDetector {
 
         public func validate(name: String) throws {
             try self.inputConfiguration.validate(name: "\(name).inputConfiguration")
+            try self.inputConfiguration.forEach {}
+            try self.modelEndpoint.forEach {}
             try self.validate(self.modelEndpoint, name: "modelEndpoint", parent: name, max: 63)
             try self.validate(self.modelEndpoint, name: "modelEndpoint", parent: name, min: 1)
             try self.validate(self.modelEndpoint, name: "modelEndpoint", parent: name, pattern: "^[0-9A-Za-z_-]+$")
             try self.tags?.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags?.forEach {}
             try self.validate(self.tags, name: "tags", parent: name, max: 200)
             try self.validate(self.tags, name: "tags", parent: name, min: 0)
         }
@@ -2456,6 +2545,7 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.kmsEncryptionKeyArn.forEach {}
             try self.validate(self.kmsEncryptionKeyArn, name: "kmsEncryptionKeyArn", parent: name, max: 90)
             try self.validate(self.kmsEncryptionKeyArn, name: "kmsEncryptionKeyArn", parent: name, min: 7)
             try self.validate(self.kmsEncryptionKeyArn, name: "kmsEncryptionKeyArn", parent: name, pattern: "^DEFAULT|arn:[a-zA-Z0-9-]+:kms:[a-zA-Z0-9-]+:\\d{12}:key\\/\\w{8}-\\w{4}-\\w{4}-\\w{4}-\\w{12}$")
@@ -2484,14 +2574,17 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.description?.forEach {}
             try self.validate(self.description, name: "description", parent: name, max: 128)
             try self.validate(self.description, name: "description", parent: name, min: 1)
+            try self.name.forEach {}
             try self.validate(self.name, name: "name", parent: name, max: 64)
             try self.validate(self.name, name: "name", parent: name, min: 1)
             try self.validate(self.name, name: "name", parent: name, pattern: "^[0-9a-z_-]+$")
             try self.tags?.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags?.forEach {}
             try self.validate(self.tags, name: "tags", parent: name, max: 200)
             try self.validate(self.tags, name: "tags", parent: name, min: 0)
         }
@@ -2522,14 +2615,17 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.description?.forEach {}
             try self.validate(self.description, name: "description", parent: name, max: 128)
             try self.validate(self.description, name: "description", parent: name, min: 1)
+            try self.name.forEach {}
             try self.validate(self.name, name: "name", parent: name, max: 64)
             try self.validate(self.name, name: "name", parent: name, min: 1)
             try self.validate(self.name, name: "name", parent: name, pattern: "^[0-9a-z_-]+$")
             try self.tags?.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags?.forEach {}
             try self.validate(self.tags, name: "tags", parent: name, max: 200)
             try self.validate(self.tags, name: "tags", parent: name, min: 0)
         }
@@ -2560,12 +2656,15 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.detectorId.forEach {}
             try self.validate(self.detectorId, name: "detectorId", parent: name, max: 64)
             try self.validate(self.detectorId, name: "detectorId", parent: name, min: 1)
             try self.validate(self.detectorId, name: "detectorId", parent: name, pattern: "^[0-9a-z_-]+$")
+            try self.ruleId.forEach {}
             try self.validate(self.ruleId, name: "ruleId", parent: name, max: 64)
             try self.validate(self.ruleId, name: "ruleId", parent: name, min: 1)
             try self.validate(self.ruleId, name: "ruleId", parent: name, pattern: "^[0-9a-z_-]+$")
+            try self.ruleVersion.forEach {}
             try self.validate(self.ruleVersion, name: "ruleVersion", parent: name, max: 5)
             try self.validate(self.ruleVersion, name: "ruleVersion", parent: name, min: 1)
             try self.validate(self.ruleVersion, name: "ruleVersion", parent: name, pattern: "^([1-9][0-9]*)$")
@@ -2656,9 +2755,11 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.key.forEach {}
             try self.validate(self.key, name: "key", parent: name, max: 128)
             try self.validate(self.key, name: "key", parent: name, min: 1)
             try self.validate(self.key, name: "key", parent: name, pattern: "^([\\p{L}\\p{Z}\\p{N}_.:/=+\\-@]*)$")
+            try self.value.forEach {}
             try self.validate(self.value, name: "value", parent: name, max: 256)
             try self.validate(self.value, name: "value", parent: name, min: 0)
         }
@@ -2681,12 +2782,14 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.resourceARN.forEach {}
             try self.validate(self.resourceARN, name: "resourceARN", parent: name, max: 256)
             try self.validate(self.resourceARN, name: "resourceARN", parent: name, min: 1)
             try self.validate(self.resourceARN, name: "resourceARN", parent: name, pattern: "^arn\\:aws[a-z-]{0,15}\\:frauddetector\\:[a-z0-9-]{3,20}\\:[0-9]{12}\\:[^\\s]{2,128}$")
             try self.tags.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags.forEach {}
             try self.validate(self.tags, name: "tags", parent: name, max: 200)
             try self.validate(self.tags, name: "tags", parent: name, min: 0)
         }
@@ -2763,6 +2866,7 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.resourceARN.forEach {}
             try self.validate(self.resourceARN, name: "resourceARN", parent: name, max: 256)
             try self.validate(self.resourceARN, name: "resourceARN", parent: name, min: 1)
             try self.validate(self.resourceARN, name: "resourceARN", parent: name, pattern: "^arn\\:aws[a-z-]{0,15}\\:frauddetector\\:[a-z0-9-]{3,20}\\:[0-9]{12}\\:[^\\s]{2,128}$")
@@ -2771,6 +2875,7 @@ extension FraudDetector {
                 try validate($0, name: "tagKeys[]", parent: name, min: 1)
                 try validate($0, name: "tagKeys[]", parent: name, pattern: "^([\\p{L}\\p{Z}\\p{N}_.:/=+\\-@]*)$")
             }
+            try self.tagKeys.forEach {}
             try self.validate(self.tagKeys, name: "tagKeys", parent: name, max: 50)
             try self.validate(self.tagKeys, name: "tagKeys", parent: name, min: 0)
         }
@@ -2800,11 +2905,14 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.description.forEach {}
             try self.validate(self.description, name: "description", parent: name, max: 128)
             try self.validate(self.description, name: "description", parent: name, min: 1)
+            try self.detectorId.forEach {}
             try self.validate(self.detectorId, name: "detectorId", parent: name, max: 64)
             try self.validate(self.detectorId, name: "detectorId", parent: name, min: 1)
             try self.validate(self.detectorId, name: "detectorId", parent: name, pattern: "^[0-9a-z_-]+$")
+            try self.detectorVersionId.forEach {}
             try self.validate(self.detectorVersionId, name: "detectorVersionId", parent: name, max: 5)
             try self.validate(self.detectorVersionId, name: "detectorVersionId", parent: name, min: 1)
             try self.validate(self.detectorVersionId, name: "detectorVersionId", parent: name, pattern: "^([1-9][0-9]*)$")
@@ -2848,20 +2956,25 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.description?.forEach {}
             try self.validate(self.description, name: "description", parent: name, max: 128)
             try self.validate(self.description, name: "description", parent: name, min: 1)
+            try self.detectorId.forEach {}
             try self.validate(self.detectorId, name: "detectorId", parent: name, max: 64)
             try self.validate(self.detectorId, name: "detectorId", parent: name, min: 1)
             try self.validate(self.detectorId, name: "detectorId", parent: name, pattern: "^[0-9a-z_-]+$")
+            try self.detectorVersionId.forEach {}
             try self.validate(self.detectorVersionId, name: "detectorVersionId", parent: name, max: 5)
             try self.validate(self.detectorVersionId, name: "detectorVersionId", parent: name, min: 1)
             try self.validate(self.detectorVersionId, name: "detectorVersionId", parent: name, pattern: "^([1-9][0-9]*)$")
             try self.modelVersions?.forEach {
                 try $0.validate(name: "\(name).modelVersions[]")
             }
+            try self.modelVersions?.forEach {}
             try self.rules.forEach {
                 try $0.validate(name: "\(name).rules[]")
             }
+            try self.rules.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -2894,9 +3007,11 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.detectorId.forEach {}
             try self.validate(self.detectorId, name: "detectorId", parent: name, max: 64)
             try self.validate(self.detectorId, name: "detectorId", parent: name, min: 1)
             try self.validate(self.detectorId, name: "detectorId", parent: name, pattern: "^[0-9a-z_-]+$")
+            try self.detectorVersionId.forEach {}
             try self.validate(self.detectorVersionId, name: "detectorVersionId", parent: name, max: 5)
             try self.validate(self.detectorVersionId, name: "detectorVersionId", parent: name, min: 1)
             try self.validate(self.detectorVersionId, name: "detectorVersionId", parent: name, pattern: "^([1-9][0-9]*)$")
@@ -2928,8 +3043,10 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.description?.forEach {}
             try self.validate(self.description, name: "description", parent: name, max: 128)
             try self.validate(self.description, name: "description", parent: name, min: 1)
+            try self.modelId.forEach {}
             try self.validate(self.modelId, name: "modelId", parent: name, max: 64)
             try self.validate(self.modelId, name: "modelId", parent: name, min: 1)
             try self.validate(self.modelId, name: "modelId", parent: name, pattern: "^[0-9a-z_]+$")
@@ -2968,15 +3085,19 @@ extension FraudDetector {
 
         public func validate(name: String) throws {
             try self.externalEventsDetail?.validate(name: "\(name).externalEventsDetail")
+            try self.externalEventsDetail?.forEach {}
+            try self.majorVersionNumber.forEach {}
             try self.validate(self.majorVersionNumber, name: "majorVersionNumber", parent: name, max: 5)
             try self.validate(self.majorVersionNumber, name: "majorVersionNumber", parent: name, min: 1)
             try self.validate(self.majorVersionNumber, name: "majorVersionNumber", parent: name, pattern: "^([1-9][0-9]*)$")
+            try self.modelId.forEach {}
             try self.validate(self.modelId, name: "modelId", parent: name, max: 64)
             try self.validate(self.modelId, name: "modelId", parent: name, min: 1)
             try self.validate(self.modelId, name: "modelId", parent: name, pattern: "^[0-9a-z_]+$")
             try self.tags?.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags?.forEach {}
             try self.validate(self.tags, name: "tags", parent: name, max: 200)
             try self.validate(self.tags, name: "tags", parent: name, min: 0)
         }
@@ -3033,9 +3154,11 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.modelId.forEach {}
             try self.validate(self.modelId, name: "modelId", parent: name, max: 64)
             try self.validate(self.modelId, name: "modelId", parent: name, min: 1)
             try self.validate(self.modelId, name: "modelId", parent: name, pattern: "^[0-9a-z_]+$")
+            try self.modelVersionNumber.forEach {}
             try self.validate(self.modelVersionNumber, name: "modelVersionNumber", parent: name, max: 7)
             try self.validate(self.modelVersionNumber, name: "modelVersionNumber", parent: name, min: 3)
             try self.validate(self.modelVersionNumber, name: "modelVersionNumber", parent: name, pattern: "^[1-9][0-9]{0,3}\\.[0-9]{1,2}$")
@@ -3065,9 +3188,11 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.description.forEach {}
             try self.validate(self.description, name: "description", parent: name, max: 128)
             try self.validate(self.description, name: "description", parent: name, min: 1)
             try self.rule.validate(name: "\(name).rule")
+            try self.rule.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -3104,15 +3229,20 @@ extension FraudDetector {
         }
 
         public func validate(name: String) throws {
+            try self.description?.forEach {}
             try self.validate(self.description, name: "description", parent: name, max: 128)
             try self.validate(self.description, name: "description", parent: name, min: 1)
+            try self.expression.forEach {}
             try self.validate(self.expression, name: "expression", parent: name, max: 4096)
             try self.validate(self.expression, name: "expression", parent: name, min: 1)
+            try self.outcomes.forEach {}
             try self.validate(self.outcomes, name: "outcomes", parent: name, min: 1)
             try self.rule.validate(name: "\(name).rule")
+            try self.rule.forEach {}
             try self.tags?.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags?.forEach {}
             try self.validate(self.tags, name: "tags", parent: name, max: 200)
             try self.validate(self.tags, name: "tags", parent: name, min: 0)
         }

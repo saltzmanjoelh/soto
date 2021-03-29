@@ -339,7 +339,9 @@ extension ConfigService {
             try self.accountIds.forEach {
                 try validate($0, name: "accountIds[]", parent: name, pattern: "\\d{12}")
             }
+            try self.accountIds.forEach {}
             try self.validate(self.accountIds, name: "accountIds", parent: name, min: 1)
+            try self.awsRegions?.forEach {}
             try self.validate(self.awsRegions, name: "awsRegions", parent: name, min: 1)
         }
 
@@ -450,9 +452,12 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.resourceId.forEach {}
             try self.validate(self.resourceId, name: "resourceId", parent: name, max: 768)
             try self.validate(self.resourceId, name: "resourceId", parent: name, min: 1)
+            try self.sourceAccountId.forEach {}
             try self.validate(self.sourceAccountId, name: "sourceAccountId", parent: name, pattern: "\\d{12}")
+            try self.sourceRegion.forEach {}
             try self.validate(self.sourceRegion, name: "sourceRegion", parent: name, max: 64)
             try self.validate(self.sourceRegion, name: "sourceRegion", parent: name, min: 1)
         }
@@ -605,12 +610,14 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.configurationAggregatorName.forEach {}
             try self.validate(self.configurationAggregatorName, name: "configurationAggregatorName", parent: name, max: 256)
             try self.validate(self.configurationAggregatorName, name: "configurationAggregatorName", parent: name, min: 1)
             try self.validate(self.configurationAggregatorName, name: "configurationAggregatorName", parent: name, pattern: "[\\w\\-]+")
             try self.resourceIdentifiers.forEach {
                 try $0.validate(name: "\(name).resourceIdentifiers[]")
             }
+            try self.resourceIdentifiers.forEach {}
             try self.validate(self.resourceIdentifiers, name: "resourceIdentifiers", parent: name, max: 100)
             try self.validate(self.resourceIdentifiers, name: "resourceIdentifiers", parent: name, min: 1)
         }
@@ -650,6 +657,7 @@ extension ConfigService {
             try self.resourceKeys.forEach {
                 try $0.validate(name: "\(name).resourceKeys[]")
             }
+            try self.resourceKeys.forEach {}
             try self.validate(self.resourceKeys, name: "resourceKeys", parent: name, max: 100)
             try self.validate(self.resourceKeys, name: "resourceKeys", parent: name, min: 1)
         }
@@ -855,21 +863,29 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.configRuleArn?.forEach {}
             try self.validate(self.configRuleArn, name: "configRuleArn", parent: name, max: 256)
             try self.validate(self.configRuleArn, name: "configRuleArn", parent: name, min: 1)
+            try self.configRuleId?.forEach {}
             try self.validate(self.configRuleId, name: "configRuleId", parent: name, max: 64)
             try self.validate(self.configRuleId, name: "configRuleId", parent: name, min: 1)
+            try self.configRuleName?.forEach {}
             try self.validate(self.configRuleName, name: "configRuleName", parent: name, max: 128)
             try self.validate(self.configRuleName, name: "configRuleName", parent: name, min: 1)
             try self.validate(self.configRuleName, name: "configRuleName", parent: name, pattern: ".*\\S.*")
+            try self.createdBy?.forEach {}
             try self.validate(self.createdBy, name: "createdBy", parent: name, max: 256)
             try self.validate(self.createdBy, name: "createdBy", parent: name, min: 1)
+            try self.description?.forEach {}
             try self.validate(self.description, name: "description", parent: name, max: 256)
             try self.validate(self.description, name: "description", parent: name, min: 0)
+            try self.inputParameters?.forEach {}
             try self.validate(self.inputParameters, name: "inputParameters", parent: name, max: 1024)
             try self.validate(self.inputParameters, name: "inputParameters", parent: name, min: 1)
             try self.scope?.validate(name: "\(name).scope")
+            try self.scope?.forEach {}
             try self.source.validate(name: "\(name).source")
+            try self.source.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -904,9 +920,12 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.accountId?.forEach {}
             try self.validate(self.accountId, name: "accountId", parent: name, pattern: "\\d{12}")
+            try self.awsRegion?.forEach {}
             try self.validate(self.awsRegion, name: "awsRegion", parent: name, max: 64)
             try self.validate(self.awsRegion, name: "awsRegion", parent: name, min: 1)
+            try self.configRuleName?.forEach {}
             try self.validate(self.configRuleName, name: "configRuleName", parent: name, max: 128)
             try self.validate(self.configRuleName, name: "configRuleName", parent: name, min: 1)
             try self.validate(self.configRuleName, name: "configRuleName", parent: name, pattern: ".*\\S.*")
@@ -932,7 +951,9 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.accountId?.forEach {}
             try self.validate(self.accountId, name: "accountId", parent: name, pattern: "\\d{12}")
+            try self.awsRegion?.forEach {}
             try self.validate(self.awsRegion, name: "awsRegion", parent: name, max: 64)
             try self.validate(self.awsRegion, name: "awsRegion", parent: name, min: 1)
         }
@@ -1171,6 +1192,7 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.name?.forEach {}
             try self.validate(self.name, name: "name", parent: name, max: 256)
             try self.validate(self.name, name: "name", parent: name, min: 1)
         }
@@ -1239,6 +1261,7 @@ extension ConfigService {
                 try validate($0, name: "configRuleNames[]", parent: name, max: 64)
                 try validate($0, name: "configRuleNames[]", parent: name, min: 1)
             }
+            try self.configRuleNames?.forEach {}
             try self.validate(self.configRuleNames, name: "configRuleNames", parent: name, max: 10)
             try self.validate(self.configRuleNames, name: "configRuleNames", parent: name, min: 0)
         }
@@ -1329,14 +1352,17 @@ extension ConfigService {
                 try validate($0, name: "configRuleNames[]", parent: name, max: 64)
                 try validate($0, name: "configRuleNames[]", parent: name, min: 1)
             }
+            try self.configRuleNames?.forEach {}
             try self.validate(self.configRuleNames, name: "configRuleNames", parent: name, max: 10)
             try self.validate(self.configRuleNames, name: "configRuleNames", parent: name, min: 0)
             try self.resourceIds?.forEach {
                 try validate($0, name: "resourceIds[]", parent: name, max: 256)
                 try validate($0, name: "resourceIds[]", parent: name, min: 1)
             }
+            try self.resourceIds?.forEach {}
             try self.validate(self.resourceIds, name: "resourceIds", parent: name, max: 5)
             try self.validate(self.resourceIds, name: "resourceIds", parent: name, min: 0)
+            try self.resourceType?.forEach {}
             try self.validate(self.resourceType, name: "resourceType", parent: name, max: 256)
             try self.validate(self.resourceType, name: "resourceType", parent: name, min: 1)
         }
@@ -1389,8 +1415,10 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.parameterName.forEach {}
             try self.validate(self.parameterName, name: "parameterName", parent: name, max: 255)
             try self.validate(self.parameterName, name: "parameterName", parent: name, min: 0)
+            try self.parameterValue.forEach {}
             try self.validate(self.parameterValue, name: "parameterValue", parent: name, max: 4096)
             try self.validate(self.parameterValue, name: "parameterValue", parent: name, min: 0)
         }
@@ -1471,7 +1499,9 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.authorizedAccountId.forEach {}
             try self.validate(self.authorizedAccountId, name: "authorizedAccountId", parent: name, pattern: "\\d{12}")
+            try self.authorizedAwsRegion.forEach {}
             try self.validate(self.authorizedAwsRegion, name: "authorizedAwsRegion", parent: name, max: 64)
             try self.validate(self.authorizedAwsRegion, name: "authorizedAwsRegion", parent: name, min: 1)
         }
@@ -1491,6 +1521,7 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.configRuleName.forEach {}
             try self.validate(self.configRuleName, name: "configRuleName", parent: name, max: 128)
             try self.validate(self.configRuleName, name: "configRuleName", parent: name, min: 1)
             try self.validate(self.configRuleName, name: "configRuleName", parent: name, pattern: ".*\\S.*")
@@ -1510,6 +1541,7 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.configurationAggregatorName.forEach {}
             try self.validate(self.configurationAggregatorName, name: "configurationAggregatorName", parent: name, max: 256)
             try self.validate(self.configurationAggregatorName, name: "configurationAggregatorName", parent: name, min: 1)
             try self.validate(self.configurationAggregatorName, name: "configurationAggregatorName", parent: name, pattern: "[\\w\\-]+")
@@ -1529,6 +1561,7 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.configurationRecorderName.forEach {}
             try self.validate(self.configurationRecorderName, name: "configurationRecorderName", parent: name, max: 256)
             try self.validate(self.configurationRecorderName, name: "configurationRecorderName", parent: name, min: 1)
         }
@@ -1547,6 +1580,7 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.conformancePackName.forEach {}
             try self.validate(self.conformancePackName, name: "conformancePackName", parent: name, max: 256)
             try self.validate(self.conformancePackName, name: "conformancePackName", parent: name, min: 1)
             try self.validate(self.conformancePackName, name: "conformancePackName", parent: name, pattern: "[a-zA-Z][-a-zA-Z0-9]*")
@@ -1566,6 +1600,7 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.deliveryChannelName.forEach {}
             try self.validate(self.deliveryChannelName, name: "deliveryChannelName", parent: name, max: 256)
             try self.validate(self.deliveryChannelName, name: "deliveryChannelName", parent: name, min: 1)
         }
@@ -1584,6 +1619,7 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.configRuleName.forEach {}
             try self.validate(self.configRuleName, name: "configRuleName", parent: name, max: 64)
             try self.validate(self.configRuleName, name: "configRuleName", parent: name, min: 1)
         }
@@ -1606,6 +1642,7 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.organizationConfigRuleName.forEach {}
             try self.validate(self.organizationConfigRuleName, name: "organizationConfigRuleName", parent: name, max: 64)
             try self.validate(self.organizationConfigRuleName, name: "organizationConfigRuleName", parent: name, min: 1)
             try self.validate(self.organizationConfigRuleName, name: "organizationConfigRuleName", parent: name, pattern: ".*\\S.*")
@@ -1625,6 +1662,7 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.organizationConformancePackName.forEach {}
             try self.validate(self.organizationConformancePackName, name: "organizationConformancePackName", parent: name, max: 128)
             try self.validate(self.organizationConformancePackName, name: "organizationConformancePackName", parent: name, min: 1)
             try self.validate(self.organizationConformancePackName, name: "organizationConformancePackName", parent: name, pattern: "[a-zA-Z][-a-zA-Z0-9]*")
@@ -1647,7 +1685,9 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.requesterAccountId.forEach {}
             try self.validate(self.requesterAccountId, name: "requesterAccountId", parent: name, pattern: "\\d{12}")
+            try self.requesterAwsRegion.forEach {}
             try self.validate(self.requesterAwsRegion, name: "requesterAwsRegion", parent: name, max: 64)
             try self.validate(self.requesterAwsRegion, name: "requesterAwsRegion", parent: name, min: 1)
         }
@@ -1670,6 +1710,7 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.configRuleName.forEach {}
             try self.validate(self.configRuleName, name: "configRuleName", parent: name, max: 128)
             try self.validate(self.configRuleName, name: "configRuleName", parent: name, min: 1)
             try self.validate(self.configRuleName, name: "configRuleName", parent: name, pattern: ".*\\S.*")
@@ -1697,12 +1738,14 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.configRuleName.forEach {}
             try self.validate(self.configRuleName, name: "configRuleName", parent: name, max: 128)
             try self.validate(self.configRuleName, name: "configRuleName", parent: name, min: 1)
             try self.validate(self.configRuleName, name: "configRuleName", parent: name, pattern: ".*\\S.*")
             try self.resourceKeys.forEach {
                 try $0.validate(name: "\(name).resourceKeys[]")
             }
+            try self.resourceKeys.forEach {}
             try self.validate(self.resourceKeys, name: "resourceKeys", parent: name, max: 100)
             try self.validate(self.resourceKeys, name: "resourceKeys", parent: name, min: 1)
         }
@@ -1738,8 +1781,10 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.resourceId.forEach {}
             try self.validate(self.resourceId, name: "resourceId", parent: name, max: 768)
             try self.validate(self.resourceId, name: "resourceId", parent: name, min: 1)
+            try self.resourceType.forEach {}
             try self.validate(self.resourceType, name: "resourceType", parent: name, max: 196)
             try self.validate(self.resourceType, name: "resourceType", parent: name, min: 1)
         }
@@ -1759,6 +1804,7 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.retentionConfigurationName.forEach {}
             try self.validate(self.retentionConfigurationName, name: "retentionConfigurationName", parent: name, max: 256)
             try self.validate(self.retentionConfigurationName, name: "retentionConfigurationName", parent: name, min: 1)
             try self.validate(self.retentionConfigurationName, name: "retentionConfigurationName", parent: name, pattern: "[\\w\\-]+")
@@ -1778,6 +1824,7 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.queryName.forEach {}
             try self.validate(self.queryName, name: "queryName", parent: name, max: 64)
             try self.validate(self.queryName, name: "queryName", parent: name, min: 1)
             try self.validate(self.queryName, name: "queryName", parent: name, pattern: "^[a-zA-Z0-9-_]+$")
@@ -1801,6 +1848,7 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.deliveryChannelName.forEach {}
             try self.validate(self.deliveryChannelName, name: "deliveryChannelName", parent: name, max: 256)
             try self.validate(self.deliveryChannelName, name: "deliveryChannelName", parent: name, min: 1)
         }
@@ -1847,6 +1895,7 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.name?.forEach {}
             try self.validate(self.name, name: "name", parent: name, max: 256)
             try self.validate(self.name, name: "name", parent: name, min: 1)
         }
@@ -1904,10 +1953,13 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.configurationAggregatorName.forEach {}
             try self.validate(self.configurationAggregatorName, name: "configurationAggregatorName", parent: name, max: 256)
             try self.validate(self.configurationAggregatorName, name: "configurationAggregatorName", parent: name, min: 1)
             try self.validate(self.configurationAggregatorName, name: "configurationAggregatorName", parent: name, pattern: "[\\w\\-]+")
             try self.filters?.validate(name: "\(name).filters")
+            try self.filters?.forEach {}
+            try self.limit?.forEach {}
             try self.validate(self.limit, name: "limit", parent: name, max: 1000)
             try self.validate(self.limit, name: "limit", parent: name, min: 0)
         }
@@ -1949,6 +2001,7 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.limit?.forEach {}
             try self.validate(self.limit, name: "limit", parent: name, max: 100)
             try self.validate(self.limit, name: "limit", parent: name, min: 0)
         }
@@ -1991,6 +2044,7 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.complianceTypes?.forEach {}
             try self.validate(self.complianceTypes, name: "complianceTypes", parent: name, max: 3)
             try self.validate(self.complianceTypes, name: "complianceTypes", parent: name, min: 0)
             try self.configRuleNames?.forEach {
@@ -1998,6 +2052,7 @@ extension ConfigService {
                 try validate($0, name: "configRuleNames[]", parent: name, min: 1)
                 try validate($0, name: "configRuleNames[]", parent: name, pattern: ".*\\S.*")
             }
+            try self.configRuleNames?.forEach {}
             try self.validate(self.configRuleNames, name: "configRuleNames", parent: name, max: 25)
             try self.validate(self.configRuleNames, name: "configRuleNames", parent: name, min: 0)
         }
@@ -2047,12 +2102,16 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.complianceTypes?.forEach {}
             try self.validate(self.complianceTypes, name: "complianceTypes", parent: name, max: 3)
             try self.validate(self.complianceTypes, name: "complianceTypes", parent: name, min: 0)
+            try self.limit?.forEach {}
             try self.validate(self.limit, name: "limit", parent: name, max: 100)
             try self.validate(self.limit, name: "limit", parent: name, min: 0)
+            try self.resourceId?.forEach {}
             try self.validate(self.resourceId, name: "resourceId", parent: name, max: 768)
             try self.validate(self.resourceId, name: "resourceId", parent: name, min: 1)
+            try self.resourceType?.forEach {}
             try self.validate(self.resourceType, name: "resourceType", parent: name, max: 256)
             try self.validate(self.resourceType, name: "resourceType", parent: name, min: 1)
         }
@@ -2103,8 +2162,10 @@ extension ConfigService {
                 try validate($0, name: "configRuleNames[]", parent: name, min: 1)
                 try validate($0, name: "configRuleNames[]", parent: name, pattern: ".*\\S.*")
             }
+            try self.configRuleNames?.forEach {}
             try self.validate(self.configRuleNames, name: "configRuleNames", parent: name, max: 25)
             try self.validate(self.configRuleNames, name: "configRuleNames", parent: name, min: 0)
+            try self.limit?.forEach {}
             try self.validate(self.limit, name: "limit", parent: name, max: 50)
             try self.validate(self.limit, name: "limit", parent: name, min: 0)
         }
@@ -2150,6 +2211,7 @@ extension ConfigService {
                 try validate($0, name: "configRuleNames[]", parent: name, min: 1)
                 try validate($0, name: "configRuleNames[]", parent: name, pattern: ".*\\S.*")
             }
+            try self.configRuleNames?.forEach {}
             try self.validate(self.configRuleNames, name: "configRuleNames", parent: name, max: 25)
             try self.validate(self.configRuleNames, name: "configRuleNames", parent: name, min: 0)
         }
@@ -2195,11 +2257,14 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.configurationAggregatorName.forEach {}
             try self.validate(self.configurationAggregatorName, name: "configurationAggregatorName", parent: name, max: 256)
             try self.validate(self.configurationAggregatorName, name: "configurationAggregatorName", parent: name, min: 1)
             try self.validate(self.configurationAggregatorName, name: "configurationAggregatorName", parent: name, pattern: "[\\w\\-]+")
+            try self.limit?.forEach {}
             try self.validate(self.limit, name: "limit", parent: name, max: 100)
             try self.validate(self.limit, name: "limit", parent: name, min: 0)
+            try self.updateStatus?.forEach {}
             try self.validate(self.updateStatus, name: "updateStatus", parent: name, min: 1)
         }
 
@@ -2248,8 +2313,10 @@ extension ConfigService {
                 try validate($0, name: "configurationAggregatorNames[]", parent: name, min: 1)
                 try validate($0, name: "configurationAggregatorNames[]", parent: name, pattern: "[\\w\\-]+")
             }
+            try self.configurationAggregatorNames?.forEach {}
             try self.validate(self.configurationAggregatorNames, name: "configurationAggregatorNames", parent: name, max: 10)
             try self.validate(self.configurationAggregatorNames, name: "configurationAggregatorNames", parent: name, min: 0)
+            try self.limit?.forEach {}
             try self.validate(self.limit, name: "limit", parent: name, max: 100)
             try self.validate(self.limit, name: "limit", parent: name, min: 0)
         }
@@ -2291,6 +2358,7 @@ extension ConfigService {
                 try validate($0, name: "configurationRecorderNames[]", parent: name, max: 256)
                 try validate($0, name: "configurationRecorderNames[]", parent: name, min: 1)
             }
+            try self.configurationRecorderNames?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -2324,6 +2392,7 @@ extension ConfigService {
                 try validate($0, name: "configurationRecorderNames[]", parent: name, max: 256)
                 try validate($0, name: "configurationRecorderNames[]", parent: name, min: 1)
             }
+            try self.configurationRecorderNames?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -2362,10 +2431,13 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.conformancePackName.forEach {}
             try self.validate(self.conformancePackName, name: "conformancePackName", parent: name, max: 256)
             try self.validate(self.conformancePackName, name: "conformancePackName", parent: name, min: 1)
             try self.validate(self.conformancePackName, name: "conformancePackName", parent: name, pattern: "[a-zA-Z][-a-zA-Z0-9]*")
             try self.filters?.validate(name: "\(name).filters")
+            try self.filters?.forEach {}
+            try self.limit?.forEach {}
             try self.validate(self.limit, name: "limit", parent: name, max: 1000)
             try self.validate(self.limit, name: "limit", parent: name, min: 0)
         }
@@ -2419,8 +2491,10 @@ extension ConfigService {
                 try validate($0, name: "conformancePackNames[]", parent: name, min: 1)
                 try validate($0, name: "conformancePackNames[]", parent: name, pattern: "[a-zA-Z][-a-zA-Z0-9]*")
             }
+            try self.conformancePackNames?.forEach {}
             try self.validate(self.conformancePackNames, name: "conformancePackNames", parent: name, max: 25)
             try self.validate(self.conformancePackNames, name: "conformancePackNames", parent: name, min: 0)
+            try self.limit?.forEach {}
             try self.validate(self.limit, name: "limit", parent: name, max: 20)
             try self.validate(self.limit, name: "limit", parent: name, min: 0)
         }
@@ -2469,8 +2543,10 @@ extension ConfigService {
                 try validate($0, name: "conformancePackNames[]", parent: name, min: 1)
                 try validate($0, name: "conformancePackNames[]", parent: name, pattern: "[a-zA-Z][-a-zA-Z0-9]*")
             }
+            try self.conformancePackNames?.forEach {}
             try self.validate(self.conformancePackNames, name: "conformancePackNames", parent: name, max: 25)
             try self.validate(self.conformancePackNames, name: "conformancePackNames", parent: name, min: 0)
+            try self.limit?.forEach {}
             try self.validate(self.limit, name: "limit", parent: name, max: 20)
             try self.validate(self.limit, name: "limit", parent: name, min: 0)
         }
@@ -2512,6 +2588,7 @@ extension ConfigService {
                 try validate($0, name: "deliveryChannelNames[]", parent: name, max: 256)
                 try validate($0, name: "deliveryChannelNames[]", parent: name, min: 1)
             }
+            try self.deliveryChannelNames?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -2545,6 +2622,7 @@ extension ConfigService {
                 try validate($0, name: "deliveryChannelNames[]", parent: name, max: 256)
                 try validate($0, name: "deliveryChannelNames[]", parent: name, min: 1)
             }
+            try self.deliveryChannelNames?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -2580,12 +2658,14 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.limit?.forEach {}
             try self.validate(self.limit, name: "limit", parent: name, max: 100)
             try self.validate(self.limit, name: "limit", parent: name, min: 0)
             try self.organizationConfigRuleNames?.forEach {
                 try validate($0, name: "organizationConfigRuleNames[]", parent: name, max: 64)
                 try validate($0, name: "organizationConfigRuleNames[]", parent: name, min: 1)
             }
+            try self.organizationConfigRuleNames?.forEach {}
             try self.validate(self.organizationConfigRuleNames, name: "organizationConfigRuleNames", parent: name, max: 25)
             try self.validate(self.organizationConfigRuleNames, name: "organizationConfigRuleNames", parent: name, min: 0)
         }
@@ -2629,12 +2709,14 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.limit?.forEach {}
             try self.validate(self.limit, name: "limit", parent: name, max: 100)
             try self.validate(self.limit, name: "limit", parent: name, min: 0)
             try self.organizationConfigRuleNames?.forEach {
                 try validate($0, name: "organizationConfigRuleNames[]", parent: name, max: 64)
                 try validate($0, name: "organizationConfigRuleNames[]", parent: name, min: 1)
             }
+            try self.organizationConfigRuleNames?.forEach {}
             try self.validate(self.organizationConfigRuleNames, name: "organizationConfigRuleNames", parent: name, max: 25)
             try self.validate(self.organizationConfigRuleNames, name: "organizationConfigRuleNames", parent: name, min: 0)
         }
@@ -2678,6 +2760,7 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.limit?.forEach {}
             try self.validate(self.limit, name: "limit", parent: name, max: 100)
             try self.validate(self.limit, name: "limit", parent: name, min: 0)
             try self.organizationConformancePackNames?.forEach {
@@ -2685,6 +2768,7 @@ extension ConfigService {
                 try validate($0, name: "organizationConformancePackNames[]", parent: name, min: 1)
                 try validate($0, name: "organizationConformancePackNames[]", parent: name, pattern: "[a-zA-Z][-a-zA-Z0-9]*")
             }
+            try self.organizationConformancePackNames?.forEach {}
             try self.validate(self.organizationConformancePackNames, name: "organizationConformancePackNames", parent: name, max: 25)
             try self.validate(self.organizationConformancePackNames, name: "organizationConformancePackNames", parent: name, min: 0)
         }
@@ -2728,6 +2812,7 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.limit?.forEach {}
             try self.validate(self.limit, name: "limit", parent: name, max: 100)
             try self.validate(self.limit, name: "limit", parent: name, min: 0)
             try self.organizationConformancePackNames?.forEach {
@@ -2735,6 +2820,7 @@ extension ConfigService {
                 try validate($0, name: "organizationConformancePackNames[]", parent: name, min: 1)
                 try validate($0, name: "organizationConformancePackNames[]", parent: name, pattern: "[a-zA-Z][-a-zA-Z0-9]*")
             }
+            try self.organizationConformancePackNames?.forEach {}
             try self.validate(self.organizationConformancePackNames, name: "organizationConformancePackNames", parent: name, max: 25)
             try self.validate(self.organizationConformancePackNames, name: "organizationConformancePackNames", parent: name, min: 0)
         }
@@ -2775,6 +2861,7 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.limit?.forEach {}
             try self.validate(self.limit, name: "limit", parent: name, max: 20)
             try self.validate(self.limit, name: "limit", parent: name, min: 0)
         }
@@ -2816,6 +2903,7 @@ extension ConfigService {
                 try validate($0, name: "configRuleNames[]", parent: name, min: 1)
                 try validate($0, name: "configRuleNames[]", parent: name, pattern: ".*\\S.*")
             }
+            try self.configRuleNames.forEach {}
             try self.validate(self.configRuleNames, name: "configRuleNames", parent: name, max: 25)
             try self.validate(self.configRuleNames, name: "configRuleNames", parent: name, min: 0)
         }
@@ -2856,14 +2944,17 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.configRuleName.forEach {}
             try self.validate(self.configRuleName, name: "configRuleName", parent: name, max: 128)
             try self.validate(self.configRuleName, name: "configRuleName", parent: name, min: 1)
             try self.validate(self.configRuleName, name: "configRuleName", parent: name, pattern: ".*\\S.*")
+            try self.limit?.forEach {}
             try self.validate(self.limit, name: "limit", parent: name, max: 100)
             try self.validate(self.limit, name: "limit", parent: name, min: 0)
             try self.resourceKeys?.forEach {
                 try $0.validate(name: "\(name).resourceKeys[]")
             }
+            try self.resourceKeys?.forEach {}
             try self.validate(self.resourceKeys, name: "resourceKeys", parent: name, max: 100)
             try self.validate(self.resourceKeys, name: "resourceKeys", parent: name, min: 1)
         }
@@ -2911,14 +3002,17 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.configRuleName.forEach {}
             try self.validate(self.configRuleName, name: "configRuleName", parent: name, max: 128)
             try self.validate(self.configRuleName, name: "configRuleName", parent: name, min: 1)
             try self.validate(self.configRuleName, name: "configRuleName", parent: name, pattern: ".*\\S.*")
+            try self.limit?.forEach {}
             try self.validate(self.limit, name: "limit", parent: name, max: 100)
             try self.validate(self.limit, name: "limit", parent: name, min: 0)
             try self.resourceKeys?.forEach {
                 try $0.validate(name: "\(name).resourceKeys[]")
             }
+            try self.resourceKeys?.forEach {}
             try self.validate(self.resourceKeys, name: "resourceKeys", parent: name, max: 100)
             try self.validate(self.resourceKeys, name: "resourceKeys", parent: name, min: 1)
         }
@@ -2965,6 +3059,7 @@ extension ConfigService {
                 try validate($0, name: "retentionConfigurationNames[]", parent: name, min: 1)
                 try validate($0, name: "retentionConfigurationNames[]", parent: name, pattern: "[\\w\\-]+")
             }
+            try self.retentionConfigurationNames?.forEach {}
             try self.validate(self.retentionConfigurationNames, name: "retentionConfigurationNames", parent: name, max: 1)
             try self.validate(self.retentionConfigurationNames, name: "retentionConfigurationNames", parent: name, min: 0)
         }
@@ -3013,10 +3108,13 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.annotation?.forEach {}
             try self.validate(self.annotation, name: "annotation", parent: name, max: 256)
             try self.validate(self.annotation, name: "annotation", parent: name, min: 1)
+            try self.complianceResourceId.forEach {}
             try self.validate(self.complianceResourceId, name: "complianceResourceId", parent: name, max: 768)
             try self.validate(self.complianceResourceId, name: "complianceResourceId", parent: name, min: 1)
+            try self.complianceResourceType.forEach {}
             try self.validate(self.complianceResourceType, name: "complianceResourceType", parent: name, max: 256)
             try self.validate(self.complianceResourceType, name: "complianceResourceType", parent: name, min: 1)
         }
@@ -3111,6 +3209,7 @@ extension ConfigService {
 
         public func validate(name: String) throws {
             try self.ssmControls?.validate(name: "\(name).ssmControls")
+            try self.ssmControls?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -3139,10 +3238,13 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.annotation?.forEach {}
             try self.validate(self.annotation, name: "annotation", parent: name, max: 256)
             try self.validate(self.annotation, name: "annotation", parent: name, min: 1)
+            try self.complianceResourceId.forEach {}
             try self.validate(self.complianceResourceId, name: "complianceResourceId", parent: name, max: 768)
             try self.validate(self.complianceResourceId, name: "complianceResourceId", parent: name, min: 1)
+            try self.complianceResourceType.forEach {}
             try self.validate(self.complianceResourceType, name: "complianceResourceType", parent: name, max: 256)
             try self.validate(self.complianceResourceType, name: "complianceResourceType", parent: name, min: 1)
         }
@@ -3247,15 +3349,20 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.accountId.forEach {}
             try self.validate(self.accountId, name: "accountId", parent: name, pattern: "\\d{12}")
+            try self.awsRegion.forEach {}
             try self.validate(self.awsRegion, name: "awsRegion", parent: name, max: 64)
             try self.validate(self.awsRegion, name: "awsRegion", parent: name, min: 1)
+            try self.configRuleName.forEach {}
             try self.validate(self.configRuleName, name: "configRuleName", parent: name, max: 128)
             try self.validate(self.configRuleName, name: "configRuleName", parent: name, min: 1)
             try self.validate(self.configRuleName, name: "configRuleName", parent: name, pattern: ".*\\S.*")
+            try self.configurationAggregatorName.forEach {}
             try self.validate(self.configurationAggregatorName, name: "configurationAggregatorName", parent: name, max: 256)
             try self.validate(self.configurationAggregatorName, name: "configurationAggregatorName", parent: name, min: 1)
             try self.validate(self.configurationAggregatorName, name: "configurationAggregatorName", parent: name, pattern: "[\\w\\-]+")
+            try self.limit?.forEach {}
             try self.validate(self.limit, name: "limit", parent: name, max: 100)
             try self.validate(self.limit, name: "limit", parent: name, min: 0)
         }
@@ -3309,10 +3416,13 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.configurationAggregatorName.forEach {}
             try self.validate(self.configurationAggregatorName, name: "configurationAggregatorName", parent: name, max: 256)
             try self.validate(self.configurationAggregatorName, name: "configurationAggregatorName", parent: name, min: 1)
             try self.validate(self.configurationAggregatorName, name: "configurationAggregatorName", parent: name, pattern: "[\\w\\-]+")
             try self.filters?.validate(name: "\(name).filters")
+            try self.filters?.forEach {}
+            try self.limit?.forEach {}
             try self.validate(self.limit, name: "limit", parent: name, max: 1000)
             try self.validate(self.limit, name: "limit", parent: name, min: 0)
         }
@@ -3368,10 +3478,13 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.configurationAggregatorName.forEach {}
             try self.validate(self.configurationAggregatorName, name: "configurationAggregatorName", parent: name, max: 256)
             try self.validate(self.configurationAggregatorName, name: "configurationAggregatorName", parent: name, min: 1)
             try self.validate(self.configurationAggregatorName, name: "configurationAggregatorName", parent: name, pattern: "[\\w\\-]+")
             try self.filters?.validate(name: "\(name).filters")
+            try self.filters?.forEach {}
+            try self.limit?.forEach {}
             try self.validate(self.limit, name: "limit", parent: name, max: 1000)
             try self.validate(self.limit, name: "limit", parent: name, min: 0)
         }
@@ -3422,10 +3535,12 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.configurationAggregatorName.forEach {}
             try self.validate(self.configurationAggregatorName, name: "configurationAggregatorName", parent: name, max: 256)
             try self.validate(self.configurationAggregatorName, name: "configurationAggregatorName", parent: name, min: 1)
             try self.validate(self.configurationAggregatorName, name: "configurationAggregatorName", parent: name, pattern: "[\\w\\-]+")
             try self.resourceIdentifier.validate(name: "\(name).resourceIdentifier")
+            try self.resourceIdentifier.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -3465,10 +3580,13 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.complianceTypes?.forEach {}
             try self.validate(self.complianceTypes, name: "complianceTypes", parent: name, max: 3)
             try self.validate(self.complianceTypes, name: "complianceTypes", parent: name, min: 0)
+            try self.configRuleName.forEach {}
             try self.validate(self.configRuleName, name: "configRuleName", parent: name, max: 64)
             try self.validate(self.configRuleName, name: "configRuleName", parent: name, min: 1)
+            try self.limit?.forEach {}
             try self.validate(self.limit, name: "limit", parent: name, max: 100)
             try self.validate(self.limit, name: "limit", parent: name, min: 0)
         }
@@ -3516,10 +3634,13 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.complianceTypes?.forEach {}
             try self.validate(self.complianceTypes, name: "complianceTypes", parent: name, max: 3)
             try self.validate(self.complianceTypes, name: "complianceTypes", parent: name, min: 0)
+            try self.resourceId.forEach {}
             try self.validate(self.resourceId, name: "resourceId", parent: name, max: 768)
             try self.validate(self.resourceId, name: "resourceId", parent: name, min: 1)
+            try self.resourceType.forEach {}
             try self.validate(self.resourceType, name: "resourceType", parent: name, max: 256)
             try self.validate(self.resourceType, name: "resourceType", parent: name, min: 1)
         }
@@ -3575,6 +3696,7 @@ extension ConfigService {
                 try validate($0, name: "resourceTypes[]", parent: name, max: 256)
                 try validate($0, name: "resourceTypes[]", parent: name, min: 1)
             }
+            try self.resourceTypes?.forEach {}
             try self.validate(self.resourceTypes, name: "resourceTypes", parent: name, max: 20)
             try self.validate(self.resourceTypes, name: "resourceTypes", parent: name, min: 0)
         }
@@ -3615,10 +3737,13 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.conformancePackName.forEach {}
             try self.validate(self.conformancePackName, name: "conformancePackName", parent: name, max: 256)
             try self.validate(self.conformancePackName, name: "conformancePackName", parent: name, min: 1)
             try self.validate(self.conformancePackName, name: "conformancePackName", parent: name, pattern: "[a-zA-Z][-a-zA-Z0-9]*")
             try self.filters?.validate(name: "\(name).filters")
+            try self.filters?.forEach {}
+            try self.limit?.forEach {}
             try self.validate(self.limit, name: "limit", parent: name, max: 100)
             try self.validate(self.limit, name: "limit", parent: name, min: 0)
         }
@@ -3672,8 +3797,10 @@ extension ConfigService {
                 try validate($0, name: "conformancePackNames[]", parent: name, min: 1)
                 try validate($0, name: "conformancePackNames[]", parent: name, pattern: "[a-zA-Z][-a-zA-Z0-9]*")
             }
+            try self.conformancePackNames.forEach {}
             try self.validate(self.conformancePackNames, name: "conformancePackNames", parent: name, max: 5)
             try self.validate(self.conformancePackNames, name: "conformancePackNames", parent: name, min: 1)
+            try self.limit?.forEach {}
             try self.validate(self.limit, name: "limit", parent: name, max: 20)
             try self.validate(self.limit, name: "limit", parent: name, min: 0)
         }
@@ -3717,12 +3844,14 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.limit?.forEach {}
             try self.validate(self.limit, name: "limit", parent: name, max: 100)
             try self.validate(self.limit, name: "limit", parent: name, min: 0)
             try self.resourceTypes?.forEach {
                 try validate($0, name: "resourceTypes[]", parent: name, max: 256)
                 try validate($0, name: "resourceTypes[]", parent: name, min: 1)
             }
+            try self.resourceTypes?.forEach {}
             try self.validate(self.resourceTypes, name: "resourceTypes", parent: name, max: 20)
             try self.validate(self.resourceTypes, name: "resourceTypes", parent: name, min: 0)
         }
@@ -3774,8 +3903,11 @@ extension ConfigService {
 
         public func validate(name: String) throws {
             try self.filters?.validate(name: "\(name).filters")
+            try self.filters?.forEach {}
+            try self.limit?.forEach {}
             try self.validate(self.limit, name: "limit", parent: name, max: 100)
             try self.validate(self.limit, name: "limit", parent: name, min: 0)
+            try self.organizationConfigRuleName.forEach {}
             try self.validate(self.organizationConfigRuleName, name: "organizationConfigRuleName", parent: name, max: 64)
             try self.validate(self.organizationConfigRuleName, name: "organizationConfigRuleName", parent: name, min: 1)
             try self.validate(self.organizationConfigRuleName, name: "organizationConfigRuleName", parent: name, pattern: ".*\\S.*")
@@ -3825,8 +3957,11 @@ extension ConfigService {
 
         public func validate(name: String) throws {
             try self.filters?.validate(name: "\(name).filters")
+            try self.filters?.forEach {}
+            try self.limit?.forEach {}
             try self.validate(self.limit, name: "limit", parent: name, max: 100)
             try self.validate(self.limit, name: "limit", parent: name, min: 0)
+            try self.organizationConformancePackName.forEach {}
             try self.validate(self.organizationConformancePackName, name: "organizationConformancePackName", parent: name, max: 128)
             try self.validate(self.organizationConformancePackName, name: "organizationConformancePackName", parent: name, min: 1)
             try self.validate(self.organizationConformancePackName, name: "organizationConformancePackName", parent: name, pattern: "[a-zA-Z][-a-zA-Z0-9]*")
@@ -3884,8 +4019,10 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.limit?.forEach {}
             try self.validate(self.limit, name: "limit", parent: name, max: 100)
             try self.validate(self.limit, name: "limit", parent: name, min: 0)
+            try self.resourceId.forEach {}
             try self.validate(self.resourceId, name: "resourceId", parent: name, max: 768)
             try self.validate(self.resourceId, name: "resourceId", parent: name, min: 1)
         }
@@ -3927,6 +4064,7 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.queryName.forEach {}
             try self.validate(self.queryName, name: "queryName", parent: name, max: 64)
             try self.validate(self.queryName, name: "queryName", parent: name, min: 1)
             try self.validate(self.queryName, name: "queryName", parent: name, pattern: "^[a-zA-Z0-9-_]+$")
@@ -3988,10 +4126,13 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.configurationAggregatorName.forEach {}
             try self.validate(self.configurationAggregatorName, name: "configurationAggregatorName", parent: name, max: 256)
             try self.validate(self.configurationAggregatorName, name: "configurationAggregatorName", parent: name, min: 1)
             try self.validate(self.configurationAggregatorName, name: "configurationAggregatorName", parent: name, pattern: "[\\w\\-]+")
             try self.filters?.validate(name: "\(name).filters")
+            try self.filters?.forEach {}
+            try self.limit?.forEach {}
             try self.validate(self.limit, name: "limit", parent: name, max: 100)
             try self.validate(self.limit, name: "limit", parent: name, min: 0)
         }
@@ -4046,12 +4187,14 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.limit?.forEach {}
             try self.validate(self.limit, name: "limit", parent: name, max: 100)
             try self.validate(self.limit, name: "limit", parent: name, min: 0)
             try self.resourceIds?.forEach {
                 try validate($0, name: "resourceIds[]", parent: name, max: 768)
                 try validate($0, name: "resourceIds[]", parent: name, min: 1)
             }
+            try self.resourceIds?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -4093,6 +4236,7 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 100)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 0)
         }
@@ -4135,8 +4279,10 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.limit?.forEach {}
             try self.validate(self.limit, name: "limit", parent: name, max: 100)
             try self.validate(self.limit, name: "limit", parent: name, min: 0)
+            try self.resourceArn.forEach {}
             try self.validate(self.resourceArn, name: "resourceArn", parent: name, max: 1000)
             try self.validate(self.resourceArn, name: "resourceArn", parent: name, min: 1)
         }
@@ -4213,6 +4359,7 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.awsRegions?.forEach {}
             try self.validate(self.awsRegions, name: "awsRegions", parent: name, min: 1)
         }
 
@@ -4417,22 +4564,29 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.description?.forEach {}
             try self.validate(self.description, name: "description", parent: name, max: 256)
             try self.validate(self.description, name: "description", parent: name, min: 0)
+            try self.inputParameters?.forEach {}
             try self.validate(self.inputParameters, name: "inputParameters", parent: name, max: 2048)
             try self.validate(self.inputParameters, name: "inputParameters", parent: name, min: 1)
+            try self.lambdaFunctionArn.forEach {}
             try self.validate(self.lambdaFunctionArn, name: "lambdaFunctionArn", parent: name, max: 256)
             try self.validate(self.lambdaFunctionArn, name: "lambdaFunctionArn", parent: name, min: 1)
+            try self.resourceIdScope?.forEach {}
             try self.validate(self.resourceIdScope, name: "resourceIdScope", parent: name, max: 768)
             try self.validate(self.resourceIdScope, name: "resourceIdScope", parent: name, min: 1)
             try self.resourceTypesScope?.forEach {
                 try validate($0, name: "resourceTypesScope[]", parent: name, max: 256)
                 try validate($0, name: "resourceTypesScope[]", parent: name, min: 1)
             }
+            try self.resourceTypesScope?.forEach {}
             try self.validate(self.resourceTypesScope, name: "resourceTypesScope", parent: name, max: 100)
             try self.validate(self.resourceTypesScope, name: "resourceTypesScope", parent: name, min: 0)
+            try self.tagKeyScope?.forEach {}
             try self.validate(self.tagKeyScope, name: "tagKeyScope", parent: name, max: 128)
             try self.validate(self.tagKeyScope, name: "tagKeyScope", parent: name, min: 1)
+            try self.tagValueScope?.forEach {}
             try self.validate(self.tagValueScope, name: "tagValueScope", parent: name, max: 256)
             try self.validate(self.tagValueScope, name: "tagValueScope", parent: name, min: 1)
         }
@@ -4480,22 +4634,29 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.description?.forEach {}
             try self.validate(self.description, name: "description", parent: name, max: 256)
             try self.validate(self.description, name: "description", parent: name, min: 0)
+            try self.inputParameters?.forEach {}
             try self.validate(self.inputParameters, name: "inputParameters", parent: name, max: 2048)
             try self.validate(self.inputParameters, name: "inputParameters", parent: name, min: 1)
+            try self.resourceIdScope?.forEach {}
             try self.validate(self.resourceIdScope, name: "resourceIdScope", parent: name, max: 768)
             try self.validate(self.resourceIdScope, name: "resourceIdScope", parent: name, min: 1)
             try self.resourceTypesScope?.forEach {
                 try validate($0, name: "resourceTypesScope[]", parent: name, max: 256)
                 try validate($0, name: "resourceTypesScope[]", parent: name, min: 1)
             }
+            try self.resourceTypesScope?.forEach {}
             try self.validate(self.resourceTypesScope, name: "resourceTypesScope", parent: name, max: 100)
             try self.validate(self.resourceTypesScope, name: "resourceTypesScope", parent: name, min: 0)
+            try self.ruleIdentifier.forEach {}
             try self.validate(self.ruleIdentifier, name: "ruleIdentifier", parent: name, max: 256)
             try self.validate(self.ruleIdentifier, name: "ruleIdentifier", parent: name, min: 1)
+            try self.tagKeyScope?.forEach {}
             try self.validate(self.tagKeyScope, name: "tagKeyScope", parent: name, max: 128)
             try self.validate(self.tagKeyScope, name: "tagKeyScope", parent: name, min: 1)
+            try self.tagValueScope?.forEach {}
             try self.validate(self.tagValueScope, name: "tagValueScope", parent: name, max: 256)
             try self.validate(self.tagValueScope, name: "tagValueScope", parent: name, min: 1)
         }
@@ -4524,6 +4685,7 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.accountId?.forEach {}
             try self.validate(self.accountId, name: "accountId", parent: name, pattern: "\\d{12}")
         }
 
@@ -4565,12 +4727,15 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.authorizedAccountId.forEach {}
             try self.validate(self.authorizedAccountId, name: "authorizedAccountId", parent: name, pattern: "\\d{12}")
+            try self.authorizedAwsRegion.forEach {}
             try self.validate(self.authorizedAwsRegion, name: "authorizedAwsRegion", parent: name, max: 64)
             try self.validate(self.authorizedAwsRegion, name: "authorizedAwsRegion", parent: name, min: 1)
             try self.tags?.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags?.forEach {}
             try self.validate(self.tags, name: "tags", parent: name, max: 50)
             try self.validate(self.tags, name: "tags", parent: name, min: 0)
         }
@@ -4608,9 +4773,11 @@ extension ConfigService {
 
         public func validate(name: String) throws {
             try self.configRule.validate(name: "\(name).configRule")
+            try self.configRule.forEach {}
             try self.tags?.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags?.forEach {}
             try self.validate(self.tags, name: "tags", parent: name, max: 50)
             try self.validate(self.tags, name: "tags", parent: name, min: 0)
         }
@@ -4642,15 +4809,19 @@ extension ConfigService {
             try self.accountAggregationSources?.forEach {
                 try $0.validate(name: "\(name).accountAggregationSources[]")
             }
+            try self.accountAggregationSources?.forEach {}
             try self.validate(self.accountAggregationSources, name: "accountAggregationSources", parent: name, max: 1)
             try self.validate(self.accountAggregationSources, name: "accountAggregationSources", parent: name, min: 0)
+            try self.configurationAggregatorName.forEach {}
             try self.validate(self.configurationAggregatorName, name: "configurationAggregatorName", parent: name, max: 256)
             try self.validate(self.configurationAggregatorName, name: "configurationAggregatorName", parent: name, min: 1)
             try self.validate(self.configurationAggregatorName, name: "configurationAggregatorName", parent: name, pattern: "[\\w\\-]+")
             try self.organizationAggregationSource?.validate(name: "\(name).organizationAggregationSource")
+            try self.organizationAggregationSource?.forEach {}
             try self.tags?.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags?.forEach {}
             try self.validate(self.tags, name: "tags", parent: name, max: 50)
             try self.validate(self.tags, name: "tags", parent: name, min: 0)
         }
@@ -4686,6 +4857,7 @@ extension ConfigService {
 
         public func validate(name: String) throws {
             try self.configurationRecorder.validate(name: "\(name).configurationRecorder")
+            try self.configurationRecorder.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -4720,17 +4892,23 @@ extension ConfigService {
             try self.conformancePackInputParameters?.forEach {
                 try $0.validate(name: "\(name).conformancePackInputParameters[]")
             }
+            try self.conformancePackInputParameters?.forEach {}
             try self.validate(self.conformancePackInputParameters, name: "conformancePackInputParameters", parent: name, max: 60)
             try self.validate(self.conformancePackInputParameters, name: "conformancePackInputParameters", parent: name, min: 0)
+            try self.conformancePackName.forEach {}
             try self.validate(self.conformancePackName, name: "conformancePackName", parent: name, max: 256)
             try self.validate(self.conformancePackName, name: "conformancePackName", parent: name, min: 1)
             try self.validate(self.conformancePackName, name: "conformancePackName", parent: name, pattern: "[a-zA-Z][-a-zA-Z0-9]*")
+            try self.deliveryS3Bucket?.forEach {}
             try self.validate(self.deliveryS3Bucket, name: "deliveryS3Bucket", parent: name, max: 63)
             try self.validate(self.deliveryS3Bucket, name: "deliveryS3Bucket", parent: name, min: 0)
+            try self.deliveryS3KeyPrefix?.forEach {}
             try self.validate(self.deliveryS3KeyPrefix, name: "deliveryS3KeyPrefix", parent: name, max: 1024)
             try self.validate(self.deliveryS3KeyPrefix, name: "deliveryS3KeyPrefix", parent: name, min: 0)
+            try self.templateBody?.forEach {}
             try self.validate(self.templateBody, name: "templateBody", parent: name, max: 51200)
             try self.validate(self.templateBody, name: "templateBody", parent: name, min: 1)
+            try self.templateS3Uri?.forEach {}
             try self.validate(self.templateS3Uri, name: "templateS3Uri", parent: name, max: 1024)
             try self.validate(self.templateS3Uri, name: "templateS3Uri", parent: name, min: 1)
             try self.validate(self.templateS3Uri, name: "templateS3Uri", parent: name, pattern: "s3://.*")
@@ -4769,6 +4947,7 @@ extension ConfigService {
 
         public func validate(name: String) throws {
             try self.deliveryChannel.validate(name: "\(name).deliveryChannel")
+            try self.deliveryChannel.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -4794,6 +4973,7 @@ extension ConfigService {
             try self.evaluations?.forEach {
                 try $0.validate(name: "\(name).evaluations[]")
             }
+            try self.evaluations?.forEach {}
             try self.validate(self.evaluations, name: "evaluations", parent: name, max: 100)
             try self.validate(self.evaluations, name: "evaluations", parent: name, min: 0)
         }
@@ -4830,10 +5010,12 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.configRuleName.forEach {}
             try self.validate(self.configRuleName, name: "configRuleName", parent: name, max: 128)
             try self.validate(self.configRuleName, name: "configRuleName", parent: name, min: 1)
             try self.validate(self.configRuleName, name: "configRuleName", parent: name, pattern: ".*\\S.*")
             try self.externalEvaluation.validate(name: "\(name).externalEvaluation")
+            try self.externalEvaluation.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -4867,13 +5049,17 @@ extension ConfigService {
             try self.excludedAccounts?.forEach {
                 try validate($0, name: "excludedAccounts[]", parent: name, pattern: "\\d{12}")
             }
+            try self.excludedAccounts?.forEach {}
             try self.validate(self.excludedAccounts, name: "excludedAccounts", parent: name, max: 1000)
             try self.validate(self.excludedAccounts, name: "excludedAccounts", parent: name, min: 0)
+            try self.organizationConfigRuleName.forEach {}
             try self.validate(self.organizationConfigRuleName, name: "organizationConfigRuleName", parent: name, max: 64)
             try self.validate(self.organizationConfigRuleName, name: "organizationConfigRuleName", parent: name, min: 1)
             try self.validate(self.organizationConfigRuleName, name: "organizationConfigRuleName", parent: name, pattern: ".*\\S.*")
             try self.organizationCustomRuleMetadata?.validate(name: "\(name).organizationCustomRuleMetadata")
+            try self.organizationCustomRuleMetadata?.forEach {}
             try self.organizationManagedRuleMetadata?.validate(name: "\(name).organizationManagedRuleMetadata")
+            try self.organizationManagedRuleMetadata?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -4927,22 +5113,29 @@ extension ConfigService {
             try self.conformancePackInputParameters?.forEach {
                 try $0.validate(name: "\(name).conformancePackInputParameters[]")
             }
+            try self.conformancePackInputParameters?.forEach {}
             try self.validate(self.conformancePackInputParameters, name: "conformancePackInputParameters", parent: name, max: 60)
             try self.validate(self.conformancePackInputParameters, name: "conformancePackInputParameters", parent: name, min: 0)
+            try self.deliveryS3Bucket?.forEach {}
             try self.validate(self.deliveryS3Bucket, name: "deliveryS3Bucket", parent: name, max: 63)
             try self.validate(self.deliveryS3Bucket, name: "deliveryS3Bucket", parent: name, min: 0)
+            try self.deliveryS3KeyPrefix?.forEach {}
             try self.validate(self.deliveryS3KeyPrefix, name: "deliveryS3KeyPrefix", parent: name, max: 1024)
             try self.validate(self.deliveryS3KeyPrefix, name: "deliveryS3KeyPrefix", parent: name, min: 0)
             try self.excludedAccounts?.forEach {
                 try validate($0, name: "excludedAccounts[]", parent: name, pattern: "\\d{12}")
             }
+            try self.excludedAccounts?.forEach {}
             try self.validate(self.excludedAccounts, name: "excludedAccounts", parent: name, max: 1000)
             try self.validate(self.excludedAccounts, name: "excludedAccounts", parent: name, min: 0)
+            try self.organizationConformancePackName.forEach {}
             try self.validate(self.organizationConformancePackName, name: "organizationConformancePackName", parent: name, max: 128)
             try self.validate(self.organizationConformancePackName, name: "organizationConformancePackName", parent: name, min: 1)
             try self.validate(self.organizationConformancePackName, name: "organizationConformancePackName", parent: name, pattern: "[a-zA-Z][-a-zA-Z0-9]*")
+            try self.templateBody?.forEach {}
             try self.validate(self.templateBody, name: "templateBody", parent: name, max: 51200)
             try self.validate(self.templateBody, name: "templateBody", parent: name, min: 1)
+            try self.templateS3Uri?.forEach {}
             try self.validate(self.templateS3Uri, name: "templateS3Uri", parent: name, max: 1024)
             try self.validate(self.templateS3Uri, name: "templateS3Uri", parent: name, min: 1)
             try self.validate(self.templateS3Uri, name: "templateS3Uri", parent: name, pattern: "s3://.*")
@@ -4984,6 +5177,7 @@ extension ConfigService {
             try self.remediationConfigurations.forEach {
                 try $0.validate(name: "\(name).remediationConfigurations[]")
             }
+            try self.remediationConfigurations.forEach {}
             try self.validate(self.remediationConfigurations, name: "remediationConfigurations", parent: name, max: 25)
             try self.validate(self.remediationConfigurations, name: "remediationConfigurations", parent: name, min: 0)
         }
@@ -5024,14 +5218,17 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.configRuleName.forEach {}
             try self.validate(self.configRuleName, name: "configRuleName", parent: name, max: 128)
             try self.validate(self.configRuleName, name: "configRuleName", parent: name, min: 1)
             try self.validate(self.configRuleName, name: "configRuleName", parent: name, pattern: ".*\\S.*")
+            try self.message?.forEach {}
             try self.validate(self.message, name: "message", parent: name, max: 1024)
             try self.validate(self.message, name: "message", parent: name, min: 1)
             try self.resourceKeys.forEach {
                 try $0.validate(name: "\(name).resourceKeys[]")
             }
+            try self.resourceKeys.forEach {}
             try self.validate(self.resourceKeys, name: "resourceKeys", parent: name, max: 100)
             try self.validate(self.resourceKeys, name: "resourceKeys", parent: name, min: 1)
         }
@@ -5081,10 +5278,13 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.resourceId.forEach {}
             try self.validate(self.resourceId, name: "resourceId", parent: name, max: 768)
             try self.validate(self.resourceId, name: "resourceId", parent: name, min: 1)
+            try self.resourceType.forEach {}
             try self.validate(self.resourceType, name: "resourceType", parent: name, max: 196)
             try self.validate(self.resourceType, name: "resourceType", parent: name, min: 1)
+            try self.schemaVersionId.forEach {}
             try self.validate(self.schemaVersionId, name: "schemaVersionId", parent: name, max: 128)
             try self.validate(self.schemaVersionId, name: "schemaVersionId", parent: name, min: 1)
             try self.validate(self.schemaVersionId, name: "schemaVersionId", parent: name, pattern: "[A-Za-z0-9-]+")
@@ -5109,6 +5309,7 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.retentionPeriodInDays.forEach {}
             try self.validate(self.retentionPeriodInDays, name: "retentionPeriodInDays", parent: name, max: 2557)
             try self.validate(self.retentionPeriodInDays, name: "retentionPeriodInDays", parent: name, min: 30)
         }
@@ -5144,9 +5345,11 @@ extension ConfigService {
 
         public func validate(name: String) throws {
             try self.storedQuery.validate(name: "\(name).storedQuery")
+            try self.storedQuery.forEach {}
             try self.tags?.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags?.forEach {}
             try self.validate(self.tags, name: "tags", parent: name, max: 50)
             try self.validate(self.tags, name: "tags", parent: name, min: 0)
         }
@@ -5271,14 +5474,19 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.arn?.forEach {}
             try self.validate(self.arn, name: "arn", parent: name, max: 1024)
             try self.validate(self.arn, name: "arn", parent: name, min: 1)
+            try self.configRuleName.forEach {}
             try self.validate(self.configRuleName, name: "configRuleName", parent: name, max: 128)
             try self.validate(self.configRuleName, name: "configRuleName", parent: name, min: 1)
             try self.validate(self.configRuleName, name: "configRuleName", parent: name, pattern: ".*\\S.*")
+            try self.createdByService?.forEach {}
             try self.validate(self.createdByService, name: "createdByService", parent: name, max: 1024)
             try self.validate(self.createdByService, name: "createdByService", parent: name, min: 1)
             try self.executionControls?.validate(name: "\(name).executionControls")
+            try self.executionControls?.forEach {}
+            try self.maximumAutomaticAttempts?.forEach {}
             try self.validate(self.maximumAutomaticAttempts, name: "maximumAutomaticAttempts", parent: name, max: 25)
             try self.validate(self.maximumAutomaticAttempts, name: "maximumAutomaticAttempts", parent: name, min: 1)
             try self.parameters?.forEach {
@@ -5286,8 +5494,10 @@ extension ConfigService {
                 try validate($0.key, name: "parameters.key", parent: name, min: 1)
                 try $0.value.validate(name: "\(name).parameters[\"\($0.key)\"]")
             }
+            try self.retryAttemptSeconds?.forEach {}
             try self.validate(self.retryAttemptSeconds, name: "retryAttemptSeconds", parent: name, max: 2_678_000)
             try self.validate(self.retryAttemptSeconds, name: "retryAttemptSeconds", parent: name, min: 1)
+            try self.targetId.forEach {}
             try self.validate(self.targetId, name: "targetId", parent: name, max: 256)
             try self.validate(self.targetId, name: "targetId", parent: name, min: 1)
         }
@@ -5349,8 +5559,10 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.resourceId?.forEach {}
             try self.validate(self.resourceId, name: "resourceId", parent: name, max: 1024)
             try self.validate(self.resourceId, name: "resourceId", parent: name, min: 1)
+            try self.resourceType?.forEach {}
             try self.validate(self.resourceType, name: "resourceType", parent: name, max: 256)
             try self.validate(self.resourceType, name: "resourceType", parent: name, min: 1)
         }
@@ -5431,6 +5643,7 @@ extension ConfigService {
 
         public func validate(name: String) throws {
             try self.staticValue?.validate(name: "\(name).staticValue")
+            try self.staticValue?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -5471,7 +5684,9 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.accountId?.forEach {}
             try self.validate(self.accountId, name: "accountId", parent: name, pattern: "\\d{12}")
+            try self.region?.forEach {}
             try self.validate(self.region, name: "region", parent: name, max: 64)
             try self.validate(self.region, name: "region", parent: name, min: 1)
         }
@@ -5501,9 +5716,12 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.accountId?.forEach {}
             try self.validate(self.accountId, name: "accountId", parent: name, pattern: "\\d{12}")
+            try self.region?.forEach {}
             try self.validate(self.region, name: "region", parent: name, max: 64)
             try self.validate(self.region, name: "region", parent: name, min: 1)
+            try self.resourceId?.forEach {}
             try self.validate(self.resourceId, name: "resourceId", parent: name, max: 768)
             try self.validate(self.resourceId, name: "resourceId", parent: name, min: 1)
         }
@@ -5553,6 +5771,7 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.resourceId.forEach {}
             try self.validate(self.resourceId, name: "resourceId", parent: name, max: 768)
             try self.validate(self.resourceId, name: "resourceId", parent: name, min: 1)
         }
@@ -5611,16 +5830,20 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.complianceResourceId?.forEach {}
             try self.validate(self.complianceResourceId, name: "complianceResourceId", parent: name, max: 768)
             try self.validate(self.complianceResourceId, name: "complianceResourceId", parent: name, min: 1)
             try self.complianceResourceTypes?.forEach {
                 try validate($0, name: "complianceResourceTypes[]", parent: name, max: 256)
                 try validate($0, name: "complianceResourceTypes[]", parent: name, min: 1)
             }
+            try self.complianceResourceTypes?.forEach {}
             try self.validate(self.complianceResourceTypes, name: "complianceResourceTypes", parent: name, max: 100)
             try self.validate(self.complianceResourceTypes, name: "complianceResourceTypes", parent: name, min: 0)
+            try self.tagKey?.forEach {}
             try self.validate(self.tagKey, name: "tagKey", parent: name, max: 128)
             try self.validate(self.tagKey, name: "tagKey", parent: name, min: 1)
+            try self.tagValue?.forEach {}
             try self.validate(self.tagValue, name: "tagValue", parent: name, max: 256)
             try self.validate(self.tagValue, name: "tagValue", parent: name, min: 1)
         }
@@ -5654,13 +5877,17 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.configurationAggregatorName.forEach {}
             try self.validate(self.configurationAggregatorName, name: "configurationAggregatorName", parent: name, max: 256)
             try self.validate(self.configurationAggregatorName, name: "configurationAggregatorName", parent: name, min: 1)
             try self.validate(self.configurationAggregatorName, name: "configurationAggregatorName", parent: name, pattern: "[\\w\\-]+")
+            try self.expression.forEach {}
             try self.validate(self.expression, name: "expression", parent: name, max: 4096)
             try self.validate(self.expression, name: "expression", parent: name, min: 1)
+            try self.limit?.forEach {}
             try self.validate(self.limit, name: "limit", parent: name, max: 100)
             try self.validate(self.limit, name: "limit", parent: name, min: 0)
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 100)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 0)
         }
@@ -5709,8 +5936,10 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.expression.forEach {}
             try self.validate(self.expression, name: "expression", parent: name, max: 4096)
             try self.validate(self.expression, name: "expression", parent: name, min: 1)
+            try self.limit?.forEach {}
             try self.validate(self.limit, name: "limit", parent: name, max: 100)
             try self.validate(self.limit, name: "limit", parent: name, min: 0)
         }
@@ -5758,8 +5987,10 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.sourceDetails?.forEach {}
             try self.validate(self.sourceDetails, name: "sourceDetails", parent: name, max: 25)
             try self.validate(self.sourceDetails, name: "sourceDetails", parent: name, min: 0)
+            try self.sourceIdentifier.forEach {}
             try self.validate(self.sourceIdentifier, name: "sourceIdentifier", parent: name, max: 256)
             try self.validate(self.sourceIdentifier, name: "sourceIdentifier", parent: name, min: 1)
         }
@@ -5804,8 +6035,10 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.concurrentExecutionRatePercentage?.forEach {}
             try self.validate(self.concurrentExecutionRatePercentage, name: "concurrentExecutionRatePercentage", parent: name, max: 100)
             try self.validate(self.concurrentExecutionRatePercentage, name: "concurrentExecutionRatePercentage", parent: name, min: 1)
+            try self.errorPercentage?.forEach {}
             try self.validate(self.errorPercentage, name: "errorPercentage", parent: name, max: 100)
             try self.validate(self.errorPercentage, name: "errorPercentage", parent: name, min: 1)
         }
@@ -5830,6 +6063,7 @@ extension ConfigService {
                 try validate($0, name: "configRuleNames[]", parent: name, min: 1)
                 try validate($0, name: "configRuleNames[]", parent: name, pattern: ".*\\S.*")
             }
+            try self.configRuleNames?.forEach {}
             try self.validate(self.configRuleNames, name: "configRuleNames", parent: name, max: 25)
             try self.validate(self.configRuleNames, name: "configRuleNames", parent: name, min: 1)
         }
@@ -5852,6 +6086,7 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.configurationRecorderName.forEach {}
             try self.validate(self.configurationRecorderName, name: "configurationRecorderName", parent: name, max: 256)
             try self.validate(self.configurationRecorderName, name: "configurationRecorderName", parent: name, min: 1)
         }
@@ -5873,12 +6108,14 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.configRuleName.forEach {}
             try self.validate(self.configRuleName, name: "configRuleName", parent: name, max: 128)
             try self.validate(self.configRuleName, name: "configRuleName", parent: name, min: 1)
             try self.validate(self.configRuleName, name: "configRuleName", parent: name, pattern: ".*\\S.*")
             try self.resourceKeys.forEach {
                 try $0.validate(name: "\(name).resourceKeys[]")
             }
+            try self.resourceKeys.forEach {}
             try self.validate(self.resourceKeys, name: "resourceKeys", parent: name, max: 100)
             try self.validate(self.resourceKeys, name: "resourceKeys", parent: name, min: 1)
         }
@@ -5919,6 +6156,7 @@ extension ConfigService {
                 try validate($0, name: "values[]", parent: name, max: 256)
                 try validate($0, name: "values[]", parent: name, min: 1)
             }
+            try self.values.forEach {}
             try self.validate(self.values, name: "values", parent: name, max: 25)
             try self.validate(self.values, name: "values", parent: name, min: 0)
         }
@@ -5940,6 +6178,7 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.accountId?.forEach {}
             try self.validate(self.accountId, name: "accountId", parent: name, pattern: "\\d{12}")
         }
 
@@ -5958,6 +6197,7 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.configurationRecorderName.forEach {}
             try self.validate(self.configurationRecorderName, name: "configurationRecorderName", parent: name, max: 256)
             try self.validate(self.configurationRecorderName, name: "configurationRecorderName", parent: name, min: 1)
         }
@@ -5988,18 +6228,23 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.description?.forEach {}
             try self.validate(self.description, name: "description", parent: name, max: 256)
             try self.validate(self.description, name: "description", parent: name, min: 0)
             try self.validate(self.description, name: "description", parent: name, pattern: "[\\s\\S]*")
+            try self.expression?.forEach {}
             try self.validate(self.expression, name: "expression", parent: name, max: 4096)
             try self.validate(self.expression, name: "expression", parent: name, min: 1)
             try self.validate(self.expression, name: "expression", parent: name, pattern: "[\\s\\S]*")
+            try self.queryArn?.forEach {}
             try self.validate(self.queryArn, name: "queryArn", parent: name, max: 500)
             try self.validate(self.queryArn, name: "queryArn", parent: name, min: 1)
             try self.validate(self.queryArn, name: "queryArn", parent: name, pattern: "^arn:aws[a-z\\-]*:config:[a-z\\-\\d]+:\\d+:stored-query/[a-zA-Z0-9-_]+/query-[a-zA-Z\\d-_/]+$")
+            try self.queryId?.forEach {}
             try self.validate(self.queryId, name: "queryId", parent: name, max: 36)
             try self.validate(self.queryId, name: "queryId", parent: name, min: 1)
             try self.validate(self.queryId, name: "queryId", parent: name, pattern: "^\\S+$")
+            try self.queryName.forEach {}
             try self.validate(self.queryName, name: "queryName", parent: name, max: 64)
             try self.validate(self.queryName, name: "queryName", parent: name, min: 1)
             try self.validate(self.queryName, name: "queryName", parent: name, pattern: "^[a-zA-Z0-9-_]+$")
@@ -6051,8 +6296,10 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.key?.forEach {}
             try self.validate(self.key, name: "key", parent: name, max: 128)
             try self.validate(self.key, name: "key", parent: name, min: 1)
+            try self.value?.forEach {}
             try self.validate(self.value, name: "value", parent: name, max: 256)
             try self.validate(self.value, name: "value", parent: name, min: 0)
         }
@@ -6075,11 +6322,13 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.resourceArn.forEach {}
             try self.validate(self.resourceArn, name: "resourceArn", parent: name, max: 1000)
             try self.validate(self.resourceArn, name: "resourceArn", parent: name, min: 1)
             try self.tags.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags.forEach {}
             try self.validate(self.tags, name: "tags", parent: name, max: 50)
             try self.validate(self.tags, name: "tags", parent: name, min: 1)
         }
@@ -6102,12 +6351,14 @@ extension ConfigService {
         }
 
         public func validate(name: String) throws {
+            try self.resourceArn.forEach {}
             try self.validate(self.resourceArn, name: "resourceArn", parent: name, max: 1000)
             try self.validate(self.resourceArn, name: "resourceArn", parent: name, min: 1)
             try self.tagKeys.forEach {
                 try validate($0, name: "tagKeys[]", parent: name, max: 128)
                 try validate($0, name: "tagKeys[]", parent: name, min: 1)
             }
+            try self.tagKeys.forEach {}
             try self.validate(self.tagKeys, name: "tagKeys", parent: name, max: 50)
             try self.validate(self.tagKeys, name: "tagKeys", parent: name, min: 1)
         }

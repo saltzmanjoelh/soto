@@ -57,6 +57,7 @@ extension EC2 {
 
     public enum AllocationStrategy: String, CustomStringConvertible, Codable {
         case capacityoptimized = "capacityOptimized"
+        case capacityoptimizedprioritized = "capacityOptimizedPrioritized"
         case diversified
         case lowestprice = "lowestPrice"
         public var description: String { return self.rawValue }
@@ -164,6 +165,18 @@ extension EC2 {
     public enum BgpStatus: String, CustomStringConvertible, Codable {
         case down
         case up
+        public var description: String { return self.rawValue }
+    }
+
+    public enum BootModeType: String, CustomStringConvertible, Codable {
+        case legacyBios = "legacy-bios"
+        case uefi
+        public var description: String { return self.rawValue }
+    }
+
+    public enum BootModeValues: String, CustomStringConvertible, Codable {
+        case legacyBios = "legacy-bios"
+        case uefi
         public var description: String { return self.rawValue }
     }
 
@@ -634,6 +647,7 @@ extension EC2 {
 
     public enum ImageAttributeName: String, CustomStringConvertible, Codable {
         case blockdevicemapping = "blockDeviceMapping"
+        case bootmode = "bootMode"
         case description
         case kernel
         case launchpermission = "launchPermission"
@@ -1122,6 +1136,15 @@ extension EC2 {
         public static var x1e4Xlarge: Self { .init(rawValue: "x1e.4xlarge") }
         public static var x1e8Xlarge: Self { .init(rawValue: "x1e.8xlarge") }
         public static var x1eXlarge: Self { .init(rawValue: "x1e.xlarge") }
+        public static var x2gd12Xlarge: Self { .init(rawValue: "x2gd.12xlarge") }
+        public static var x2gd16Xlarge: Self { .init(rawValue: "x2gd.16xlarge") }
+        public static var x2gd2Xlarge: Self { .init(rawValue: "x2gd.2xlarge") }
+        public static var x2gd4Xlarge: Self { .init(rawValue: "x2gd.4xlarge") }
+        public static var x2gd8Xlarge: Self { .init(rawValue: "x2gd.8xlarge") }
+        public static var x2gdLarge: Self { .init(rawValue: "x2gd.large") }
+        public static var x2gdMedium: Self { .init(rawValue: "x2gd.medium") }
+        public static var x2gdMetal: Self { .init(rawValue: "x2gd.metal") }
+        public static var x2gdXlarge: Self { .init(rawValue: "x2gd.xlarge") }
         public static var z1d12Xlarge: Self { .init(rawValue: "z1d.12xlarge") }
         public static var z1d2Xlarge: Self { .init(rawValue: "z1d.2xlarge") }
         public static var z1d3Xlarge: Self { .init(rawValue: "z1d.3xlarge") }
@@ -1607,6 +1630,7 @@ extension EC2 {
 
     public enum SpotAllocationStrategy: String, CustomStringConvertible, Codable {
         case capacityOptimized = "capacity-optimized"
+        case capacityOptimizedPrioritized = "capacity-optimized-prioritized"
         case diversified
         case lowestPrice = "lowest-price"
         public var description: String { return self.rawValue }
@@ -3112,8 +3136,10 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.certificateArn?.forEach {}
             try self.validate(self.certificateArn, name: "certificateArn", parent: name, max: 1283)
             try self.validate(self.certificateArn, name: "certificateArn", parent: name, min: 1)
+            try self.roleArn?.forEach {}
             try self.validate(self.roleArn, name: "roleArn", parent: name, max: 1283)
             try self.validate(self.roleArn, name: "roleArn", parent: name, min: 1)
         }
@@ -4720,6 +4746,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.classicLoadBalancers?.forEach {}
             try self.validate(self.classicLoadBalancers, name: "classicLoadBalancers", parent: name, max: 5)
             try self.validate(self.classicLoadBalancers, name: "classicLoadBalancers", parent: name, min: 1)
         }
@@ -6149,6 +6176,7 @@ extension EC2 {
             try self.launchTemplateConfigs.forEach {
                 try $0.validate(name: "\(name).launchTemplateConfigs[]")
             }
+            try self.launchTemplateConfigs.forEach {}
             try self.validate(self.launchTemplateConfigs, name: "launchTemplateConfigs", parent: name, max: 50)
             try self.validate(self.launchTemplateConfigs, name: "launchTemplateConfigs", parent: name, min: 0)
         }
@@ -6526,9 +6554,12 @@ extension EC2 {
 
         public func validate(name: String) throws {
             try self.launchTemplateData.validate(name: "\(name).launchTemplateData")
+            try self.launchTemplateData.forEach {}
+            try self.launchTemplateName.forEach {}
             try self.validate(self.launchTemplateName, name: "launchTemplateName", parent: name, max: 128)
             try self.validate(self.launchTemplateName, name: "launchTemplateName", parent: name, min: 3)
             try self.validate(self.launchTemplateName, name: "launchTemplateName", parent: name, pattern: "[a-zA-Z0-9\\(\\)\\.\\-/_]+")
+            try self.versionDescription?.forEach {}
             try self.validate(self.versionDescription, name: "versionDescription", parent: name, max: 255)
             try self.validate(self.versionDescription, name: "versionDescription", parent: name, min: 0)
         }
@@ -6588,9 +6619,12 @@ extension EC2 {
 
         public func validate(name: String) throws {
             try self.launchTemplateData.validate(name: "\(name).launchTemplateData")
+            try self.launchTemplateData.forEach {}
+            try self.launchTemplateName?.forEach {}
             try self.validate(self.launchTemplateName, name: "launchTemplateName", parent: name, max: 128)
             try self.validate(self.launchTemplateName, name: "launchTemplateName", parent: name, min: 3)
             try self.validate(self.launchTemplateName, name: "launchTemplateName", parent: name, pattern: "[a-zA-Z0-9\\(\\)\\.\\-/_]+")
+            try self.versionDescription?.forEach {}
             try self.validate(self.versionDescription, name: "versionDescription", parent: name, max: 255)
             try self.validate(self.versionDescription, name: "versionDescription", parent: name, min: 0)
         }
@@ -6733,6 +6767,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.entries?.forEach {}
             try self.validate(self.entries, name: "entries", parent: name, max: 100)
             try self.validate(self.entries, name: "entries", parent: name, min: 0)
         }
@@ -6932,11 +6967,14 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.destinationIp?.forEach {}
             try self.validate(self.destinationIp, name: "destinationIp", parent: name, max: 15)
             try self.validate(self.destinationIp, name: "destinationIp", parent: name, min: 0)
             try self.validate(self.destinationIp, name: "destinationIp", parent: name, pattern: "^([0-9]{1,3}.){3}[0-9]{1,3}$")
+            try self.destinationPort?.forEach {}
             try self.validate(self.destinationPort, name: "destinationPort", parent: name, max: 65535)
             try self.validate(self.destinationPort, name: "destinationPort", parent: name, min: 1)
+            try self.sourceIp?.forEach {}
             try self.validate(self.sourceIp, name: "sourceIp", parent: name, max: 15)
             try self.validate(self.sourceIp, name: "sourceIp", parent: name, min: 0)
             try self.validate(self.sourceIp, name: "sourceIp", parent: name, pattern: "^([0-9]{1,3}.){3}[0-9]{1,3}$")
@@ -9202,6 +9240,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.launchTemplateName?.forEach {}
             try self.validate(self.launchTemplateName, name: "launchTemplateName", parent: name, max: 128)
             try self.validate(self.launchTemplateName, name: "launchTemplateName", parent: name, min: 3)
             try self.validate(self.launchTemplateName, name: "launchTemplateName", parent: name, pattern: "[a-zA-Z0-9\\(\\)\\.\\-/_]+")
@@ -9248,6 +9287,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.launchTemplateName?.forEach {}
             try self.validate(self.launchTemplateName, name: "launchTemplateName", parent: name, max: 128)
             try self.validate(self.launchTemplateName, name: "launchTemplateName", parent: name, min: 3)
             try self.validate(self.launchTemplateName, name: "launchTemplateName", parent: name, pattern: "[a-zA-Z0-9\\(\\)\\.\\-/_]+")
@@ -9655,6 +9695,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.reservedInstancesIds.forEach {}
             try self.validate(self.reservedInstancesIds, name: "reservedInstancesIds", parent: name, max: 100)
             try self.validate(self.reservedInstancesIds, name: "reservedInstancesIds", parent: name, min: 1)
         }
@@ -10686,6 +10727,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 1)
         }
@@ -10909,6 +10951,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 100)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 1)
         }
@@ -10966,6 +11009,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 1)
         }
@@ -11024,6 +11068,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -11083,6 +11128,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -11140,6 +11186,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -11197,6 +11244,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -11256,6 +11304,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -11313,6 +11362,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -11375,6 +11425,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -11435,6 +11486,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -11572,6 +11624,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -11631,6 +11684,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 255)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -11690,6 +11744,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 10)
         }
@@ -11753,6 +11808,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 500)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 1)
         }
@@ -11898,6 +11954,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 200)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 0)
         }
@@ -12280,6 +12337,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -12341,6 +12399,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 500)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -12498,6 +12557,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -12593,7 +12653,7 @@ extension EC2 {
     }
 
     public struct DescribeImageAttributeRequest: AWSEncodableShape {
-        /// The AMI attribute.  Note: Depending on your account privileges, the blockDeviceMapping attribute may return a Client.AuthFailure error. If this happens, use DescribeImages to get information about the block device mapping for the AMI.
+        /// The AMI attribute.  Note: The blockDeviceMapping attribute is deprecated. Using this attribute returns the Client.AuthFailure error. To get information about the block device mappings for an AMI, use the DescribeImages action.
         public let attribute: ImageAttributeName
         /// Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is DryRunOperation. Otherwise, it is UnauthorizedOperation.
         public let dryRun: Bool?
@@ -12822,6 +12882,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -12963,6 +13024,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -13001,7 +13063,7 @@ extension EC2 {
 
         /// Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is DryRunOperation. Otherwise, it is UnauthorizedOperation.
         public let dryRun: Bool?
-        /// One or more filters. Filter names and values are case-sensitive.    auto-recovery-supported - Indicates whether auto recovery is supported (true | false).    bare-metal - Indicates whether it is a bare metal instance type (true | false).    burstable-performance-supported - Indicates whether it is a burstable performance instance type (true | false).    current-generation - Indicates whether this instance type is the latest generation instance type of an instance family (true | false).    ebs-info.ebs-optimized-info.baseline-bandwidth-in-mbps - The baseline bandwidth performance for an EBS-optimized instance type, in Mbps.    ebs-info.ebs-optimized-info.baseline-iops - The baseline input/output storage operations per second for an EBS-optimized instance type.    ebs-info.ebs-optimized-info.baseline-throughput-in-mbps - The baseline throughput performance for an EBS-optimized instance type, in MB/s.    ebs-info.ebs-optimized-info.maximum-bandwidth-in-mbps - The maximum bandwidth performance for an EBS-optimized instance type, in Mbps.    ebs-info.ebs-optimized-info.maximum-iops - The maximum input/output storage operations per second for an EBS-optimized instance type.    ebs-info.ebs-optimized-info.maximum-throughput-in-mbps - The maximum throughput performance for an EBS-optimized instance type, in MB/s.    ebs-info.ebs-optimized-support - Indicates whether the instance type is EBS-optimized (supported | unsupported | default).    ebs-info.encryption-support - Indicates whether EBS encryption is supported (supported | unsupported).    ebs-info.nvme-support - Indicates whether non-volatile memory express (NVMe) is supported for EBS volumes (required | supported | unsupported).    free-tier-eligible - Indicates whether the instance type is eligible to use in the free tier (true | false).    hibernation-supported - Indicates whether On-Demand hibernation is supported (true | false).    hypervisor - The hypervisor (nitro | xen).    instance-storage-info.disk.count - The number of local disks.    instance-storage-info.disk.size-in-gb - The storage size of each instance storage disk, in GB.    instance-storage-info.disk.type - The storage technology for the local instance storage disks (hdd | ssd).    instance-storage-info.nvme-support - Indicates whether non-volatile memory express (NVMe) is supported for instance store (required | supported) | unsupported).    instance-storage-info.total-size-in-gb - The total amount of storage available from all local instance storage, in GB.    instance-storage-supported - Indicates whether the instance type has local instance storage (true | false).    instance-type - The instance type (for example c5.2xlarge or c5*).    memory-info.size-in-mib - The memory size.    network-info.efa-supported - Indicates whether the instance type supports Elastic Fabric Adapter (EFA) (true | false).    network-info.ena-support - Indicates whether Elastic Network Adapter (ENA) is supported or required (required | supported | unsupported).    network-info.ipv4-addresses-per-interface - The maximum number of private IPv4 addresses per network interface.    network-info.ipv6-addresses-per-interface - The maximum number of private IPv6 addresses per network interface.    network-info.ipv6-supported - Indicates whether the instance type supports IPv6 (true | false).    network-info.maximum-network-interfaces - The maximum number of network interfaces per instance.    network-info.network-performance - The network performance (for example, "25 Gigabit").    processor-info.supported-architecture - The CPU architecture (arm64 | i386 | x86_64).    processor-info.sustained-clock-speed-in-ghz - The CPU clock speed, in GHz.    supported-root-device-type - The root device type (ebs | instance-store).    supported-usage-class - The usage class (on-demand | spot).    supported-virtualization-type - The virtualization type (hvm | paravirtual).    vcpu-info.default-cores - The default number of cores for the instance type.    vcpu-info.default-threads-per-core - The default number of threads per core for the instance type.    vcpu-info.default-vcpus - The default number of vCPUs for the instance type.    vcpu-info.valid-cores - The number of cores that can be configured for the instance type.    vcpu-info.valid-threads-per-core - The number of threads per core that can be configured for the instance type. For example, "1" or "1,2".
+        /// One or more filters. Filter names and values are case-sensitive.    auto-recovery-supported - Indicates whether auto recovery is supported (true | false).    bare-metal - Indicates whether it is a bare metal instance type (true | false).    burstable-performance-supported - Indicates whether it is a burstable performance instance type (true | false).    current-generation - Indicates whether this instance type is the latest generation instance type of an instance family (true | false).    ebs-info.ebs-optimized-info.baseline-bandwidth-in-mbps - The baseline bandwidth performance for an EBS-optimized instance type, in Mbps.    ebs-info.ebs-optimized-info.baseline-iops - The baseline input/output storage operations per second for an EBS-optimized instance type.    ebs-info.ebs-optimized-info.baseline-throughput-in-mbps - The baseline throughput performance for an EBS-optimized instance type, in MB/s.    ebs-info.ebs-optimized-info.maximum-bandwidth-in-mbps - The maximum bandwidth performance for an EBS-optimized instance type, in Mbps.    ebs-info.ebs-optimized-info.maximum-iops - The maximum input/output storage operations per second for an EBS-optimized instance type.    ebs-info.ebs-optimized-info.maximum-throughput-in-mbps - The maximum throughput performance for an EBS-optimized instance type, in MB/s.    ebs-info.ebs-optimized-support - Indicates whether the instance type is EBS-optimized (supported | unsupported | default).    ebs-info.encryption-support - Indicates whether EBS encryption is supported (supported | unsupported).    ebs-info.nvme-support - Indicates whether non-volatile memory express (NVMe) is supported for EBS volumes (required | supported | unsupported).    free-tier-eligible - Indicates whether the instance type is eligible to use in the free tier (true | false).    hibernation-supported - Indicates whether On-Demand hibernation is supported (true | false).    hypervisor - The hypervisor (nitro | xen).    instance-storage-info.disk.count - The number of local disks.    instance-storage-info.disk.size-in-gb - The storage size of each instance storage disk, in GB.    instance-storage-info.disk.type - The storage technology for the local instance storage disks (hdd | ssd).    instance-storage-info.nvme-support - Indicates whether non-volatile memory express (NVMe) is supported for instance store (required | supported) | unsupported).    instance-storage-info.total-size-in-gb - The total amount of storage available from all local instance storage, in GB.    instance-storage-supported - Indicates whether the instance type has local instance storage (true | false).    instance-type - The instance type (for example c5.2xlarge or c5*).    memory-info.size-in-mib - The memory size.    network-info.efa-info.maximum-efa-interfaces - The maximum number of Elastic Fabric Adapters (EFAs) per instance. (true | false).    network-info.efa-supported - Indicates whether the instance type supports Elastic Fabric Adapter (EFA) (true | false).    network-info.ena-support - Indicates whether Elastic Network Adapter (ENA) is supported or required (required | supported | unsupported).    network-info.ipv4-addresses-per-interface - The maximum number of private IPv4 addresses per network interface.    network-info.ipv6-addresses-per-interface - The maximum number of private IPv6 addresses per network interface.    network-info.ipv6-supported - Indicates whether the instance type supports IPv6 (true | false).    network-info.maximum-network-interfaces - The maximum number of network interfaces per instance.    network-info.network-performance - The network performance (for example, "25 Gigabit").    processor-info.supported-architecture - The CPU architecture (arm64 | i386 | x86_64).    processor-info.sustained-clock-speed-in-ghz - The CPU clock speed, in GHz.    supported-boot-mode - The boot mode (legacy-bios | uefi).    supported-root-device-type - The root device type (ebs | instance-store).    supported-usage-class - The usage class (on-demand | spot).    supported-virtualization-type - The virtualization type (hvm | paravirtual).    vcpu-info.default-cores - The default number of cores for the instance type.    vcpu-info.default-threads-per-core - The default number of threads per core for the instance type.    vcpu-info.default-vcpus - The default number of vCPUs for the instance type.    vcpu-info.valid-cores - The number of cores that can be configured for the instance type.    vcpu-info.valid-threads-per-core - The number of threads per core that can be configured for the instance type. For example, "1" or "1,2".
         @OptionalCustomCoding<ArrayCoder<_FiltersEncoding, Filter>>
         public var filters: [Filter]?
         /// The instance types. For more information, see Instance types in the Amazon EC2 User Guide.
@@ -13021,8 +13083,10 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.instanceTypes?.forEach {}
             try self.validate(self.instanceTypes, name: "instanceTypes", parent: name, max: 100)
             try self.validate(self.instanceTypes, name: "instanceTypes", parent: name, min: 0)
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 100)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -13062,7 +13126,7 @@ extension EC2 {
 
         /// Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is DryRunOperation. Otherwise, it is UnauthorizedOperation.
         public let dryRun: Bool?
-        /// The filters.    affinity - The affinity setting for an instance running on a Dedicated Host (default | host).    architecture - The instance architecture (i386 | x86_64 | arm64).    availability-zone - The Availability Zone of the instance.    block-device-mapping.attach-time - The attach time for an EBS volume mapped to the instance, for example, 2010-09-15T17:15:20.000Z.    block-device-mapping.delete-on-termination - A Boolean that indicates whether the EBS volume is deleted on instance termination.    block-device-mapping.device-name - The device name specified in the block device mapping (for example, /dev/sdh or xvdh).    block-device-mapping.status - The status for the EBS volume (attaching | attached | detaching | detached).    block-device-mapping.volume-id - The volume ID of the EBS volume.    client-token - The idempotency token you provided when you launched the instance.    dns-name - The public DNS name of the instance.    group-id - The ID of the security group for the instance. EC2-Classic only.    group-name - The name of the security group for the instance. EC2-Classic only.    hibernation-options.configured - A Boolean that indicates whether the instance is enabled for hibernation. A value of true means that the instance is enabled for hibernation.     host-id - The ID of the Dedicated Host on which the instance is running, if applicable.    hypervisor - The hypervisor type of the instance (ovm | xen). The value xen is used for both Xen and Nitro hypervisors.    iam-instance-profile.arn - The instance profile associated with the instance. Specified as an ARN.    image-id - The ID of the image used to launch the instance.    instance-id - The ID of the instance.    instance-lifecycle - Indicates whether this is a Spot Instance or a Scheduled Instance (spot | scheduled).    instance-state-code - The state of the instance, as a 16-bit unsigned integer. The high byte is used for internal purposes and should be ignored. The low byte is set based on the state represented. The valid values are: 0 (pending), 16 (running), 32 (shutting-down), 48 (terminated), 64 (stopping), and 80 (stopped).    instance-state-name - The state of the instance (pending | running | shutting-down | terminated | stopping | stopped).    instance-type - The type of instance (for example, t2.micro).    instance.group-id - The ID of the security group for the instance.     instance.group-name - The name of the security group for the instance.     ip-address - The public IPv4 address of the instance.    kernel-id - The kernel ID.    key-name - The name of the key pair used when the instance was launched.    launch-index - When launching multiple instances, this is the index for the instance in the launch group (for example, 0, 1, 2, and so on).     launch-time - The time when the instance was launched.    metadata-options.http-tokens - The metadata request authorization state (optional | required)    metadata-options.http-put-response-hop-limit - The http metadata request put response hop limit (integer, possible values 1 to 64)    metadata-options.http-endpoint - Enable or disable metadata access on http endpoint (enabled | disabled)    monitoring-state - Indicates whether detailed monitoring is enabled (disabled | enabled).    network-interface.addresses.private-ip-address - The private IPv4 address associated with the network interface.    network-interface.addresses.primary - Specifies whether the IPv4 address of the network interface is the primary private IPv4 address.    network-interface.addresses.association.public-ip - The ID of the association of an Elastic IP address (IPv4) with a network interface.    network-interface.addresses.association.ip-owner-id - The owner ID of the private IPv4 address associated with the network interface.    network-interface.association.public-ip - The address of the Elastic IP address (IPv4) bound to the network interface.    network-interface.association.ip-owner-id - The owner of the Elastic IP address (IPv4) associated with the network interface.    network-interface.association.allocation-id - The allocation ID returned when you allocated the Elastic IP address (IPv4) for your network interface.    network-interface.association.association-id - The association ID returned when the network interface was associated with an IPv4 address.    network-interface.attachment.attachment-id - The ID of the interface attachment.    network-interface.attachment.instance-id - The ID of the instance to which the network interface is attached.    network-interface.attachment.instance-owner-id - The owner ID of the instance to which the network interface is attached.    network-interface.attachment.device-index - The device index to which the network interface is attached.    network-interface.attachment.status - The status of the attachment (attaching | attached | detaching | detached).    network-interface.attachment.attach-time - The time that the network interface was attached to an instance.    network-interface.attachment.delete-on-termination - Specifies whether the attachment is deleted when an instance is terminated.    network-interface.availability-zone - The Availability Zone for the network interface.    network-interface.description - The description of the network interface.    network-interface.group-id - The ID of a security group associated with the network interface.    network-interface.group-name - The name of a security group associated with the network interface.    network-interface.ipv6-addresses.ipv6-address - The IPv6 address associated with the network interface.    network-interface.mac-address - The MAC address of the network interface.    network-interface.network-interface-id - The ID of the network interface.    network-interface.owner-id - The ID of the owner of the network interface.    network-interface.private-dns-name - The private DNS name of the network interface.    network-interface.requester-id - The requester ID for the network interface.    network-interface.requester-managed - Indicates whether the network interface is being managed by AWS.    network-interface.status - The status of the network interface (available) | in-use).    network-interface.source-dest-check - Whether the network interface performs source/destination checking. A value of true means that checking is enabled, and false means that checking is disabled. The value must be false for the network interface to perform network address translation (NAT) in your VPC.    network-interface.subnet-id - The ID of the subnet for the network interface.    network-interface.vpc-id - The ID of the VPC for the network interface.    owner-id - The AWS account ID of the instance owner.    placement-group-name - The name of the placement group for the instance.    placement-partition-number - The partition in which the instance is located.    platform - The platform. To list only Windows instances, use windows.    private-dns-name - The private IPv4 DNS name of the instance.    private-ip-address - The private IPv4 address of the instance.    product-code - The product code associated with the AMI used to launch the instance.    product-code.type - The type of product code (devpay | marketplace).    ramdisk-id - The RAM disk ID.    reason - The reason for the current state of the instance (for example, shows "User Initiated [date]" when you stop or terminate the instance). Similar to the state-reason-code filter.    requester-id - The ID of the entity that launched the instance on your behalf (for example, AWS Management Console, Auto Scaling, and so on).    reservation-id - The ID of the instance's reservation. A reservation ID is created any time you launch an instance. A reservation ID has a one-to-one relationship with an instance launch request, but can be associated with more than one instance if you launch multiple instances using the same launch request. For example, if you launch one instance, you get one reservation ID. If you launch ten instances using the same launch request, you also get one reservation ID.    root-device-name - The device name of the root device volume (for example, /dev/sda1).    root-device-type - The type of the root device volume (ebs | instance-store).    source-dest-check - Indicates whether the instance performs source/destination checking. A value of true means that checking is enabled, and false means that checking is disabled. The value must be false for the instance to perform network address translation (NAT) in your VPC.     spot-instance-request-id - The ID of the Spot Instance request.    state-reason-code - The reason code for the state change.    state-reason-message - A message that describes the state change.    subnet-id - The ID of the subnet for the instance.    tag:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in the filter name and the tag value as the filter value. For example, to find all resources that have a tag with the key Owner and the value TeamA, specify tag:Owner for the filter name and TeamA for the filter value.    tag-key - The key of a tag assigned to the resource. Use this filter to find all resources that have a tag with a specific key, regardless of the tag value.    tenancy - The tenancy of an instance (dedicated | default | host).    virtualization-type - The virtualization type of the instance (paravirtual | hvm).    vpc-id - The ID of the VPC that the instance is running in.
+        /// The filters.    affinity - The affinity setting for an instance running on a Dedicated Host (default | host).    architecture - The instance architecture (i386 | x86_64 | arm64).    availability-zone - The Availability Zone of the instance.    block-device-mapping.attach-time - The attach time for an EBS volume mapped to the instance, for example, 2010-09-15T17:15:20.000Z.    block-device-mapping.delete-on-termination - A Boolean that indicates whether the EBS volume is deleted on instance termination.    block-device-mapping.device-name - The device name specified in the block device mapping (for example, /dev/sdh or xvdh).    block-device-mapping.status - The status for the EBS volume (attaching | attached | detaching | detached).    block-device-mapping.volume-id - The volume ID of the EBS volume.    client-token - The idempotency token you provided when you launched the instance.    dns-name - The public DNS name of the instance.    group-id - The ID of the security group for the instance. EC2-Classic only.    group-name - The name of the security group for the instance. EC2-Classic only.    hibernation-options.configured - A Boolean that indicates whether the instance is enabled for hibernation. A value of true means that the instance is enabled for hibernation.     host-id - The ID of the Dedicated Host on which the instance is running, if applicable.    hypervisor - The hypervisor type of the instance (ovm | xen). The value xen is used for both Xen and Nitro hypervisors.    iam-instance-profile.arn - The instance profile associated with the instance. Specified as an ARN.    image-id - The ID of the image used to launch the instance.    instance-id - The ID of the instance.    instance-lifecycle - Indicates whether this is a Spot Instance or a Scheduled Instance (spot | scheduled).    instance-state-code - The state of the instance, as a 16-bit unsigned integer. The high byte is used for internal purposes and should be ignored. The low byte is set based on the state represented. The valid values are: 0 (pending), 16 (running), 32 (shutting-down), 48 (terminated), 64 (stopping), and 80 (stopped).    instance-state-name - The state of the instance (pending | running | shutting-down | terminated | stopping | stopped).    instance-type - The type of instance (for example, t2.micro).    instance.group-id - The ID of the security group for the instance.     instance.group-name - The name of the security group for the instance.     ip-address - The public IPv4 address of the instance.    kernel-id - The kernel ID.    key-name - The name of the key pair used when the instance was launched.    launch-index - When launching multiple instances, this is the index for the instance in the launch group (for example, 0, 1, 2, and so on).     launch-time - The time when the instance was launched.    metadata-options.http-tokens - The metadata request authorization state (optional | required)    metadata-options.http-put-response-hop-limit - The http metadata request put response hop limit (integer, possible values 1 to 64)    metadata-options.http-endpoint - Enable or disable metadata access on http endpoint (enabled | disabled)    monitoring-state - Indicates whether detailed monitoring is enabled (disabled | enabled).    network-interface.addresses.private-ip-address - The private IPv4 address associated with the network interface.    network-interface.addresses.primary - Specifies whether the IPv4 address of the network interface is the primary private IPv4 address.    network-interface.addresses.association.public-ip - The ID of the association of an Elastic IP address (IPv4) with a network interface.    network-interface.addresses.association.ip-owner-id - The owner ID of the private IPv4 address associated with the network interface.    network-interface.association.public-ip - The address of the Elastic IP address (IPv4) bound to the network interface.    network-interface.association.ip-owner-id - The owner of the Elastic IP address (IPv4) associated with the network interface.    network-interface.association.allocation-id - The allocation ID returned when you allocated the Elastic IP address (IPv4) for your network interface.    network-interface.association.association-id - The association ID returned when the network interface was associated with an IPv4 address.    network-interface.attachment.attachment-id - The ID of the interface attachment.    network-interface.attachment.instance-id - The ID of the instance to which the network interface is attached.    network-interface.attachment.instance-owner-id - The owner ID of the instance to which the network interface is attached.    network-interface.attachment.device-index - The device index to which the network interface is attached.    network-interface.attachment.status - The status of the attachment (attaching | attached | detaching | detached).    network-interface.attachment.attach-time - The time that the network interface was attached to an instance.    network-interface.attachment.delete-on-termination - Specifies whether the attachment is deleted when an instance is terminated.    network-interface.availability-zone - The Availability Zone for the network interface.    network-interface.description - The description of the network interface.    network-interface.group-id - The ID of a security group associated with the network interface.    network-interface.group-name - The name of a security group associated with the network interface.    network-interface.ipv6-addresses.ipv6-address - The IPv6 address associated with the network interface.    network-interface.mac-address - The MAC address of the network interface.    network-interface.network-interface-id - The ID of the network interface.    network-interface.owner-id - The ID of the owner of the network interface.    network-interface.private-dns-name - The private DNS name of the network interface.    network-interface.requester-id - The requester ID for the network interface.    network-interface.requester-managed - Indicates whether the network interface is being managed by AWS.    network-interface.status - The status of the network interface (available) | in-use).    network-interface.source-dest-check - Whether the network interface performs source/destination checking. A value of true means that checking is enabled, and false means that checking is disabled. The value must be false for the network interface to perform network address translation (NAT) in your VPC.    network-interface.subnet-id - The ID of the subnet for the network interface.    network-interface.vpc-id - The ID of the VPC for the network interface.    outpost-arn - The Amazon Resource Name (ARN) of the Outpost.    owner-id - The AWS account ID of the instance owner.    placement-group-name - The name of the placement group for the instance.    placement-partition-number - The partition in which the instance is located.    platform - The platform. To list only Windows instances, use windows.    private-dns-name - The private IPv4 DNS name of the instance.    private-ip-address - The private IPv4 address of the instance.    product-code - The product code associated with the AMI used to launch the instance.    product-code.type - The type of product code (devpay | marketplace).    ramdisk-id - The RAM disk ID.    reason - The reason for the current state of the instance (for example, shows "User Initiated [date]" when you stop or terminate the instance). Similar to the state-reason-code filter.    requester-id - The ID of the entity that launched the instance on your behalf (for example, AWS Management Console, Auto Scaling, and so on).    reservation-id - The ID of the instance's reservation. A reservation ID is created any time you launch an instance. A reservation ID has a one-to-one relationship with an instance launch request, but can be associated with more than one instance if you launch multiple instances using the same launch request. For example, if you launch one instance, you get one reservation ID. If you launch ten instances using the same launch request, you also get one reservation ID.    root-device-name - The device name of the root device volume (for example, /dev/sda1).    root-device-type - The type of the root device volume (ebs | instance-store).    source-dest-check - Indicates whether the instance performs source/destination checking. A value of true means that checking is enabled, and false means that checking is disabled. The value must be false for the instance to perform network address translation (NAT) in your VPC.     spot-instance-request-id - The ID of the Spot Instance request.    state-reason-code - The reason code for the state change.    state-reason-message - A message that describes the state change.    subnet-id - The ID of the subnet for the instance.    tag:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in the filter name and the tag value as the filter value. For example, to find all resources that have a tag with the key Owner and the value TeamA, specify tag:Owner for the filter name and TeamA for the filter value.    tag-key - The key of a tag assigned to the resource. Use this filter to find all resources that have a tag with a specific key, regardless of the tag value.    tenancy - The tenancy of an instance (dedicated | default | host).    virtualization-type - The virtualization type of the instance (paravirtual | hvm).    vpc-id - The ID of the VPC that the instance is running in.
         @OptionalCustomCoding<ArrayCoder<_FiltersEncoding, Filter>>
         public var filters: [Filter]?
         /// The instance IDs. Default: Describes all your instances.
@@ -13136,6 +13200,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -13195,6 +13260,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 1)
         }
@@ -13314,6 +13380,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.launchTemplateName?.forEach {}
             try self.validate(self.launchTemplateName, name: "launchTemplateName", parent: name, max: 128)
             try self.validate(self.launchTemplateName, name: "launchTemplateName", parent: name, min: 3)
             try self.validate(self.launchTemplateName, name: "launchTemplateName", parent: name, pattern: "[a-zA-Z0-9\\(\\)\\.\\-/_]+")
@@ -13388,6 +13455,8 @@ extension EC2 {
                 try validate($0, name: "launchTemplateNames[]", parent: name, min: 3)
                 try validate($0, name: "launchTemplateNames[]", parent: name, pattern: "[a-zA-Z0-9\\(\\)\\.\\-/_]+")
             }
+            try self.launchTemplateNames?.forEach {}
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 200)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 1)
         }
@@ -13448,6 +13517,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -13507,6 +13577,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -13566,6 +13637,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -13625,6 +13697,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -13684,6 +13757,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -13743,6 +13817,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -13802,6 +13877,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 100)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 1)
         }
@@ -13861,6 +13937,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -13920,6 +13997,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -13979,6 +14057,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -14047,6 +14126,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 100)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 1)
         }
@@ -14109,6 +14189,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 100)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 1)
         }
@@ -14217,6 +14298,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 255)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -14275,6 +14357,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -14430,6 +14513,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 1)
         }
@@ -14485,6 +14569,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 10)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 1)
         }
@@ -14818,6 +14903,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 100)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -14884,6 +14970,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 300)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -15045,6 +15132,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -15235,6 +15323,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 1)
         }
@@ -15295,6 +15384,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 1)
         }
@@ -15531,8 +15621,10 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 255)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
+            try self.nextToken?.forEach {}
             try self.validate(self.nextToken, name: "nextToken", parent: name, max: 1024)
             try self.validate(self.nextToken, name: "nextToken", parent: name, min: 1)
         }
@@ -15591,6 +15683,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -15698,6 +15791,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -15757,6 +15851,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -15816,6 +15911,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -15874,6 +15970,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -15933,6 +16030,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -15991,6 +16089,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -16050,6 +16149,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -16108,6 +16208,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -16167,6 +16268,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -16225,6 +16327,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -16284,6 +16387,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -16584,8 +16688,10 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 255)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
+            try self.nextToken?.forEach {}
             try self.validate(self.nextToken, name: "nextToken", parent: name, max: 1024)
             try self.validate(self.nextToken, name: "nextToken", parent: name, min: 1)
         }
@@ -17005,6 +17111,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -17064,6 +17171,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -17749,8 +17857,10 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.certificateArn?.forEach {}
             try self.validate(self.certificateArn, name: "certificateArn", parent: name, max: 1283)
             try self.validate(self.certificateArn, name: "certificateArn", parent: name, min: 1)
+            try self.roleArn?.forEach {}
             try self.validate(self.roleArn, name: "roleArn", parent: name, max: 1283)
             try self.validate(self.roleArn, name: "roleArn", parent: name, min: 1)
         }
@@ -18244,6 +18354,19 @@ extension EC2 {
         }
     }
 
+    public struct EfaInfo: AWSDecodableShape {
+        /// The maximum number of Elastic Fabric Adapters for the instance type.
+        public let maximumEfaInterfaces: Int?
+
+        public init(maximumEfaInterfaces: Int? = nil) {
+            self.maximumEfaInterfaces = maximumEfaInterfaces
+        }
+
+        private enum CodingKeys: String, CodingKey {
+            case maximumEfaInterfaces
+        }
+    }
+
     public struct EgressOnlyInternetGateway: AWSDecodableShape {
         public struct _AttachmentsEncoding: ArrayCoderProperties { public static let member = "item" }
         public struct _TagsEncoding: ArrayCoderProperties { public static let member = "item" }
@@ -18386,6 +18509,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.count?.forEach {}
             try self.validate(self.count, name: "count", parent: name, min: 1)
         }
 
@@ -19543,7 +19667,7 @@ extension EC2 {
 
         /// The launch template to use. You must specify either the launch template ID or launch template name in the request.
         public let launchTemplateSpecification: FleetLaunchTemplateSpecificationRequest?
-        /// Any parameters that you specify override the same parameters in the launch template.
+        /// Any parameters that you specify override the same parameters in the launch template. For fleets of type request and maintain, a maximum of 300 items is allowed across all launch templates.
         @OptionalCustomCoding<ArrayCoder<_OverridesEncoding, FleetLaunchTemplateOverridesRequest>>
         public var overrides: [FleetLaunchTemplateOverridesRequest]?
 
@@ -19554,6 +19678,8 @@ extension EC2 {
 
         public func validate(name: String) throws {
             try self.launchTemplateSpecification?.validate(name: "\(name).launchTemplateSpecification")
+            try self.launchTemplateSpecification?.forEach {}
+            try self.overrides?.forEach {}
             try self.validate(self.overrides, name: "overrides", parent: name, max: 50)
             try self.validate(self.overrides, name: "overrides", parent: name, min: 0)
         }
@@ -19573,7 +19699,7 @@ extension EC2 {
         public let maxPrice: String?
         /// The location where the instance launched, if applicable.
         public let placement: PlacementResponse?
-        /// The priority for the launch template override. If AllocationStrategy is set to prioritized, EC2 Fleet uses priority to determine which launch template override to use first in fulfilling On-Demand capacity. The highest priority is launched first. Valid values are whole numbers starting at 0. The lower the number, the higher the priority. If no number is set, the override has the lowest priority.
+        /// The priority for the launch template override. The highest priority is launched first. If the On-Demand AllocationStrategy is set to prioritized, EC2 Fleet uses priority to determine which launch template override to use first in fulfilling On-Demand capacity. If the Spot AllocationStrategy is set to capacity-optimized-prioritized, EC2 Fleet uses priority on a best-effort basis to determine which launch template override to use first in fulfilling Spot capacity, but optimizes for capacity first. Valid values are whole numbers starting at 0. The lower the number, the higher the priority. If no number is set, the override has the lowest priority. You can set the same priority for different launch template overrides.
         public let priority: Double?
         /// The ID of the subnet in which to launch the instances.
         public let subnetId: String?
@@ -19610,7 +19736,7 @@ extension EC2 {
         public let maxPrice: String?
         /// The location where the instance launched, if applicable.
         public let placement: Placement?
-        /// The priority for the launch template override. If AllocationStrategy is set to prioritized, EC2 Fleet uses priority to determine which launch template override to use first in fulfilling On-Demand capacity. The highest priority is launched first. Valid values are whole numbers starting at 0. The lower the number, the higher the priority. If no number is set, the launch template override has the lowest priority.
+        /// The priority for the launch template override. The highest priority is launched first. If the On-Demand AllocationStrategy is set to prioritized, EC2 Fleet uses priority to determine which launch template override to use first in fulfilling On-Demand capacity. If the Spot AllocationStrategy is set to capacity-optimized-prioritized, EC2 Fleet uses priority on a best-effort basis to determine which launch template override to use first in fulfilling Spot capacity, but optimizes for capacity first. Valid values are whole numbers starting at 0. The lower the number, the higher the priority. If no number is set, the launch template override has the lowest priority. You can set the same priority for different launch template overrides.
         public let priority: Double?
         /// The IDs of the subnets in which to launch the instances. Separate multiple subnet IDs using commas (for example, subnet-1234abcdeexample1, subnet-0987cdef6example2). A request of type instant can have only one subnet ID.
         public let subnetId: String?
@@ -19653,6 +19779,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.launchTemplateName?.forEach {}
             try self.validate(self.launchTemplateName, name: "launchTemplateName", parent: name, max: 128)
             try self.validate(self.launchTemplateName, name: "launchTemplateName", parent: name, min: 3)
             try self.validate(self.launchTemplateName, name: "launchTemplateName", parent: name, pattern: "[a-zA-Z0-9\\(\\)\\.\\-/_]+")
@@ -19680,6 +19807,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.launchTemplateName?.forEach {}
             try self.validate(self.launchTemplateName, name: "launchTemplateName", parent: name, max: 128)
             try self.validate(self.launchTemplateName, name: "launchTemplateName", parent: name, min: 3)
             try self.validate(self.launchTemplateName, name: "launchTemplateName", parent: name, pattern: "[a-zA-Z0-9\\(\\)\\.\\-/_]+")
@@ -20007,6 +20135,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.certificateArn?.forEach {}
             try self.validate(self.certificateArn, name: "certificateArn", parent: name, max: 1283)
             try self.validate(self.certificateArn, name: "certificateArn", parent: name, min: 1)
         }
@@ -20051,6 +20180,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 1)
         }
@@ -20101,6 +20231,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 1)
         }
@@ -20177,6 +20308,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -20394,6 +20526,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 1)
         }
@@ -20522,6 +20655,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 255)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -20575,6 +20709,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 100)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 1)
         }
@@ -20746,6 +20881,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -20803,6 +20939,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -20860,6 +20997,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -20917,6 +21055,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -20974,6 +21113,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -21526,6 +21666,8 @@ extension EC2 {
         /// Any block device mapping entries.
         @OptionalCustomCoding<ArrayCoder<_BlockDeviceMappingsEncoding, BlockDeviceMapping>>
         public var blockDeviceMappings: [BlockDeviceMapping]?
+        /// The boot mode of the image. For more information, see Boot modes in the Amazon Elastic Compute Cloud User Guide.
+        public let bootMode: BootModeValues?
         /// The date and time the image was created.
         public let creationDate: String?
         /// The description of the AMI that was provided during image creation.
@@ -21577,9 +21719,10 @@ extension EC2 {
         /// The type of virtualization of the AMI.
         public let virtualizationType: VirtualizationType?
 
-        public init(architecture: ArchitectureValues? = nil, blockDeviceMappings: [BlockDeviceMapping]? = nil, creationDate: String? = nil, description: String? = nil, enaSupport: Bool? = nil, hypervisor: HypervisorType? = nil, imageId: String? = nil, imageLocation: String? = nil, imageOwnerAlias: String? = nil, imageType: ImageTypeValues? = nil, kernelId: String? = nil, name: String? = nil, ownerId: String? = nil, platform: PlatformValues? = nil, platformDetails: String? = nil, productCodes: [ProductCode]? = nil, public: Bool? = nil, ramdiskId: String? = nil, rootDeviceName: String? = nil, rootDeviceType: DeviceType? = nil, sriovNetSupport: String? = nil, state: ImageState? = nil, stateReason: StateReason? = nil, tags: [Tag]? = nil, usageOperation: String? = nil, virtualizationType: VirtualizationType? = nil) {
+        public init(architecture: ArchitectureValues? = nil, blockDeviceMappings: [BlockDeviceMapping]? = nil, bootMode: BootModeValues? = nil, creationDate: String? = nil, description: String? = nil, enaSupport: Bool? = nil, hypervisor: HypervisorType? = nil, imageId: String? = nil, imageLocation: String? = nil, imageOwnerAlias: String? = nil, imageType: ImageTypeValues? = nil, kernelId: String? = nil, name: String? = nil, ownerId: String? = nil, platform: PlatformValues? = nil, platformDetails: String? = nil, productCodes: [ProductCode]? = nil, public: Bool? = nil, ramdiskId: String? = nil, rootDeviceName: String? = nil, rootDeviceType: DeviceType? = nil, sriovNetSupport: String? = nil, state: ImageState? = nil, stateReason: StateReason? = nil, tags: [Tag]? = nil, usageOperation: String? = nil, virtualizationType: VirtualizationType? = nil) {
             self.architecture = architecture
             self.blockDeviceMappings = blockDeviceMappings
+            self.bootMode = bootMode
             self.creationDate = creationDate
             self.description = description
             self.enaSupport = enaSupport
@@ -21609,6 +21752,7 @@ extension EC2 {
         private enum CodingKeys: String, CodingKey {
             case architecture
             case blockDeviceMappings = "blockDeviceMapping"
+            case bootMode
             case creationDate
             case description
             case enaSupport
@@ -21644,6 +21788,7 @@ extension EC2 {
         /// The block device mapping entries.
         @OptionalCustomCoding<ArrayCoder<_BlockDeviceMappingsEncoding, BlockDeviceMapping>>
         public var blockDeviceMappings: [BlockDeviceMapping]?
+        public let bootMode: AttributeValue?
         /// A description for the AMI.
         public let description: AttributeValue?
         /// The ID of the AMI.
@@ -21661,8 +21806,9 @@ extension EC2 {
         /// Indicates whether enhanced networking with the Intel 82599 Virtual Function interface is enabled.
         public let sriovNetSupport: AttributeValue?
 
-        public init(blockDeviceMappings: [BlockDeviceMapping]? = nil, description: AttributeValue? = nil, imageId: String? = nil, kernelId: AttributeValue? = nil, launchPermissions: [LaunchPermission]? = nil, productCodes: [ProductCode]? = nil, ramdiskId: AttributeValue? = nil, sriovNetSupport: AttributeValue? = nil) {
+        public init(blockDeviceMappings: [BlockDeviceMapping]? = nil, bootMode: AttributeValue? = nil, description: AttributeValue? = nil, imageId: String? = nil, kernelId: AttributeValue? = nil, launchPermissions: [LaunchPermission]? = nil, productCodes: [ProductCode]? = nil, ramdiskId: AttributeValue? = nil, sriovNetSupport: AttributeValue? = nil) {
             self.blockDeviceMappings = blockDeviceMappings
+            self.bootMode = bootMode
             self.description = description
             self.imageId = imageId
             self.kernelId = kernelId
@@ -21674,6 +21820,7 @@ extension EC2 {
 
         private enum CodingKeys: String, CodingKey {
             case blockDeviceMappings = "blockDeviceMapping"
+            case bootMode
             case description
             case imageId
             case kernelId = "kernel"
@@ -22450,6 +22597,8 @@ extension EC2 {
         /// Any block device mapping entries for the instance.
         @OptionalCustomCoding<ArrayCoder<_BlockDeviceMappingsEncoding, InstanceBlockDeviceMapping>>
         public var blockDeviceMappings: [InstanceBlockDeviceMapping]?
+        /// The boot mode of the instance. For more information, see Boot modes in the Amazon EC2 User Guide.
+        public let bootMode: BootModeValues?
         /// The ID of the Capacity Reservation.
         public let capacityReservationId: String?
         /// Information about the Capacity Reservation targeting option.
@@ -22526,7 +22675,7 @@ extension EC2 {
         /// The security groups for the instance.
         @OptionalCustomCoding<ArrayCoder<_SecurityGroupsEncoding, GroupIdentifier>>
         public var securityGroups: [GroupIdentifier]?
-        /// Specifies whether to enable an instance launched in a VPC to perform NAT. This controls whether source/destination checking is enabled on the instance. A value of true means that checking is enabled, and false means that checking is disabled. The value must be false for the instance to perform NAT. For more information, see NAT instances in the Amazon VPC User Guide.
+        /// Indicates whether source/destination checking is enabled.
         public let sourceDestCheck: Bool?
         /// If the request is a Spot Instance request, the ID of the request.
         public let spotInstanceRequestId: String?
@@ -22548,10 +22697,11 @@ extension EC2 {
         /// [EC2-VPC] The ID of the VPC in which the instance is running.
         public let vpcId: String?
 
-        public init(amiLaunchIndex: Int? = nil, architecture: ArchitectureValues? = nil, blockDeviceMappings: [InstanceBlockDeviceMapping]? = nil, capacityReservationId: String? = nil, capacityReservationSpecification: CapacityReservationSpecificationResponse? = nil, clientToken: String? = nil, cpuOptions: CpuOptions? = nil, ebsOptimized: Bool? = nil, elasticGpuAssociations: [ElasticGpuAssociation]? = nil, elasticInferenceAcceleratorAssociations: [ElasticInferenceAcceleratorAssociation]? = nil, enaSupport: Bool? = nil, enclaveOptions: EnclaveOptions? = nil, hibernationOptions: HibernationOptions? = nil, hypervisor: HypervisorType? = nil, iamInstanceProfile: IamInstanceProfile? = nil, imageId: String? = nil, instanceId: String? = nil, instanceLifecycle: InstanceLifecycleType? = nil, instanceType: InstanceType? = nil, kernelId: String? = nil, keyName: String? = nil, launchTime: Date? = nil, licenses: [LicenseConfiguration]? = nil, metadataOptions: InstanceMetadataOptionsResponse? = nil, monitoring: Monitoring? = nil, networkInterfaces: [InstanceNetworkInterface]? = nil, outpostArn: String? = nil, placement: Placement? = nil, platform: PlatformValues? = nil, privateDnsName: String? = nil, privateIpAddress: String? = nil, productCodes: [ProductCode]? = nil, publicDnsName: String? = nil, publicIpAddress: String? = nil, ramdiskId: String? = nil, rootDeviceName: String? = nil, rootDeviceType: DeviceType? = nil, securityGroups: [GroupIdentifier]? = nil, sourceDestCheck: Bool? = nil, spotInstanceRequestId: String? = nil, sriovNetSupport: String? = nil, state: InstanceState? = nil, stateReason: StateReason? = nil, stateTransitionReason: String? = nil, subnetId: String? = nil, tags: [Tag]? = nil, virtualizationType: VirtualizationType? = nil, vpcId: String? = nil) {
+        public init(amiLaunchIndex: Int? = nil, architecture: ArchitectureValues? = nil, blockDeviceMappings: [InstanceBlockDeviceMapping]? = nil, bootMode: BootModeValues? = nil, capacityReservationId: String? = nil, capacityReservationSpecification: CapacityReservationSpecificationResponse? = nil, clientToken: String? = nil, cpuOptions: CpuOptions? = nil, ebsOptimized: Bool? = nil, elasticGpuAssociations: [ElasticGpuAssociation]? = nil, elasticInferenceAcceleratorAssociations: [ElasticInferenceAcceleratorAssociation]? = nil, enaSupport: Bool? = nil, enclaveOptions: EnclaveOptions? = nil, hibernationOptions: HibernationOptions? = nil, hypervisor: HypervisorType? = nil, iamInstanceProfile: IamInstanceProfile? = nil, imageId: String? = nil, instanceId: String? = nil, instanceLifecycle: InstanceLifecycleType? = nil, instanceType: InstanceType? = nil, kernelId: String? = nil, keyName: String? = nil, launchTime: Date? = nil, licenses: [LicenseConfiguration]? = nil, metadataOptions: InstanceMetadataOptionsResponse? = nil, monitoring: Monitoring? = nil, networkInterfaces: [InstanceNetworkInterface]? = nil, outpostArn: String? = nil, placement: Placement? = nil, platform: PlatformValues? = nil, privateDnsName: String? = nil, privateIpAddress: String? = nil, productCodes: [ProductCode]? = nil, publicDnsName: String? = nil, publicIpAddress: String? = nil, ramdiskId: String? = nil, rootDeviceName: String? = nil, rootDeviceType: DeviceType? = nil, securityGroups: [GroupIdentifier]? = nil, sourceDestCheck: Bool? = nil, spotInstanceRequestId: String? = nil, sriovNetSupport: String? = nil, state: InstanceState? = nil, stateReason: StateReason? = nil, stateTransitionReason: String? = nil, subnetId: String? = nil, tags: [Tag]? = nil, virtualizationType: VirtualizationType? = nil, vpcId: String? = nil) {
             self.amiLaunchIndex = amiLaunchIndex
             self.architecture = architecture
             self.blockDeviceMappings = blockDeviceMappings
+            self.bootMode = bootMode
             self.capacityReservationId = capacityReservationId
             self.capacityReservationSpecification = capacityReservationSpecification
             self.clientToken = clientToken
@@ -22603,6 +22753,7 @@ extension EC2 {
             case amiLaunchIndex
             case architecture
             case blockDeviceMappings = "blockDeviceMapping"
+            case bootMode
             case capacityReservationId
             case capacityReservationSpecification
             case clientToken
@@ -22685,7 +22836,7 @@ extension EC2 {
         public let ramdiskId: AttributeValue?
         /// The device name of the root device volume (for example, /dev/sda1).
         public let rootDeviceName: AttributeValue?
-        /// Indicates whether source/destination checking is enabled. A value of true means that checking is enabled, and false means that checking is disabled. This value must be false for a NAT instance to perform NAT.
+        /// Enable or disable source/destination checks, which ensure that the instance is either the source or the destination of any traffic that it receives. If the value is true, source/destination checks are enabled; otherwise, they are disabled. The default value is true. You must disable source/destination checks if the instance runs services such as network address translation, routing, or firewalls.
         public let sourceDestCheck: AttributeBooleanValue?
         /// Indicates whether enhanced networking with the Intel 82599 Virtual Function interface is enabled.
         public let sriovNetSupport: AttributeValue?
@@ -23438,6 +23589,7 @@ extension EC2 {
     }
 
     public struct InstanceTypeInfo: AWSDecodableShape {
+        public struct _SupportedBootModesEncoding: ArrayCoderProperties { public static let member = "item" }
         public struct _SupportedRootDeviceTypesEncoding: ArrayCoderProperties { public static let member = "item" }
         public struct _SupportedUsageClassesEncoding: ArrayCoderProperties { public static let member = "item" }
         public struct _SupportedVirtualizationTypesEncoding: ArrayCoderProperties { public static let member = "item" }
@@ -23480,6 +23632,9 @@ extension EC2 {
         public let placementGroupInfo: PlacementGroupInfo?
         /// Describes the processor.
         public let processorInfo: ProcessorInfo?
+        /// The supported boot modes. For more information, see Boot modes in the Amazon EC2 User Guide.
+        @OptionalCustomCoding<ArrayCoder<_SupportedBootModesEncoding, BootModeType>>
+        public var supportedBootModes: [BootModeType]?
         /// The supported root device types.
         @OptionalCustomCoding<ArrayCoder<_SupportedRootDeviceTypesEncoding, RootDeviceType>>
         public var supportedRootDeviceTypes: [RootDeviceType]?
@@ -23492,7 +23647,7 @@ extension EC2 {
         /// Describes the vCPU configurations for the instance type.
         public let vCpuInfo: VCpuInfo?
 
-        public init(autoRecoverySupported: Bool? = nil, bareMetal: Bool? = nil, burstablePerformanceSupported: Bool? = nil, currentGeneration: Bool? = nil, dedicatedHostsSupported: Bool? = nil, ebsInfo: EbsInfo? = nil, fpgaInfo: FpgaInfo? = nil, freeTierEligible: Bool? = nil, gpuInfo: GpuInfo? = nil, hibernationSupported: Bool? = nil, hypervisor: InstanceTypeHypervisor? = nil, inferenceAcceleratorInfo: InferenceAcceleratorInfo? = nil, instanceStorageInfo: InstanceStorageInfo? = nil, instanceStorageSupported: Bool? = nil, instanceType: InstanceType? = nil, memoryInfo: MemoryInfo? = nil, networkInfo: NetworkInfo? = nil, placementGroupInfo: PlacementGroupInfo? = nil, processorInfo: ProcessorInfo? = nil, supportedRootDeviceTypes: [RootDeviceType]? = nil, supportedUsageClasses: [UsageClassType]? = nil, supportedVirtualizationTypes: [VirtualizationType]? = nil, vCpuInfo: VCpuInfo? = nil) {
+        public init(autoRecoverySupported: Bool? = nil, bareMetal: Bool? = nil, burstablePerformanceSupported: Bool? = nil, currentGeneration: Bool? = nil, dedicatedHostsSupported: Bool? = nil, ebsInfo: EbsInfo? = nil, fpgaInfo: FpgaInfo? = nil, freeTierEligible: Bool? = nil, gpuInfo: GpuInfo? = nil, hibernationSupported: Bool? = nil, hypervisor: InstanceTypeHypervisor? = nil, inferenceAcceleratorInfo: InferenceAcceleratorInfo? = nil, instanceStorageInfo: InstanceStorageInfo? = nil, instanceStorageSupported: Bool? = nil, instanceType: InstanceType? = nil, memoryInfo: MemoryInfo? = nil, networkInfo: NetworkInfo? = nil, placementGroupInfo: PlacementGroupInfo? = nil, processorInfo: ProcessorInfo? = nil, supportedBootModes: [BootModeType]? = nil, supportedRootDeviceTypes: [RootDeviceType]? = nil, supportedUsageClasses: [UsageClassType]? = nil, supportedVirtualizationTypes: [VirtualizationType]? = nil, vCpuInfo: VCpuInfo? = nil) {
             self.autoRecoverySupported = autoRecoverySupported
             self.bareMetal = bareMetal
             self.burstablePerformanceSupported = burstablePerformanceSupported
@@ -23512,6 +23667,7 @@ extension EC2 {
             self.networkInfo = networkInfo
             self.placementGroupInfo = placementGroupInfo
             self.processorInfo = processorInfo
+            self.supportedBootModes = supportedBootModes
             self.supportedRootDeviceTypes = supportedRootDeviceTypes
             self.supportedUsageClasses = supportedUsageClasses
             self.supportedVirtualizationTypes = supportedVirtualizationTypes
@@ -23538,6 +23694,7 @@ extension EC2 {
             case networkInfo
             case placementGroupInfo
             case processorInfo
+            case supportedBootModes
             case supportedRootDeviceTypes
             case supportedUsageClasses
             case supportedVirtualizationTypes
@@ -24118,6 +24275,7 @@ extension EC2 {
 
         public func validate(name: String) throws {
             try self.launchTemplateSpecification?.validate(name: "\(name).launchTemplateSpecification")
+            try self.launchTemplateSpecification?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -24254,6 +24412,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.count?.forEach {}
             try self.validate(self.count, name: "count", parent: name, min: 1)
         }
 
@@ -24629,7 +24788,7 @@ extension EC2 {
         public let availabilityZone: String?
         /// The instance type.
         public let instanceType: InstanceType?
-        /// The priority for the launch template override. If OnDemandAllocationStrategy is set to prioritized, Spot Fleet uses priority to determine which launch template override to use first in fulfilling On-Demand capacity. The highest priority is launched first. Valid values are whole numbers starting at 0. The lower the number, the higher the priority. If no number is set, the launch template override has the lowest priority.
+        /// The priority for the launch template override. The highest priority is launched first. If OnDemandAllocationStrategy is set to prioritized, Spot Fleet uses priority to determine which launch template override to use first in fulfilling On-Demand capacity. If the Spot AllocationStrategy is set to capacityOptimizedPrioritized, Spot Fleet uses priority on a best-effort basis to determine which launch template override to use first in fulfilling Spot capacity, but optimizes for capacity first. Valid values are whole numbers starting at 0. The lower the number, the higher the priority. If no number is set, the launch template override has the lowest priority. You can set the same priority for different launch template overrides.
         public let priority: Double?
         /// The maximum price per unit hour that you are willing to pay for a Spot Instance.
         public let spotPrice: String?
@@ -24964,7 +25123,9 @@ extension EC2 {
 
         public func validate(name: String) throws {
             try self.classicLoadBalancersConfig?.validate(name: "\(name).classicLoadBalancersConfig")
+            try self.classicLoadBalancersConfig?.forEach {}
             try self.targetGroupsConfig?.validate(name: "\(name).targetGroupsConfig")
+            try self.targetGroupsConfig?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -25651,6 +25812,7 @@ extension EC2 {
             try self.launchTemplateConfigs?.forEach {
                 try $0.validate(name: "\(name).launchTemplateConfigs[]")
             }
+            try self.launchTemplateConfigs?.forEach {}
             try self.validate(self.launchTemplateConfigs, name: "launchTemplateConfigs", parent: name, max: 50)
             try self.validate(self.launchTemplateConfigs, name: "launchTemplateConfigs", parent: name, min: 0)
         }
@@ -25924,7 +26086,7 @@ extension EC2 {
         public let kernel: AttributeValue?
         /// Changes the instance's RAM disk to the specified value. We recommend that you use PV-GRUB instead of kernels and RAM disks. For more information, see PV-GRUB.
         public let ramdisk: AttributeValue?
-        /// Specifies whether source/destination checking is enabled. A value of true means that checking is enabled, and false means that checking is disabled. This value must be false for a NAT instance to perform NAT.
+        /// Enable or disable source/destination checks, which ensure that the instance is either the source or the destination of any traffic that it receives. If the value is true, source/destination checks are enabled; otherwise, they are disabled. The default value is true. You must disable source/destination checks if the instance runs services such as network address translation, routing, or firewalls.
         public let sourceDestCheck: AttributeBooleanValue?
         /// Set to simple to enable enhanced networking with the Intel 82599 Virtual Function interface for the instance. There is no way to disable enhanced networking with the Intel 82599 Virtual Function interface at this time. This option is supported only for HVM instances. Specifying this option with a PV instance can make it unreachable.
         public let sriovNetSupport: AttributeValue?
@@ -26206,6 +26368,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.launchTemplateName?.forEach {}
             try self.validate(self.launchTemplateName, name: "launchTemplateName", parent: name, max: 128)
             try self.validate(self.launchTemplateName, name: "launchTemplateName", parent: name, min: 3)
             try self.validate(self.launchTemplateName, name: "launchTemplateName", parent: name, pattern: "[a-zA-Z0-9\\(\\)\\.\\-/_]+")
@@ -26259,8 +26422,10 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.addEntries?.forEach {}
             try self.validate(self.addEntries, name: "addEntries", parent: name, max: 100)
             try self.validate(self.addEntries, name: "addEntries", parent: name, min: 0)
+            try self.removeEntries?.forEach {}
             try self.validate(self.removeEntries, name: "removeEntries", parent: name, max: 100)
             try self.validate(self.removeEntries, name: "removeEntries", parent: name, min: 0)
         }
@@ -26432,6 +26597,7 @@ extension EC2 {
             try self.launchTemplateConfigs?.forEach {
                 try $0.validate(name: "\(name).launchTemplateConfigs[]")
             }
+            try self.launchTemplateConfigs?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -27820,6 +27986,8 @@ extension EC2 {
 
         /// The index of the default network card, starting at 0.
         public let defaultNetworkCardIndex: Int?
+        /// Describes the Elastic Fabric Adapters for the instance type.
+        public let efaInfo: EfaInfo?
         /// Indicates whether Elastic Fabric Adapter (EFA) is supported.
         public let efaSupported: Bool?
         /// Indicates whether Elastic Network Adapter (ENA) is supported.
@@ -27840,8 +28008,9 @@ extension EC2 {
         /// The network performance.
         public let networkPerformance: String?
 
-        public init(defaultNetworkCardIndex: Int? = nil, efaSupported: Bool? = nil, enaSupport: EnaSupport? = nil, ipv4AddressesPerInterface: Int? = nil, ipv6AddressesPerInterface: Int? = nil, ipv6Supported: Bool? = nil, maximumNetworkCards: Int? = nil, maximumNetworkInterfaces: Int? = nil, networkCards: [NetworkCardInfo]? = nil, networkPerformance: String? = nil) {
+        public init(defaultNetworkCardIndex: Int? = nil, efaInfo: EfaInfo? = nil, efaSupported: Bool? = nil, enaSupport: EnaSupport? = nil, ipv4AddressesPerInterface: Int? = nil, ipv6AddressesPerInterface: Int? = nil, ipv6Supported: Bool? = nil, maximumNetworkCards: Int? = nil, maximumNetworkInterfaces: Int? = nil, networkCards: [NetworkCardInfo]? = nil, networkPerformance: String? = nil) {
             self.defaultNetworkCardIndex = defaultNetworkCardIndex
+            self.efaInfo = efaInfo
             self.efaSupported = efaSupported
             self.enaSupport = enaSupport
             self.ipv4AddressesPerInterface = ipv4AddressesPerInterface
@@ -27855,6 +28024,7 @@ extension EC2 {
 
         private enum CodingKeys: String, CodingKey {
             case defaultNetworkCardIndex
+            case efaInfo
             case efaSupported
             case enaSupport
             case ipv4AddressesPerInterface
@@ -29432,6 +29602,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.purchaseRequests.forEach {}
             try self.validate(self.purchaseRequests, name: "purchaseRequests", parent: name, min: 1)
         }
 
@@ -29528,6 +29699,8 @@ extension EC2 {
         /// The block device mapping entries. If you specify an EBS volume using the ID of an EBS snapshot, you can't specify the encryption state of the volume. If you create an AMI on an Outpost, then all backing snapshots must be on the same Outpost or in the Region of that Outpost. AMIs on an Outpost that include local snapshots can be used to launch instances on the same Outpost only. For more information,  Amazon EBS local snapshots on Outposts in the Amazon Elastic Compute Cloud User Guide.
         @OptionalCustomCoding<ArrayCoder<_BlockDeviceMappingsEncoding, BlockDeviceMapping>>
         public var blockDeviceMappings: [BlockDeviceMapping]?
+        /// The boot mode of the AMI. For more information, see Boot modes in the Amazon Elastic Compute Cloud User Guide.
+        public let bootMode: BootModeValues?
         /// A description for your AMI.
         public let description: String?
         /// Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is DryRunOperation. Otherwise, it is UnauthorizedOperation.
@@ -29549,10 +29722,11 @@ extension EC2 {
         /// The type of virtualization (hvm | paravirtual). Default: paravirtual
         public let virtualizationType: String?
 
-        public init(architecture: ArchitectureValues? = nil, billingProducts: [String]? = nil, blockDeviceMappings: [BlockDeviceMapping]? = nil, description: String? = nil, dryRun: Bool? = nil, enaSupport: Bool? = nil, imageLocation: String? = nil, kernelId: String? = nil, name: String, ramdiskId: String? = nil, rootDeviceName: String? = nil, sriovNetSupport: String? = nil, virtualizationType: String? = nil) {
+        public init(architecture: ArchitectureValues? = nil, billingProducts: [String]? = nil, blockDeviceMappings: [BlockDeviceMapping]? = nil, bootMode: BootModeValues? = nil, description: String? = nil, dryRun: Bool? = nil, enaSupport: Bool? = nil, imageLocation: String? = nil, kernelId: String? = nil, name: String, ramdiskId: String? = nil, rootDeviceName: String? = nil, sriovNetSupport: String? = nil, virtualizationType: String? = nil) {
             self.architecture = architecture
             self.billingProducts = billingProducts
             self.blockDeviceMappings = blockDeviceMappings
+            self.bootMode = bootMode
             self.description = description
             self.dryRun = dryRun
             self.enaSupport = enaSupport
@@ -29569,6 +29743,7 @@ extension EC2 {
             case architecture
             case billingProducts = "BillingProduct"
             case blockDeviceMappings = "BlockDeviceMapping"
+            case bootMode = "BootMode"
             case description
             case dryRun
             case enaSupport
@@ -30388,6 +30563,7 @@ extension EC2 {
             try self.elasticInferenceAccelerators?.forEach {
                 try $0.validate(name: "\(name).elasticInferenceAccelerators[]")
             }
+            try self.elasticInferenceAccelerators?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -30434,6 +30610,7 @@ extension EC2 {
 
         public func validate(name: String) throws {
             try self.spotFleetRequestConfig.validate(name: "\(name).spotFleetRequestConfig")
+            try self.spotFleetRequestConfig.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -31931,6 +32108,7 @@ extension EC2 {
             try self.elasticInferenceAccelerators?.forEach {
                 try $0.validate(name: "\(name).elasticInferenceAccelerators[]")
             }
+            try self.elasticInferenceAccelerators?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -32589,6 +32767,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -32643,6 +32822,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 1000)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 5)
         }
@@ -33412,7 +33592,7 @@ extension EC2 {
         public struct _LaunchTemplateConfigsEncoding: ArrayCoderProperties { public static let member = "item" }
         public struct _TagSpecificationsEncoding: ArrayCoderProperties { public static let member = "item" }
 
-        /// Indicates how to allocate the target Spot Instance capacity across the Spot Instance pools specified by the Spot Fleet request. If the allocation strategy is lowestPrice, Spot Fleet launches instances from the Spot Instance pools with the lowest price. This is the default allocation strategy. If the allocation strategy is diversified, Spot Fleet launches instances from all the Spot Instance pools that you specify. If the allocation strategy is capacityOptimized, Spot Fleet launches instances from Spot Instance pools with optimal capacity for the number of instances that are launching.
+        /// Indicates how to allocate the target Spot Instance capacity across the Spot Instance pools specified by the Spot Fleet request. If the allocation strategy is lowestPrice, Spot Fleet launches instances from the Spot Instance pools with the lowest price. This is the default allocation strategy. If the allocation strategy is diversified, Spot Fleet launches instances from all the Spot Instance pools that you specify. If the allocation strategy is capacityOptimized (recommended), Spot Fleet launches instances from Spot Instance pools with optimal capacity for the number of instances that are launching. To give certain instance types a higher chance of launching first, use capacityOptimizedPrioritized. Set a priority for each instance type by using the Priority parameter for LaunchTemplateOverrides. You can assign the same priority to different LaunchTemplateOverrides. EC2 implements the priorities on a best-effort basis, but optimizes for capacity first. capacityOptimizedPrioritized is supported only if your Spot Fleet uses a launch template. Note that if the OnDemandAllocationStrategy is set to prioritized, the same priority is applied when fulfilling On-Demand capacity.
         public let allocationStrategy: AllocationStrategy?
         /// A unique, case-sensitive identifier that you provide to ensure the idempotency of your listings. This helps to avoid duplicate listings. For more information, see Ensuring Idempotency.
         public let clientToken: String?
@@ -33495,7 +33675,9 @@ extension EC2 {
             try self.launchTemplateConfigs?.forEach {
                 try $0.validate(name: "\(name).launchTemplateConfigs[]")
             }
+            try self.launchTemplateConfigs?.forEach {}
             try self.loadBalancersConfig?.validate(name: "\(name).loadBalancersConfig")
+            try self.loadBalancersConfig?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -33715,7 +33897,7 @@ extension EC2 {
     }
 
     public struct SpotOptions: AWSDecodableShape {
-        /// Indicates how to allocate the target Spot Instance capacity across the Spot Instance pools specified by the EC2 Fleet. If the allocation strategy is lowest-price, EC2 Fleet launches instances from the Spot Instance pools with the lowest price. This is the default allocation strategy. If the allocation strategy is diversified, EC2 Fleet launches instances from all of the Spot Instance pools that you specify. If the allocation strategy is capacity-optimized, EC2 Fleet launches instances from Spot Instance pools with optimal capacity for the number of instances that are launching.
+        /// Indicates how to allocate the target Spot Instance capacity across the Spot Instance pools specified by the EC2 Fleet. If the allocation strategy is lowest-price, EC2 Fleet launches instances from the Spot Instance pools with the lowest price. This is the default allocation strategy. If the allocation strategy is diversified, EC2 Fleet launches instances from all of the Spot Instance pools that you specify. If the allocation strategy is capacity-optimized (recommended), EC2 Fleet launches instances from Spot Instance pools with optimal capacity for the number of instances that are launching. To give certain instance types a higher chance of launching first, use capacity-optimized-prioritized. Set a priority for each instance type by using the Priority parameter for LaunchTemplateOverrides. You can assign the same priority to different LaunchTemplateOverrides. EC2 implements the priorities on a best-effort basis, but optimizes for capacity first. capacity-optimized-prioritized is supported only if your fleet uses a launch template. Note that if the On-Demand AllocationStrategy is set to prioritized, the same priority is applied when fulfilling On-Demand capacity.
         public let allocationStrategy: SpotAllocationStrategy?
         /// The behavior when a Spot Instance is interrupted. The default is terminate.
         public let instanceInterruptionBehavior: SpotInstanceInterruptionBehavior?
@@ -33756,7 +33938,7 @@ extension EC2 {
     }
 
     public struct SpotOptionsRequest: AWSEncodableShape {
-        /// Indicates how to allocate the target Spot Instance capacity across the Spot Instance pools specified by the EC2 Fleet. If the allocation strategy is lowest-price, EC2 Fleet launches instances from the Spot Instance pools with the lowest price. This is the default allocation strategy. If the allocation strategy is diversified, EC2 Fleet launches instances from all of the Spot Instance pools that you specify. If the allocation strategy is capacity-optimized, EC2 Fleet launches instances from Spot Instance pools with optimal capacity for the number of instances that are launching.
+        /// Indicates how to allocate the target Spot Instance capacity across the Spot Instance pools specified by the EC2 Fleet. If the allocation strategy is lowest-price, EC2 Fleet launches instances from the Spot Instance pools with the lowest price. This is the default allocation strategy. If the allocation strategy is diversified, EC2 Fleet launches instances from all of the Spot Instance pools that you specify. If the allocation strategy is capacity-optimized (recommended), EC2 Fleet launches instances from Spot Instance pools with optimal capacity for the number of instances that are launching. To give certain instance types a higher chance of launching first, use capacity-optimized-prioritized. Set a priority for each instance type by using the Priority parameter for LaunchTemplateOverrides. You can assign the same priority to different LaunchTemplateOverrides. EC2 implements the priorities on a best-effort basis, but optimizes for capacity first. capacity-optimized-prioritized is supported only if your fleet uses a launch template. Note that if the On-Demand AllocationStrategy is set to prioritized, the same priority is applied when fulfilling On-Demand capacity.
         public let allocationStrategy: SpotAllocationStrategy?
         /// The behavior when a Spot Instance is interrupted. The default is terminate.
         public let instanceInterruptionBehavior: SpotInstanceInterruptionBehavior?
@@ -33994,6 +34176,7 @@ extension EC2 {
                 try validate($0, name: "filterInArns[]", parent: name, max: 1283)
                 try validate($0, name: "filterInArns[]", parent: name, min: 1)
             }
+            try self.filterInArns?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -34473,6 +34656,7 @@ extension EC2 {
         }
 
         public func validate(name: String) throws {
+            try self.targetGroups?.forEach {}
             try self.validate(self.targetGroups, name: "targetGroups", parent: name, max: 5)
             try self.validate(self.targetGroups, name: "targetGroups", parent: name, min: 1)
         }

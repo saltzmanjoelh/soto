@@ -141,6 +141,8 @@ extension Route53Resolver {
 
         public func validate(name: String) throws {
             try self.ipAddress.validate(name: "\(name).ipAddress")
+            try self.ipAddress.forEach {}
+            try self.resolverEndpointId.forEach {}
             try self.validate(self.resolverEndpointId, name: "resolverEndpointId", parent: name, max: 64)
             try self.validate(self.resolverEndpointId, name: "resolverEndpointId", parent: name, min: 1)
         }
@@ -176,8 +178,10 @@ extension Route53Resolver {
         }
 
         public func validate(name: String) throws {
+            try self.resolverQueryLogConfigId.forEach {}
             try self.validate(self.resolverQueryLogConfigId, name: "resolverQueryLogConfigId", parent: name, max: 64)
             try self.validate(self.resolverQueryLogConfigId, name: "resolverQueryLogConfigId", parent: name, min: 1)
+            try self.resourceId.forEach {}
             try self.validate(self.resourceId, name: "resourceId", parent: name, max: 64)
             try self.validate(self.resourceId, name: "resourceId", parent: name, min: 1)
         }
@@ -216,10 +220,13 @@ extension Route53Resolver {
         }
 
         public func validate(name: String) throws {
+            try self.name?.forEach {}
             try self.validate(self.name, name: "name", parent: name, max: 64)
             try self.validate(self.name, name: "name", parent: name, pattern: "(?!^[0-9]+$)([a-zA-Z0-9\\-_' ']+)")
+            try self.resolverRuleId.forEach {}
             try self.validate(self.resolverRuleId, name: "resolverRuleId", parent: name, max: 64)
             try self.validate(self.resolverRuleId, name: "resolverRuleId", parent: name, min: 1)
+            try self.vPCId.forEach {}
             try self.validate(self.vPCId, name: "vPCId", parent: name, max: 64)
             try self.validate(self.vPCId, name: "vPCId", parent: name, min: 1)
         }
@@ -268,22 +275,27 @@ extension Route53Resolver {
         }
 
         public func validate(name: String) throws {
+            try self.creatorRequestId.forEach {}
             try self.validate(self.creatorRequestId, name: "creatorRequestId", parent: name, max: 255)
             try self.validate(self.creatorRequestId, name: "creatorRequestId", parent: name, min: 1)
             try self.ipAddresses.forEach {
                 try $0.validate(name: "\(name).ipAddresses[]")
             }
+            try self.ipAddresses.forEach {}
             try self.validate(self.ipAddresses, name: "ipAddresses", parent: name, max: 10)
             try self.validate(self.ipAddresses, name: "ipAddresses", parent: name, min: 1)
+            try self.name?.forEach {}
             try self.validate(self.name, name: "name", parent: name, max: 64)
             try self.validate(self.name, name: "name", parent: name, pattern: "(?!^[0-9]+$)([a-zA-Z0-9\\-_' ']+)")
             try self.securityGroupIds.forEach {
                 try validate($0, name: "securityGroupIds[]", parent: name, max: 64)
                 try validate($0, name: "securityGroupIds[]", parent: name, min: 1)
             }
+            try self.securityGroupIds.forEach {}
             try self.tags?.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags?.forEach {}
             try self.validate(self.tags, name: "tags", parent: name, max: 200)
         }
 
@@ -328,16 +340,20 @@ extension Route53Resolver {
         }
 
         public func validate(name: String) throws {
+            try self.creatorRequestId.forEach {}
             try self.validate(self.creatorRequestId, name: "creatorRequestId", parent: name, max: 255)
             try self.validate(self.creatorRequestId, name: "creatorRequestId", parent: name, min: 1)
+            try self.destinationArn.forEach {}
             try self.validate(self.destinationArn, name: "destinationArn", parent: name, max: 600)
             try self.validate(self.destinationArn, name: "destinationArn", parent: name, min: 1)
+            try self.name.forEach {}
             try self.validate(self.name, name: "name", parent: name, max: 64)
             try self.validate(self.name, name: "name", parent: name, min: 1)
             try self.validate(self.name, name: "name", parent: name, pattern: "(?!^[0-9]+$)([a-zA-Z0-9\\-_' ']+)")
             try self.tags?.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags?.forEach {}
             try self.validate(self.tags, name: "tags", parent: name, max: 200)
         }
 
@@ -389,21 +405,27 @@ extension Route53Resolver {
         }
 
         public func validate(name: String) throws {
+            try self.creatorRequestId.forEach {}
             try self.validate(self.creatorRequestId, name: "creatorRequestId", parent: name, max: 255)
             try self.validate(self.creatorRequestId, name: "creatorRequestId", parent: name, min: 1)
+            try self.domainName.forEach {}
             try self.validate(self.domainName, name: "domainName", parent: name, max: 256)
             try self.validate(self.domainName, name: "domainName", parent: name, min: 1)
+            try self.name?.forEach {}
             try self.validate(self.name, name: "name", parent: name, max: 64)
             try self.validate(self.name, name: "name", parent: name, pattern: "(?!^[0-9]+$)([a-zA-Z0-9\\-_' ']+)")
+            try self.resolverEndpointId?.forEach {}
             try self.validate(self.resolverEndpointId, name: "resolverEndpointId", parent: name, max: 64)
             try self.validate(self.resolverEndpointId, name: "resolverEndpointId", parent: name, min: 1)
             try self.tags?.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags?.forEach {}
             try self.validate(self.tags, name: "tags", parent: name, max: 200)
             try self.targetIps?.forEach {
                 try $0.validate(name: "\(name).targetIps[]")
             }
+            try self.targetIps?.forEach {}
             try self.validate(self.targetIps, name: "targetIps", parent: name, min: 1)
         }
 
@@ -440,6 +462,7 @@ extension Route53Resolver {
         }
 
         public func validate(name: String) throws {
+            try self.resolverEndpointId.forEach {}
             try self.validate(self.resolverEndpointId, name: "resolverEndpointId", parent: name, max: 64)
             try self.validate(self.resolverEndpointId, name: "resolverEndpointId", parent: name, min: 1)
         }
@@ -471,6 +494,7 @@ extension Route53Resolver {
         }
 
         public func validate(name: String) throws {
+            try self.resolverQueryLogConfigId.forEach {}
             try self.validate(self.resolverQueryLogConfigId, name: "resolverQueryLogConfigId", parent: name, max: 64)
             try self.validate(self.resolverQueryLogConfigId, name: "resolverQueryLogConfigId", parent: name, min: 1)
         }
@@ -502,6 +526,7 @@ extension Route53Resolver {
         }
 
         public func validate(name: String) throws {
+            try self.resolverRuleId.forEach {}
             try self.validate(self.resolverRuleId, name: "resolverRuleId", parent: name, max: 64)
             try self.validate(self.resolverRuleId, name: "resolverRuleId", parent: name, min: 1)
         }
@@ -537,6 +562,8 @@ extension Route53Resolver {
 
         public func validate(name: String) throws {
             try self.ipAddress.validate(name: "\(name).ipAddress")
+            try self.ipAddress.forEach {}
+            try self.resolverEndpointId.forEach {}
             try self.validate(self.resolverEndpointId, name: "resolverEndpointId", parent: name, max: 64)
             try self.validate(self.resolverEndpointId, name: "resolverEndpointId", parent: name, min: 1)
         }
@@ -572,8 +599,10 @@ extension Route53Resolver {
         }
 
         public func validate(name: String) throws {
+            try self.resolverQueryLogConfigId.forEach {}
             try self.validate(self.resolverQueryLogConfigId, name: "resolverQueryLogConfigId", parent: name, max: 64)
             try self.validate(self.resolverQueryLogConfigId, name: "resolverQueryLogConfigId", parent: name, min: 1)
+            try self.resourceId.forEach {}
             try self.validate(self.resourceId, name: "resourceId", parent: name, max: 64)
             try self.validate(self.resourceId, name: "resourceId", parent: name, min: 1)
         }
@@ -609,8 +638,10 @@ extension Route53Resolver {
         }
 
         public func validate(name: String) throws {
+            try self.resolverRuleId.forEach {}
             try self.validate(self.resolverRuleId, name: "resolverRuleId", parent: name, max: 64)
             try self.validate(self.resolverRuleId, name: "resolverRuleId", parent: name, min: 1)
+            try self.vPCId.forEach {}
             try self.validate(self.vPCId, name: "vPCId", parent: name, max: 64)
             try self.validate(self.vPCId, name: "vPCId", parent: name, min: 1)
         }
@@ -646,12 +677,14 @@ extension Route53Resolver {
         }
 
         public func validate(name: String) throws {
+            try self.name?.forEach {}
             try self.validate(self.name, name: "name", parent: name, max: 64)
             try self.validate(self.name, name: "name", parent: name, min: 1)
             try self.values?.forEach {
                 try validate($0, name: "values[]", parent: name, max: 600)
                 try validate($0, name: "values[]", parent: name, min: 1)
             }
+            try self.values?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -669,6 +702,7 @@ extension Route53Resolver {
         }
 
         public func validate(name: String) throws {
+            try self.resourceId.forEach {}
             try self.validate(self.resourceId, name: "resourceId", parent: name, max: 64)
             try self.validate(self.resourceId, name: "resourceId", parent: name, min: 1)
         }
@@ -700,6 +734,7 @@ extension Route53Resolver {
         }
 
         public func validate(name: String) throws {
+            try self.resolverEndpointId.forEach {}
             try self.validate(self.resolverEndpointId, name: "resolverEndpointId", parent: name, max: 64)
             try self.validate(self.resolverEndpointId, name: "resolverEndpointId", parent: name, min: 1)
         }
@@ -731,6 +766,7 @@ extension Route53Resolver {
         }
 
         public func validate(name: String) throws {
+            try self.resolverQueryLogConfigAssociationId.forEach {}
             try self.validate(self.resolverQueryLogConfigAssociationId, name: "resolverQueryLogConfigAssociationId", parent: name, max: 64)
             try self.validate(self.resolverQueryLogConfigAssociationId, name: "resolverQueryLogConfigAssociationId", parent: name, min: 1)
         }
@@ -762,6 +798,7 @@ extension Route53Resolver {
         }
 
         public func validate(name: String) throws {
+            try self.arn.forEach {}
             try self.validate(self.arn, name: "arn", parent: name, max: 255)
             try self.validate(self.arn, name: "arn", parent: name, min: 1)
         }
@@ -793,6 +830,7 @@ extension Route53Resolver {
         }
 
         public func validate(name: String) throws {
+            try self.resolverQueryLogConfigId.forEach {}
             try self.validate(self.resolverQueryLogConfigId, name: "resolverQueryLogConfigId", parent: name, max: 64)
             try self.validate(self.resolverQueryLogConfigId, name: "resolverQueryLogConfigId", parent: name, min: 1)
         }
@@ -824,6 +862,7 @@ extension Route53Resolver {
         }
 
         public func validate(name: String) throws {
+            try self.resolverRuleAssociationId.forEach {}
             try self.validate(self.resolverRuleAssociationId, name: "resolverRuleAssociationId", parent: name, max: 64)
             try self.validate(self.resolverRuleAssociationId, name: "resolverRuleAssociationId", parent: name, min: 1)
         }
@@ -855,6 +894,7 @@ extension Route53Resolver {
         }
 
         public func validate(name: String) throws {
+            try self.arn.forEach {}
             try self.validate(self.arn, name: "arn", parent: name, max: 255)
             try self.validate(self.arn, name: "arn", parent: name, min: 1)
         }
@@ -886,6 +926,7 @@ extension Route53Resolver {
         }
 
         public func validate(name: String) throws {
+            try self.resolverRuleId.forEach {}
             try self.validate(self.resolverRuleId, name: "resolverRuleId", parent: name, max: 64)
             try self.validate(self.resolverRuleId, name: "resolverRuleId", parent: name, min: 1)
         }
@@ -920,8 +961,10 @@ extension Route53Resolver {
         }
 
         public func validate(name: String) throws {
+            try self.ip?.forEach {}
             try self.validate(self.ip, name: "ip", parent: name, max: 36)
             try self.validate(self.ip, name: "ip", parent: name, min: 7)
+            try self.subnetId.forEach {}
             try self.validate(self.subnetId, name: "subnetId", parent: name, max: 32)
             try self.validate(self.subnetId, name: "subnetId", parent: name, min: 1)
         }
@@ -984,10 +1027,13 @@ extension Route53Resolver {
         }
 
         public func validate(name: String) throws {
+            try self.ip?.forEach {}
             try self.validate(self.ip, name: "ip", parent: name, max: 36)
             try self.validate(self.ip, name: "ip", parent: name, min: 7)
+            try self.ipId?.forEach {}
             try self.validate(self.ipId, name: "ipId", parent: name, max: 64)
             try self.validate(self.ipId, name: "ipId", parent: name, min: 1)
+            try self.subnetId?.forEach {}
             try self.validate(self.subnetId, name: "subnetId", parent: name, max: 32)
             try self.validate(self.subnetId, name: "subnetId", parent: name, min: 1)
         }
@@ -1017,6 +1063,8 @@ extension Route53Resolver {
             try self.filters?.forEach {
                 try $0.validate(name: "\(name).filters[]")
             }
+            try self.filters?.forEach {}
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 100)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 1)
         }
@@ -1060,8 +1108,10 @@ extension Route53Resolver {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 100)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 1)
+            try self.resolverEndpointId.forEach {}
             try self.validate(self.resolverEndpointId, name: "resolverEndpointId", parent: name, max: 64)
             try self.validate(self.resolverEndpointId, name: "resolverEndpointId", parent: name, min: 1)
         }
@@ -1112,6 +1162,8 @@ extension Route53Resolver {
             try self.filters?.forEach {
                 try $0.validate(name: "\(name).filters[]")
             }
+            try self.filters?.forEach {}
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 100)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 1)
         }
@@ -1168,8 +1220,11 @@ extension Route53Resolver {
             try self.filters?.forEach {
                 try $0.validate(name: "\(name).filters[]")
             }
+            try self.filters?.forEach {}
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 100)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 1)
+            try self.sortBy?.forEach {}
             try self.validate(self.sortBy, name: "sortBy", parent: name, max: 64)
             try self.validate(self.sortBy, name: "sortBy", parent: name, min: 1)
         }
@@ -1232,8 +1287,11 @@ extension Route53Resolver {
             try self.filters?.forEach {
                 try $0.validate(name: "\(name).filters[]")
             }
+            try self.filters?.forEach {}
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 100)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 1)
+            try self.sortBy?.forEach {}
             try self.validate(self.sortBy, name: "sortBy", parent: name, max: 64)
             try self.validate(self.sortBy, name: "sortBy", parent: name, min: 1)
         }
@@ -1290,6 +1348,8 @@ extension Route53Resolver {
             try self.filters?.forEach {
                 try $0.validate(name: "\(name).filters[]")
             }
+            try self.filters?.forEach {}
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 100)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 1)
         }
@@ -1340,6 +1400,8 @@ extension Route53Resolver {
             try self.filters?.forEach {
                 try $0.validate(name: "\(name).filters[]")
             }
+            try self.filters?.forEach {}
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 100)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 1)
         }
@@ -1387,8 +1449,10 @@ extension Route53Resolver {
         }
 
         public func validate(name: String) throws {
+            try self.maxResults?.forEach {}
             try self.validate(self.maxResults, name: "maxResults", parent: name, max: 100)
             try self.validate(self.maxResults, name: "maxResults", parent: name, min: 1)
+            try self.resourceArn.forEach {}
             try self.validate(self.resourceArn, name: "resourceArn", parent: name, max: 255)
             try self.validate(self.resourceArn, name: "resourceArn", parent: name, min: 1)
         }
@@ -1429,8 +1493,10 @@ extension Route53Resolver {
         }
 
         public func validate(name: String) throws {
+            try self.arn.forEach {}
             try self.validate(self.arn, name: "arn", parent: name, max: 255)
             try self.validate(self.arn, name: "arn", parent: name, min: 1)
+            try self.resolverQueryLogConfigPolicy.forEach {}
             try self.validate(self.resolverQueryLogConfigPolicy, name: "resolverQueryLogConfigPolicy", parent: name, max: 5000)
         }
 
@@ -1465,8 +1531,10 @@ extension Route53Resolver {
         }
 
         public func validate(name: String) throws {
+            try self.arn.forEach {}
             try self.validate(self.arn, name: "arn", parent: name, max: 255)
             try self.validate(self.arn, name: "arn", parent: name, min: 1)
+            try self.resolverRulePolicy.forEach {}
             try self.validate(self.resolverRulePolicy, name: "resolverRulePolicy", parent: name, max: 5000)
         }
 
@@ -1770,13 +1838,16 @@ extension Route53Resolver {
         }
 
         public func validate(name: String) throws {
+            try self.name?.forEach {}
             try self.validate(self.name, name: "name", parent: name, max: 64)
             try self.validate(self.name, name: "name", parent: name, pattern: "(?!^[0-9]+$)([a-zA-Z0-9\\-_' ']+)")
+            try self.resolverEndpointId?.forEach {}
             try self.validate(self.resolverEndpointId, name: "resolverEndpointId", parent: name, max: 64)
             try self.validate(self.resolverEndpointId, name: "resolverEndpointId", parent: name, min: 1)
             try self.targetIps?.forEach {
                 try $0.validate(name: "\(name).targetIps[]")
             }
+            try self.targetIps?.forEach {}
             try self.validate(self.targetIps, name: "targetIps", parent: name, min: 1)
         }
 
@@ -1799,8 +1870,10 @@ extension Route53Resolver {
         }
 
         public func validate(name: String) throws {
+            try self.key.forEach {}
             try self.validate(self.key, name: "key", parent: name, max: 128)
             try self.validate(self.key, name: "key", parent: name, min: 1)
+            try self.value.forEach {}
             try self.validate(self.value, name: "value", parent: name, max: 256)
             try self.validate(self.value, name: "value", parent: name, min: 0)
         }
@@ -1823,11 +1896,13 @@ extension Route53Resolver {
         }
 
         public func validate(name: String) throws {
+            try self.resourceArn.forEach {}
             try self.validate(self.resourceArn, name: "resourceArn", parent: name, max: 255)
             try self.validate(self.resourceArn, name: "resourceArn", parent: name, min: 1)
             try self.tags.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags.forEach {}
             try self.validate(self.tags, name: "tags", parent: name, max: 200)
         }
 
@@ -1853,8 +1928,10 @@ extension Route53Resolver {
         }
 
         public func validate(name: String) throws {
+            try self.ip.forEach {}
             try self.validate(self.ip, name: "ip", parent: name, max: 36)
             try self.validate(self.ip, name: "ip", parent: name, min: 7)
+            try self.port?.forEach {}
             try self.validate(self.port, name: "port", parent: name, max: 65535)
             try self.validate(self.port, name: "port", parent: name, min: 0)
         }
@@ -1877,12 +1954,14 @@ extension Route53Resolver {
         }
 
         public func validate(name: String) throws {
+            try self.resourceArn.forEach {}
             try self.validate(self.resourceArn, name: "resourceArn", parent: name, max: 255)
             try self.validate(self.resourceArn, name: "resourceArn", parent: name, min: 1)
             try self.tagKeys.forEach {
                 try validate($0, name: "tagKeys[]", parent: name, max: 128)
                 try validate($0, name: "tagKeys[]", parent: name, min: 1)
             }
+            try self.tagKeys.forEach {}
             try self.validate(self.tagKeys, name: "tagKeys", parent: name, max: 200)
         }
 
@@ -1908,6 +1987,7 @@ extension Route53Resolver {
         }
 
         public func validate(name: String) throws {
+            try self.resourceId.forEach {}
             try self.validate(self.resourceId, name: "resourceId", parent: name, max: 64)
             try self.validate(self.resourceId, name: "resourceId", parent: name, min: 1)
         }
@@ -1943,8 +2023,10 @@ extension Route53Resolver {
         }
 
         public func validate(name: String) throws {
+            try self.name?.forEach {}
             try self.validate(self.name, name: "name", parent: name, max: 64)
             try self.validate(self.name, name: "name", parent: name, pattern: "(?!^[0-9]+$)([a-zA-Z0-9\\-_' ']+)")
+            try self.resolverEndpointId.forEach {}
             try self.validate(self.resolverEndpointId, name: "resolverEndpointId", parent: name, max: 64)
             try self.validate(self.resolverEndpointId, name: "resolverEndpointId", parent: name, min: 1)
         }
@@ -1981,6 +2063,8 @@ extension Route53Resolver {
 
         public func validate(name: String) throws {
             try self.config.validate(name: "\(name).config")
+            try self.config.forEach {}
+            try self.resolverRuleId.forEach {}
             try self.validate(self.resolverRuleId, name: "resolverRuleId", parent: name, max: 64)
             try self.validate(self.resolverRuleId, name: "resolverRuleId", parent: name, min: 1)
         }

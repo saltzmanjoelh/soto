@@ -161,7 +161,9 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.reservedNodeId.forEach {}
             try self.validate(self.reservedNodeId, name: "reservedNodeId", parent: name, max: 2_147_483_647)
+            try self.targetReservedNodeOfferingId.forEach {}
             try self.validate(self.targetReservedNodeOfferingId, name: "targetReservedNodeOfferingId", parent: name, max: 2_147_483_647)
         }
 
@@ -267,9 +269,13 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.cidrip?.forEach {}
             try self.validate(self.cidrip, name: "cidrip", parent: name, max: 2_147_483_647)
+            try self.clusterSecurityGroupName.forEach {}
             try self.validate(self.clusterSecurityGroupName, name: "clusterSecurityGroupName", parent: name, max: 2_147_483_647)
+            try self.eC2SecurityGroupName?.forEach {}
             try self.validate(self.eC2SecurityGroupName, name: "eC2SecurityGroupName", parent: name, max: 2_147_483_647)
+            try self.eC2SecurityGroupOwnerId?.forEach {}
             try self.validate(self.eC2SecurityGroupOwnerId, name: "eC2SecurityGroupOwnerId", parent: name, max: 2_147_483_647)
         }
 
@@ -308,8 +314,11 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.accountWithRestoreAccess.forEach {}
             try self.validate(self.accountWithRestoreAccess, name: "accountWithRestoreAccess", parent: name, max: 2_147_483_647)
+            try self.snapshotClusterIdentifier?.forEach {}
             try self.validate(self.snapshotClusterIdentifier, name: "snapshotClusterIdentifier", parent: name, max: 2_147_483_647)
+            try self.snapshotIdentifier.forEach {}
             try self.validate(self.snapshotIdentifier, name: "snapshotIdentifier", parent: name, max: 2_147_483_647)
         }
 
@@ -366,6 +375,7 @@ extension Redshift {
             try self.identifiers.forEach {
                 try $0.validate(name: "\(name).identifiers[]")
             }
+            try self.identifiers.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -416,6 +426,7 @@ extension Redshift {
             try self.snapshotIdentifierList.forEach {
                 try validate($0, name: "snapshotIdentifierList[]", parent: name, max: 2_147_483_647)
             }
+            try self.snapshotIdentifierList.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -456,6 +467,7 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.clusterIdentifier.forEach {}
             try self.validate(self.clusterIdentifier, name: "clusterIdentifier", parent: name, max: 2_147_483_647)
         }
 
@@ -570,13 +582,15 @@ extension Redshift {
         /// The list of tags for the cluster.
         @OptionalCustomCoding<ArrayCoder<_TagsEncoding, Tag>>
         public var tags: [Tag]?
+        /// The total storage capacity of the cluster in megabytes.
+        public let totalStorageCapacityInMegaBytes: Int64?
         /// The identifier of the VPC the cluster is in, if the cluster is in a VPC.
         public let vpcId: String?
         /// A list of Amazon Virtual Private Cloud (Amazon VPC) security groups that are associated with the cluster. This parameter is returned only if the cluster is in a VPC.
         @OptionalCustomCoding<ArrayCoder<_VpcSecurityGroupsEncoding, VpcSecurityGroupMembership>>
         public var vpcSecurityGroups: [VpcSecurityGroupMembership]?
 
-        public init(allowVersionUpgrade: Bool? = nil, automatedSnapshotRetentionPeriod: Int? = nil, availabilityZone: String? = nil, availabilityZoneRelocationStatus: String? = nil, clusterAvailabilityStatus: String? = nil, clusterCreateTime: Date? = nil, clusterIdentifier: String? = nil, clusterNamespaceArn: String? = nil, clusterNodes: [ClusterNode]? = nil, clusterParameterGroups: [ClusterParameterGroupStatus]? = nil, clusterPublicKey: String? = nil, clusterRevisionNumber: String? = nil, clusterSecurityGroups: [ClusterSecurityGroupMembership]? = nil, clusterSnapshotCopyStatus: ClusterSnapshotCopyStatus? = nil, clusterStatus: String? = nil, clusterSubnetGroupName: String? = nil, clusterVersion: String? = nil, dataTransferProgress: DataTransferProgress? = nil, dBName: String? = nil, deferredMaintenanceWindows: [DeferredMaintenanceWindow]? = nil, elasticIpStatus: ElasticIpStatus? = nil, elasticResizeNumberOfNodeOptions: String? = nil, encrypted: Bool? = nil, endpoint: Endpoint? = nil, enhancedVpcRouting: Bool? = nil, expectedNextSnapshotScheduleTime: Date? = nil, expectedNextSnapshotScheduleTimeStatus: String? = nil, hsmStatus: HsmStatus? = nil, iamRoles: [ClusterIamRole]? = nil, kmsKeyId: String? = nil, maintenanceTrackName: String? = nil, manualSnapshotRetentionPeriod: Int? = nil, masterUsername: String? = nil, modifyStatus: String? = nil, nextMaintenanceWindowStartTime: Date? = nil, nodeType: String? = nil, numberOfNodes: Int? = nil, pendingActions: [String]? = nil, pendingModifiedValues: PendingModifiedValues? = nil, preferredMaintenanceWindow: String? = nil, publiclyAccessible: Bool? = nil, resizeInfo: ResizeInfo? = nil, restoreStatus: RestoreStatus? = nil, snapshotScheduleIdentifier: String? = nil, snapshotScheduleState: ScheduleState? = nil, tags: [Tag]? = nil, vpcId: String? = nil, vpcSecurityGroups: [VpcSecurityGroupMembership]? = nil) {
+        public init(allowVersionUpgrade: Bool? = nil, automatedSnapshotRetentionPeriod: Int? = nil, availabilityZone: String? = nil, availabilityZoneRelocationStatus: String? = nil, clusterAvailabilityStatus: String? = nil, clusterCreateTime: Date? = nil, clusterIdentifier: String? = nil, clusterNamespaceArn: String? = nil, clusterNodes: [ClusterNode]? = nil, clusterParameterGroups: [ClusterParameterGroupStatus]? = nil, clusterPublicKey: String? = nil, clusterRevisionNumber: String? = nil, clusterSecurityGroups: [ClusterSecurityGroupMembership]? = nil, clusterSnapshotCopyStatus: ClusterSnapshotCopyStatus? = nil, clusterStatus: String? = nil, clusterSubnetGroupName: String? = nil, clusterVersion: String? = nil, dataTransferProgress: DataTransferProgress? = nil, dBName: String? = nil, deferredMaintenanceWindows: [DeferredMaintenanceWindow]? = nil, elasticIpStatus: ElasticIpStatus? = nil, elasticResizeNumberOfNodeOptions: String? = nil, encrypted: Bool? = nil, endpoint: Endpoint? = nil, enhancedVpcRouting: Bool? = nil, expectedNextSnapshotScheduleTime: Date? = nil, expectedNextSnapshotScheduleTimeStatus: String? = nil, hsmStatus: HsmStatus? = nil, iamRoles: [ClusterIamRole]? = nil, kmsKeyId: String? = nil, maintenanceTrackName: String? = nil, manualSnapshotRetentionPeriod: Int? = nil, masterUsername: String? = nil, modifyStatus: String? = nil, nextMaintenanceWindowStartTime: Date? = nil, nodeType: String? = nil, numberOfNodes: Int? = nil, pendingActions: [String]? = nil, pendingModifiedValues: PendingModifiedValues? = nil, preferredMaintenanceWindow: String? = nil, publiclyAccessible: Bool? = nil, resizeInfo: ResizeInfo? = nil, restoreStatus: RestoreStatus? = nil, snapshotScheduleIdentifier: String? = nil, snapshotScheduleState: ScheduleState? = nil, tags: [Tag]? = nil, totalStorageCapacityInMegaBytes: Int64? = nil, vpcId: String? = nil, vpcSecurityGroups: [VpcSecurityGroupMembership]? = nil) {
             self.allowVersionUpgrade = allowVersionUpgrade
             self.automatedSnapshotRetentionPeriod = automatedSnapshotRetentionPeriod
             self.availabilityZone = availabilityZone
@@ -623,6 +637,7 @@ extension Redshift {
             self.snapshotScheduleIdentifier = snapshotScheduleIdentifier
             self.snapshotScheduleState = snapshotScheduleState
             self.tags = tags
+            self.totalStorageCapacityInMegaBytes = totalStorageCapacityInMegaBytes
             self.vpcId = vpcId
             self.vpcSecurityGroups = vpcSecurityGroups
         }
@@ -674,6 +689,7 @@ extension Redshift {
             case snapshotScheduleIdentifier = "SnapshotScheduleIdentifier"
             case snapshotScheduleState = "SnapshotScheduleState"
             case tags = "Tags"
+            case totalStorageCapacityInMegaBytes = "TotalStorageCapacityInMegaBytes"
             case vpcId = "VpcId"
             case vpcSecurityGroups = "VpcSecurityGroups"
         }
@@ -1164,8 +1180,11 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.sourceSnapshotClusterIdentifier?.forEach {}
             try self.validate(self.sourceSnapshotClusterIdentifier, name: "sourceSnapshotClusterIdentifier", parent: name, max: 2_147_483_647)
+            try self.sourceSnapshotIdentifier.forEach {}
             try self.validate(self.sourceSnapshotIdentifier, name: "sourceSnapshotIdentifier", parent: name, max: 2_147_483_647)
+            try self.targetSnapshotIdentifier.forEach {}
             try self.validate(self.targetSnapshotIdentifier, name: "targetSnapshotIdentifier", parent: name, max: 2_147_483_647)
         }
 
@@ -1199,7 +1218,7 @@ extension Redshift {
         public let additionalInfo: String?
         /// If true, major version upgrades can be applied during the maintenance window to the Amazon Redshift engine that is running on the cluster. When a new major version of the Amazon Redshift engine is released, you can request that the service automatically apply upgrades during the maintenance window to the Amazon Redshift engine that is running on your cluster. Default: true
         public let allowVersionUpgrade: Bool?
-        /// The number of days that automated snapshots are retained. If the value is 0, automated snapshots are disabled. Even if automated snapshots are disabled, you can still create manual snapshots when you want with CreateClusterSnapshot.  Default: 1  Constraints: Must be a value from 0 to 35.
+        /// The number of days that automated snapshots are retained. If the value is 0, automated snapshots are disabled. Even if automated snapshots are disabled, you can still create manual snapshots when you want with CreateClusterSnapshot.  You can't disable automated snapshots for RA3 node types. Set the automated retention period from 1-35 days. Default: 1  Constraints: Must be a value from 0 to 35.
         public let automatedSnapshotRetentionPeriod: Int?
         /// The EC2 Availability Zone (AZ) in which you want Amazon Redshift to provision the cluster. For example, if you have several EC2 instances running in a specific Availability Zone, then you might want the cluster to be provisioned in the same zone in order to decrease network latency. Default: A random, system-chosen Availability Zone in the region that is specified by the endpoint. Example: us-east-2d  Constraint: The specified Availability Zone must be in the same region as the current endpoint.
         public let availabilityZone: String?
@@ -1297,36 +1316,58 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.additionalInfo?.forEach {}
             try self.validate(self.additionalInfo, name: "additionalInfo", parent: name, max: 2_147_483_647)
+            try self.availabilityZone?.forEach {}
             try self.validate(self.availabilityZone, name: "availabilityZone", parent: name, max: 2_147_483_647)
+            try self.clusterIdentifier.forEach {}
             try self.validate(self.clusterIdentifier, name: "clusterIdentifier", parent: name, max: 2_147_483_647)
+            try self.clusterParameterGroupName?.forEach {}
             try self.validate(self.clusterParameterGroupName, name: "clusterParameterGroupName", parent: name, max: 2_147_483_647)
             try self.clusterSecurityGroups?.forEach {
                 try validate($0, name: "clusterSecurityGroups[]", parent: name, max: 2_147_483_647)
             }
+            try self.clusterSecurityGroups?.forEach {}
+            try self.clusterSubnetGroupName?.forEach {}
             try self.validate(self.clusterSubnetGroupName, name: "clusterSubnetGroupName", parent: name, max: 2_147_483_647)
+            try self.clusterType?.forEach {}
             try self.validate(self.clusterType, name: "clusterType", parent: name, max: 2_147_483_647)
+            try self.clusterVersion?.forEach {}
             try self.validate(self.clusterVersion, name: "clusterVersion", parent: name, max: 2_147_483_647)
+            try self.dBName?.forEach {}
             try self.validate(self.dBName, name: "dBName", parent: name, max: 2_147_483_647)
+            try self.elasticIp?.forEach {}
             try self.validate(self.elasticIp, name: "elasticIp", parent: name, max: 2_147_483_647)
+            try self.hsmClientCertificateIdentifier?.forEach {}
             try self.validate(self.hsmClientCertificateIdentifier, name: "hsmClientCertificateIdentifier", parent: name, max: 2_147_483_647)
+            try self.hsmConfigurationIdentifier?.forEach {}
             try self.validate(self.hsmConfigurationIdentifier, name: "hsmConfigurationIdentifier", parent: name, max: 2_147_483_647)
             try self.iamRoles?.forEach {
                 try validate($0, name: "iamRoles[]", parent: name, max: 2_147_483_647)
             }
+            try self.iamRoles?.forEach {}
+            try self.kmsKeyId?.forEach {}
             try self.validate(self.kmsKeyId, name: "kmsKeyId", parent: name, max: 2_147_483_647)
+            try self.maintenanceTrackName?.forEach {}
             try self.validate(self.maintenanceTrackName, name: "maintenanceTrackName", parent: name, max: 2_147_483_647)
+            try self.masterUsername.forEach {}
             try self.validate(self.masterUsername, name: "masterUsername", parent: name, max: 2_147_483_647)
+            try self.masterUserPassword.forEach {}
             try self.validate(self.masterUserPassword, name: "masterUserPassword", parent: name, max: 2_147_483_647)
+            try self.nodeType.forEach {}
             try self.validate(self.nodeType, name: "nodeType", parent: name, max: 2_147_483_647)
+            try self.preferredMaintenanceWindow?.forEach {}
             try self.validate(self.preferredMaintenanceWindow, name: "preferredMaintenanceWindow", parent: name, max: 2_147_483_647)
+            try self.snapshotScheduleIdentifier?.forEach {}
             try self.validate(self.snapshotScheduleIdentifier, name: "snapshotScheduleIdentifier", parent: name, max: 2_147_483_647)
             try self.tags?.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags?.forEach {}
             try self.vpcSecurityGroupIds?.forEach {
                 try validate($0, name: "vpcSecurityGroupIds[]", parent: name, max: 2_147_483_647)
             }
+            try self.vpcSecurityGroupIds?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -1385,12 +1426,16 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.description.forEach {}
             try self.validate(self.description, name: "description", parent: name, max: 2_147_483_647)
+            try self.parameterGroupFamily.forEach {}
             try self.validate(self.parameterGroupFamily, name: "parameterGroupFamily", parent: name, max: 2_147_483_647)
+            try self.parameterGroupName.forEach {}
             try self.validate(self.parameterGroupName, name: "parameterGroupName", parent: name, max: 2_147_483_647)
             try self.tags?.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -1443,11 +1488,14 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.clusterSecurityGroupName.forEach {}
             try self.validate(self.clusterSecurityGroupName, name: "clusterSecurityGroupName", parent: name, max: 2_147_483_647)
+            try self.description.forEach {}
             try self.validate(self.description, name: "description", parent: name, max: 2_147_483_647)
             try self.tags?.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -1490,11 +1538,14 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.clusterIdentifier.forEach {}
             try self.validate(self.clusterIdentifier, name: "clusterIdentifier", parent: name, max: 2_147_483_647)
+            try self.snapshotIdentifier.forEach {}
             try self.validate(self.snapshotIdentifier, name: "snapshotIdentifier", parent: name, max: 2_147_483_647)
             try self.tags?.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -1540,14 +1591,18 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.clusterSubnetGroupName.forEach {}
             try self.validate(self.clusterSubnetGroupName, name: "clusterSubnetGroupName", parent: name, max: 2_147_483_647)
+            try self.description.forEach {}
             try self.validate(self.description, name: "description", parent: name, max: 2_147_483_647)
             try self.subnetIds.forEach {
                 try validate($0, name: "subnetIds[]", parent: name, max: 2_147_483_647)
             }
+            try self.subnetIds.forEach {}
             try self.tags?.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -1610,16 +1665,23 @@ extension Redshift {
             try self.eventCategories?.forEach {
                 try validate($0, name: "eventCategories[]", parent: name, max: 2_147_483_647)
             }
+            try self.eventCategories?.forEach {}
+            try self.severity?.forEach {}
             try self.validate(self.severity, name: "severity", parent: name, max: 2_147_483_647)
+            try self.snsTopicArn.forEach {}
             try self.validate(self.snsTopicArn, name: "snsTopicArn", parent: name, max: 2_147_483_647)
             try self.sourceIds?.forEach {
                 try validate($0, name: "sourceIds[]", parent: name, max: 2_147_483_647)
             }
+            try self.sourceIds?.forEach {}
+            try self.sourceType?.forEach {}
             try self.validate(self.sourceType, name: "sourceType", parent: name, max: 2_147_483_647)
+            try self.subscriptionName.forEach {}
             try self.validate(self.subscriptionName, name: "subscriptionName", parent: name, max: 2_147_483_647)
             try self.tags?.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -1661,10 +1723,12 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.hsmClientCertificateIdentifier.forEach {}
             try self.validate(self.hsmClientCertificateIdentifier, name: "hsmClientCertificateIdentifier", parent: name, max: 2_147_483_647)
             try self.tags?.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -1715,15 +1779,22 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.description.forEach {}
             try self.validate(self.description, name: "description", parent: name, max: 2_147_483_647)
+            try self.hsmConfigurationIdentifier.forEach {}
             try self.validate(self.hsmConfigurationIdentifier, name: "hsmConfigurationIdentifier", parent: name, max: 2_147_483_647)
+            try self.hsmIpAddress.forEach {}
             try self.validate(self.hsmIpAddress, name: "hsmIpAddress", parent: name, max: 2_147_483_647)
+            try self.hsmPartitionName.forEach {}
             try self.validate(self.hsmPartitionName, name: "hsmPartitionName", parent: name, max: 2_147_483_647)
+            try self.hsmPartitionPassword.forEach {}
             try self.validate(self.hsmPartitionPassword, name: "hsmPartitionPassword", parent: name, max: 2_147_483_647)
+            try self.hsmServerPublicCertificate.forEach {}
             try self.validate(self.hsmServerPublicCertificate, name: "hsmServerPublicCertificate", parent: name, max: 2_147_483_647)
             try self.tags?.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -1779,11 +1850,16 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.iamRole.forEach {}
             try self.validate(self.iamRole, name: "iamRole", parent: name, max: 2_147_483_647)
+            try self.schedule.forEach {}
             try self.validate(self.schedule, name: "schedule", parent: name, max: 2_147_483_647)
+            try self.scheduledActionDescription?.forEach {}
             try self.validate(self.scheduledActionDescription, name: "scheduledActionDescription", parent: name, max: 2_147_483_647)
+            try self.scheduledActionName.forEach {}
             try self.validate(self.scheduledActionName, name: "scheduledActionName", parent: name, max: 2_147_483_647)
             try self.targetAction.validate(name: "\(name).targetAction")
+            try self.targetAction.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -1816,11 +1892,14 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.kmsKeyId?.forEach {}
             try self.validate(self.kmsKeyId, name: "kmsKeyId", parent: name, max: 2_147_483_647)
+            try self.snapshotCopyGrantName.forEach {}
             try self.validate(self.snapshotCopyGrantName, name: "snapshotCopyGrantName", parent: name, max: 2_147_483_647)
             try self.tags?.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -1872,11 +1951,15 @@ extension Redshift {
             try self.scheduleDefinitions?.forEach {
                 try validate($0, name: "scheduleDefinitions[]", parent: name, max: 2_147_483_647)
             }
+            try self.scheduleDefinitions?.forEach {}
+            try self.scheduleDescription?.forEach {}
             try self.validate(self.scheduleDescription, name: "scheduleDescription", parent: name, max: 2_147_483_647)
+            try self.scheduleIdentifier?.forEach {}
             try self.validate(self.scheduleIdentifier, name: "scheduleIdentifier", parent: name, max: 2_147_483_647)
             try self.tags?.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -1904,10 +1987,12 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.resourceName.forEach {}
             try self.validate(self.resourceName, name: "resourceName", parent: name, max: 2_147_483_647)
             try self.tags.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -1946,10 +2031,12 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.clusterIdentifier.forEach {}
             try self.validate(self.clusterIdentifier, name: "clusterIdentifier", parent: name, max: 2_147_483_647)
             try self.tags?.forEach {
                 try $0.validate(name: "\(name).tags[]")
             }
+            try self.tags?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -2076,7 +2163,9 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.clusterIdentifier.forEach {}
             try self.validate(self.clusterIdentifier, name: "clusterIdentifier", parent: name, max: 2_147_483_647)
+            try self.finalClusterSnapshotIdentifier?.forEach {}
             try self.validate(self.finalClusterSnapshotIdentifier, name: "finalClusterSnapshotIdentifier", parent: name, max: 2_147_483_647)
         }
 
@@ -2097,6 +2186,7 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.parameterGroupName.forEach {}
             try self.validate(self.parameterGroupName, name: "parameterGroupName", parent: name, max: 2_147_483_647)
         }
 
@@ -2126,6 +2216,7 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.clusterSecurityGroupName.forEach {}
             try self.validate(self.clusterSecurityGroupName, name: "clusterSecurityGroupName", parent: name, max: 2_147_483_647)
         }
 
@@ -2146,7 +2237,9 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.snapshotClusterIdentifier?.forEach {}
             try self.validate(self.snapshotClusterIdentifier, name: "snapshotClusterIdentifier", parent: name, max: 2_147_483_647)
+            try self.snapshotIdentifier.forEach {}
             try self.validate(self.snapshotIdentifier, name: "snapshotIdentifier", parent: name, max: 2_147_483_647)
         }
 
@@ -2177,6 +2270,7 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.clusterSubnetGroupName.forEach {}
             try self.validate(self.clusterSubnetGroupName, name: "clusterSubnetGroupName", parent: name, max: 2_147_483_647)
         }
 
@@ -2194,6 +2288,7 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.subscriptionName.forEach {}
             try self.validate(self.subscriptionName, name: "subscriptionName", parent: name, max: 2_147_483_647)
         }
 
@@ -2211,6 +2306,7 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.hsmClientCertificateIdentifier.forEach {}
             try self.validate(self.hsmClientCertificateIdentifier, name: "hsmClientCertificateIdentifier", parent: name, max: 2_147_483_647)
         }
 
@@ -2228,6 +2324,7 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.hsmConfigurationIdentifier.forEach {}
             try self.validate(self.hsmConfigurationIdentifier, name: "hsmConfigurationIdentifier", parent: name, max: 2_147_483_647)
         }
 
@@ -2245,6 +2342,7 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.scheduledActionName.forEach {}
             try self.validate(self.scheduledActionName, name: "scheduledActionName", parent: name, max: 2_147_483_647)
         }
 
@@ -2262,6 +2360,7 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.snapshotCopyGrantName.forEach {}
             try self.validate(self.snapshotCopyGrantName, name: "snapshotCopyGrantName", parent: name, max: 2_147_483_647)
         }
 
@@ -2279,6 +2378,7 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.scheduleIdentifier.forEach {}
             try self.validate(self.scheduleIdentifier, name: "scheduleIdentifier", parent: name, max: 2_147_483_647)
         }
 
@@ -2302,10 +2402,12 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.resourceName.forEach {}
             try self.validate(self.resourceName, name: "resourceName", parent: name, max: 2_147_483_647)
             try self.tagKeys.forEach {
                 try validate($0, name: "tagKeys[]", parent: name, max: 2_147_483_647)
             }
+            try self.tagKeys.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -2323,6 +2425,7 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.usageLimitId.forEach {}
             try self.validate(self.usageLimitId, name: "usageLimitId", parent: name, max: 2_147_483_647)
         }
 
@@ -2346,6 +2449,7 @@ extension Redshift {
             try self.attributeNames?.forEach {
                 try validate($0, name: "attributeNames[]", parent: name, max: 2_147_483_647)
             }
+            try self.attributeNames?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -2368,7 +2472,9 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.clusterIdentifier?.forEach {}
             try self.validate(self.clusterIdentifier, name: "clusterIdentifier", parent: name, max: 2_147_483_647)
+            try self.marker?.forEach {}
             try self.validate(self.marker, name: "marker", parent: name, max: 2_147_483_647)
         }
 
@@ -2405,14 +2511,18 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.marker?.forEach {}
             try self.validate(self.marker, name: "marker", parent: name, max: 2_147_483_647)
+            try self.parameterGroupName?.forEach {}
             try self.validate(self.parameterGroupName, name: "parameterGroupName", parent: name, max: 2_147_483_647)
             try self.tagKeys?.forEach {
                 try validate($0, name: "tagKeys[]", parent: name, max: 2_147_483_647)
             }
+            try self.tagKeys?.forEach {}
             try self.tagValues?.forEach {
                 try validate($0, name: "tagValues[]", parent: name, max: 2_147_483_647)
             }
+            try self.tagValues?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -2442,8 +2552,11 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.marker?.forEach {}
             try self.validate(self.marker, name: "marker", parent: name, max: 2_147_483_647)
+            try self.parameterGroupName.forEach {}
             try self.validate(self.parameterGroupName, name: "parameterGroupName", parent: name, max: 2_147_483_647)
+            try self.source?.forEach {}
             try self.validate(self.source, name: "source", parent: name, max: 2_147_483_647)
         }
 
@@ -2481,14 +2594,18 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.clusterSecurityGroupName?.forEach {}
             try self.validate(self.clusterSecurityGroupName, name: "clusterSecurityGroupName", parent: name, max: 2_147_483_647)
+            try self.marker?.forEach {}
             try self.validate(self.marker, name: "marker", parent: name, max: 2_147_483_647)
             try self.tagKeys?.forEach {
                 try validate($0, name: "tagKeys[]", parent: name, max: 2_147_483_647)
             }
+            try self.tagKeys?.forEach {}
             try self.tagValues?.forEach {
                 try validate($0, name: "tagValues[]", parent: name, max: 2_147_483_647)
             }
+            try self.tagValues?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -2548,17 +2665,24 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.clusterIdentifier?.forEach {}
             try self.validate(self.clusterIdentifier, name: "clusterIdentifier", parent: name, max: 2_147_483_647)
+            try self.marker?.forEach {}
             try self.validate(self.marker, name: "marker", parent: name, max: 2_147_483_647)
+            try self.ownerAccount?.forEach {}
             try self.validate(self.ownerAccount, name: "ownerAccount", parent: name, max: 2_147_483_647)
+            try self.snapshotIdentifier?.forEach {}
             try self.validate(self.snapshotIdentifier, name: "snapshotIdentifier", parent: name, max: 2_147_483_647)
+            try self.snapshotType?.forEach {}
             try self.validate(self.snapshotType, name: "snapshotType", parent: name, max: 2_147_483_647)
             try self.tagKeys?.forEach {
                 try validate($0, name: "tagKeys[]", parent: name, max: 2_147_483_647)
             }
+            try self.tagKeys?.forEach {}
             try self.tagValues?.forEach {
                 try validate($0, name: "tagValues[]", parent: name, max: 2_147_483_647)
             }
+            try self.tagValues?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -2603,14 +2727,18 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.clusterSubnetGroupName?.forEach {}
             try self.validate(self.clusterSubnetGroupName, name: "clusterSubnetGroupName", parent: name, max: 2_147_483_647)
+            try self.marker?.forEach {}
             try self.validate(self.marker, name: "marker", parent: name, max: 2_147_483_647)
             try self.tagKeys?.forEach {
                 try validate($0, name: "tagKeys[]", parent: name, max: 2_147_483_647)
             }
+            try self.tagKeys?.forEach {}
             try self.tagValues?.forEach {
                 try validate($0, name: "tagValues[]", parent: name, max: 2_147_483_647)
             }
+            try self.tagValues?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -2637,7 +2765,9 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.maintenanceTrackName?.forEach {}
             try self.validate(self.maintenanceTrackName, name: "maintenanceTrackName", parent: name, max: 2_147_483_647)
+            try self.marker?.forEach {}
             try self.validate(self.marker, name: "marker", parent: name, max: 2_147_483_647)
         }
 
@@ -2666,8 +2796,11 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.clusterParameterGroupFamily?.forEach {}
             try self.validate(self.clusterParameterGroupFamily, name: "clusterParameterGroupFamily", parent: name, max: 2_147_483_647)
+            try self.clusterVersion?.forEach {}
             try self.validate(self.clusterVersion, name: "clusterVersion", parent: name, max: 2_147_483_647)
+            try self.marker?.forEach {}
             try self.validate(self.marker, name: "marker", parent: name, max: 2_147_483_647)
         }
 
@@ -2705,14 +2838,18 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.clusterIdentifier?.forEach {}
             try self.validate(self.clusterIdentifier, name: "clusterIdentifier", parent: name, max: 2_147_483_647)
+            try self.marker?.forEach {}
             try self.validate(self.marker, name: "marker", parent: name, max: 2_147_483_647)
             try self.tagKeys?.forEach {
                 try validate($0, name: "tagKeys[]", parent: name, max: 2_147_483_647)
             }
+            try self.tagKeys?.forEach {}
             try self.tagValues?.forEach {
                 try validate($0, name: "tagValues[]", parent: name, max: 2_147_483_647)
             }
+            try self.tagValues?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -2739,7 +2876,9 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.marker?.forEach {}
             try self.validate(self.marker, name: "marker", parent: name, max: 2_147_483_647)
+            try self.parameterGroupFamily.forEach {}
             try self.validate(self.parameterGroupFamily, name: "parameterGroupFamily", parent: name, max: 2_147_483_647)
         }
 
@@ -2771,6 +2910,7 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.sourceType?.forEach {}
             try self.validate(self.sourceType, name: "sourceType", parent: name, max: 2_147_483_647)
         }
 
@@ -2805,14 +2945,18 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.marker?.forEach {}
             try self.validate(self.marker, name: "marker", parent: name, max: 2_147_483_647)
+            try self.subscriptionName?.forEach {}
             try self.validate(self.subscriptionName, name: "subscriptionName", parent: name, max: 2_147_483_647)
             try self.tagKeys?.forEach {
                 try validate($0, name: "tagKeys[]", parent: name, max: 2_147_483_647)
             }
+            try self.tagKeys?.forEach {}
             try self.tagValues?.forEach {
                 try validate($0, name: "tagValues[]", parent: name, max: 2_147_483_647)
             }
+            try self.tagValues?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -2851,7 +2995,9 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.marker?.forEach {}
             try self.validate(self.marker, name: "marker", parent: name, max: 2_147_483_647)
+            try self.sourceIdentifier?.forEach {}
             try self.validate(self.sourceIdentifier, name: "sourceIdentifier", parent: name, max: 2_147_483_647)
         }
 
@@ -2892,14 +3038,18 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.hsmClientCertificateIdentifier?.forEach {}
             try self.validate(self.hsmClientCertificateIdentifier, name: "hsmClientCertificateIdentifier", parent: name, max: 2_147_483_647)
+            try self.marker?.forEach {}
             try self.validate(self.marker, name: "marker", parent: name, max: 2_147_483_647)
             try self.tagKeys?.forEach {
                 try validate($0, name: "tagKeys[]", parent: name, max: 2_147_483_647)
             }
+            try self.tagKeys?.forEach {}
             try self.tagValues?.forEach {
                 try validate($0, name: "tagValues[]", parent: name, max: 2_147_483_647)
             }
+            try self.tagValues?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -2937,14 +3087,18 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.hsmConfigurationIdentifier?.forEach {}
             try self.validate(self.hsmConfigurationIdentifier, name: "hsmConfigurationIdentifier", parent: name, max: 2_147_483_647)
+            try self.marker?.forEach {}
             try self.validate(self.marker, name: "marker", parent: name, max: 2_147_483_647)
             try self.tagKeys?.forEach {
                 try validate($0, name: "tagKeys[]", parent: name, max: 2_147_483_647)
             }
+            try self.tagKeys?.forEach {}
             try self.tagValues?.forEach {
                 try validate($0, name: "tagValues[]", parent: name, max: 2_147_483_647)
             }
+            try self.tagValues?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -2965,6 +3119,7 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.clusterIdentifier.forEach {}
             try self.validate(self.clusterIdentifier, name: "clusterIdentifier", parent: name, max: 2_147_483_647)
         }
 
@@ -3003,12 +3158,17 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.clusterIdentifier?.forEach {}
             try self.validate(self.clusterIdentifier, name: "clusterIdentifier", parent: name, max: 2_147_483_647)
             try self.filters?.forEach {
                 try $0.validate(name: "\(name).filters[]")
             }
+            try self.filters?.forEach {}
+            try self.marker?.forEach {}
             try self.validate(self.marker, name: "marker", parent: name, max: 2_147_483_647)
+            try self.ownerAccount?.forEach {}
             try self.validate(self.ownerAccount, name: "ownerAccount", parent: name, max: 2_147_483_647)
+            try self.snapshotIdentifier?.forEach {}
             try self.validate(self.snapshotIdentifier, name: "snapshotIdentifier", parent: name, max: 2_147_483_647)
         }
 
@@ -3041,8 +3201,11 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.clusterVersion?.forEach {}
             try self.validate(self.clusterVersion, name: "clusterVersion", parent: name, max: 2_147_483_647)
+            try self.marker?.forEach {}
             try self.validate(self.marker, name: "marker", parent: name, max: 2_147_483_647)
+            try self.nodeType?.forEach {}
             try self.validate(self.nodeType, name: "nodeType", parent: name, max: 2_147_483_647)
         }
 
@@ -3069,7 +3232,9 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.marker?.forEach {}
             try self.validate(self.marker, name: "marker", parent: name, max: 2_147_483_647)
+            try self.reservedNodeOfferingId?.forEach {}
             try self.validate(self.reservedNodeOfferingId, name: "reservedNodeOfferingId", parent: name, max: 2_147_483_647)
         }
 
@@ -3095,7 +3260,9 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.marker?.forEach {}
             try self.validate(self.marker, name: "marker", parent: name, max: 2_147_483_647)
+            try self.reservedNodeId?.forEach {}
             try self.validate(self.reservedNodeId, name: "reservedNodeId", parent: name, max: 2_147_483_647)
         }
 
@@ -3115,6 +3282,7 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.clusterIdentifier.forEach {}
             try self.validate(self.clusterIdentifier, name: "clusterIdentifier", parent: name, max: 2_147_483_647)
         }
 
@@ -3159,7 +3327,10 @@ extension Redshift {
             try self.filters?.forEach {
                 try $0.validate(name: "\(name).filters[]")
             }
+            try self.filters?.forEach {}
+            try self.marker?.forEach {}
             try self.validate(self.marker, name: "marker", parent: name, max: 2_147_483_647)
+            try self.scheduledActionName?.forEach {}
             try self.validate(self.scheduledActionName, name: "scheduledActionName", parent: name, max: 2_147_483_647)
         }
 
@@ -3201,14 +3372,18 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.marker?.forEach {}
             try self.validate(self.marker, name: "marker", parent: name, max: 2_147_483_647)
+            try self.snapshotCopyGrantName?.forEach {}
             try self.validate(self.snapshotCopyGrantName, name: "snapshotCopyGrantName", parent: name, max: 2_147_483_647)
             try self.tagKeys?.forEach {
                 try validate($0, name: "tagKeys[]", parent: name, max: 2_147_483_647)
             }
+            try self.tagKeys?.forEach {}
             try self.tagValues?.forEach {
                 try validate($0, name: "tagValues[]", parent: name, max: 2_147_483_647)
             }
+            try self.tagValues?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -3249,15 +3424,20 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.clusterIdentifier?.forEach {}
             try self.validate(self.clusterIdentifier, name: "clusterIdentifier", parent: name, max: 2_147_483_647)
+            try self.marker?.forEach {}
             try self.validate(self.marker, name: "marker", parent: name, max: 2_147_483_647)
+            try self.scheduleIdentifier?.forEach {}
             try self.validate(self.scheduleIdentifier, name: "scheduleIdentifier", parent: name, max: 2_147_483_647)
             try self.tagKeys?.forEach {
                 try validate($0, name: "tagKeys[]", parent: name, max: 2_147_483_647)
             }
+            try self.tagKeys?.forEach {}
             try self.tagValues?.forEach {
                 try validate($0, name: "tagValues[]", parent: name, max: 2_147_483_647)
             }
+            try self.tagValues?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -3308,8 +3488,11 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.clusterIdentifier?.forEach {}
             try self.validate(self.clusterIdentifier, name: "clusterIdentifier", parent: name, max: 2_147_483_647)
+            try self.marker?.forEach {}
             try self.validate(self.marker, name: "marker", parent: name, max: 2_147_483_647)
+            try self.tableRestoreRequestId?.forEach {}
             try self.validate(self.tableRestoreRequestId, name: "tableRestoreRequestId", parent: name, max: 2_147_483_647)
         }
 
@@ -3350,15 +3533,20 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.marker?.forEach {}
             try self.validate(self.marker, name: "marker", parent: name, max: 2_147_483_647)
+            try self.resourceName?.forEach {}
             try self.validate(self.resourceName, name: "resourceName", parent: name, max: 2_147_483_647)
+            try self.resourceType?.forEach {}
             try self.validate(self.resourceType, name: "resourceType", parent: name, max: 2_147_483_647)
             try self.tagKeys?.forEach {
                 try validate($0, name: "tagKeys[]", parent: name, max: 2_147_483_647)
             }
+            try self.tagKeys?.forEach {}
             try self.tagValues?.forEach {
                 try validate($0, name: "tagValues[]", parent: name, max: 2_147_483_647)
             }
+            try self.tagValues?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -3403,14 +3591,19 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.clusterIdentifier?.forEach {}
             try self.validate(self.clusterIdentifier, name: "clusterIdentifier", parent: name, max: 2_147_483_647)
+            try self.marker?.forEach {}
             try self.validate(self.marker, name: "marker", parent: name, max: 2_147_483_647)
             try self.tagKeys?.forEach {
                 try validate($0, name: "tagKeys[]", parent: name, max: 2_147_483_647)
             }
+            try self.tagKeys?.forEach {}
             try self.tagValues?.forEach {
                 try validate($0, name: "tagValues[]", parent: name, max: 2_147_483_647)
             }
+            try self.tagValues?.forEach {}
+            try self.usageLimitId?.forEach {}
             try self.validate(self.usageLimitId, name: "usageLimitId", parent: name, max: 2_147_483_647)
         }
 
@@ -3434,6 +3627,7 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.clusterIdentifier.forEach {}
             try self.validate(self.clusterIdentifier, name: "clusterIdentifier", parent: name, max: 2_147_483_647)
         }
 
@@ -3451,6 +3645,7 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.clusterIdentifier.forEach {}
             try self.validate(self.clusterIdentifier, name: "clusterIdentifier", parent: name, max: 2_147_483_647)
         }
 
@@ -3531,8 +3726,11 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.bucketName.forEach {}
             try self.validate(self.bucketName, name: "bucketName", parent: name, max: 2_147_483_647)
+            try self.clusterIdentifier.forEach {}
             try self.validate(self.clusterIdentifier, name: "clusterIdentifier", parent: name, max: 2_147_483_647)
+            try self.s3KeyPrefix?.forEach {}
             try self.validate(self.s3KeyPrefix, name: "s3KeyPrefix", parent: name, max: 2_147_483_647)
         }
 
@@ -3564,8 +3762,11 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.clusterIdentifier.forEach {}
             try self.validate(self.clusterIdentifier, name: "clusterIdentifier", parent: name, max: 2_147_483_647)
+            try self.destinationRegion.forEach {}
             try self.validate(self.destinationRegion, name: "destinationRegion", parent: name, max: 2_147_483_647)
+            try self.snapshotCopyGrantName?.forEach {}
             try self.validate(self.snapshotCopyGrantName, name: "snapshotCopyGrantName", parent: name, max: 2_147_483_647)
         }
 
@@ -3845,11 +4046,15 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.clusterIdentifier.forEach {}
             try self.validate(self.clusterIdentifier, name: "clusterIdentifier", parent: name, max: 2_147_483_647)
             try self.dbGroups?.forEach {
                 try validate($0, name: "dbGroups[]", parent: name, max: 2_147_483_647)
             }
+            try self.dbGroups?.forEach {}
+            try self.dbName?.forEach {}
             try self.validate(self.dbName, name: "dbName", parent: name, max: 2_147_483_647)
+            try self.dbUser.forEach {}
             try self.validate(self.dbUser, name: "dbUser", parent: name, max: 2_147_483_647)
         }
 
@@ -3878,7 +4083,9 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.marker?.forEach {}
             try self.validate(self.marker, name: "marker", parent: name, max: 2_147_483_647)
+            try self.reservedNodeId.forEach {}
             try self.validate(self.reservedNodeId, name: "reservedNodeId", parent: name, max: 2_147_483_647)
         }
 
@@ -4119,7 +4326,9 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.clusterIdentifier.forEach {}
             try self.validate(self.clusterIdentifier, name: "clusterIdentifier", parent: name, max: 2_147_483_647)
+            try self.revisionTarget.forEach {}
             try self.validate(self.revisionTarget, name: "revisionTarget", parent: name, max: 2_147_483_647)
         }
 
@@ -4164,10 +4373,13 @@ extension Redshift {
             try self.addIamRoles?.forEach {
                 try validate($0, name: "addIamRoles[]", parent: name, max: 2_147_483_647)
             }
+            try self.addIamRoles?.forEach {}
+            try self.clusterIdentifier.forEach {}
             try self.validate(self.clusterIdentifier, name: "clusterIdentifier", parent: name, max: 2_147_483_647)
             try self.removeIamRoles?.forEach {
                 try validate($0, name: "removeIamRoles[]", parent: name, max: 2_147_483_647)
             }
+            try self.removeIamRoles?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -4213,7 +4425,9 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.clusterIdentifier.forEach {}
             try self.validate(self.clusterIdentifier, name: "clusterIdentifier", parent: name, max: 2_147_483_647)
+            try self.deferMaintenanceIdentifier?.forEach {}
             try self.validate(self.deferMaintenanceIdentifier, name: "deferMaintenanceIdentifier", parent: name, max: 2_147_483_647)
         }
 
@@ -4245,7 +4459,7 @@ extension Redshift {
 
         /// If true, major version upgrades will be applied automatically to the cluster during the maintenance window.  Default: false
         public let allowVersionUpgrade: Bool?
-        /// The number of days that automated snapshots are retained. If the value is 0, automated snapshots are disabled. Even if automated snapshots are disabled, you can still create manual snapshots when you want with CreateClusterSnapshot.  If you decrease the automated snapshot retention period from its current value, existing automated snapshots that fall outside of the new retention period will be immediately deleted. Default: Uses existing setting. Constraints: Must be a value from 0 to 35.
+        /// The number of days that automated snapshots are retained. If the value is 0, automated snapshots are disabled. Even if automated snapshots are disabled, you can still create manual snapshots when you want with CreateClusterSnapshot.  If you decrease the automated snapshot retention period from its current value, existing automated snapshots that fall outside of the new retention period will be immediately deleted. You can't disable automated snapshots for RA3 node types. Set the automated retention period from 1-35 days. Default: Uses existing setting. Constraints: Must be a value from 0 to 35.
         public let automatedSnapshotRetentionPeriod: Int?
         /// The option to initiate relocation for an Amazon Redshift cluster to the target Availability Zone.
         public let availabilityZone: String?
@@ -4325,26 +4539,42 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.availabilityZone?.forEach {}
             try self.validate(self.availabilityZone, name: "availabilityZone", parent: name, max: 2_147_483_647)
+            try self.clusterIdentifier.forEach {}
             try self.validate(self.clusterIdentifier, name: "clusterIdentifier", parent: name, max: 2_147_483_647)
+            try self.clusterParameterGroupName?.forEach {}
             try self.validate(self.clusterParameterGroupName, name: "clusterParameterGroupName", parent: name, max: 2_147_483_647)
             try self.clusterSecurityGroups?.forEach {
                 try validate($0, name: "clusterSecurityGroups[]", parent: name, max: 2_147_483_647)
             }
+            try self.clusterSecurityGroups?.forEach {}
+            try self.clusterType?.forEach {}
             try self.validate(self.clusterType, name: "clusterType", parent: name, max: 2_147_483_647)
+            try self.clusterVersion?.forEach {}
             try self.validate(self.clusterVersion, name: "clusterVersion", parent: name, max: 2_147_483_647)
+            try self.elasticIp?.forEach {}
             try self.validate(self.elasticIp, name: "elasticIp", parent: name, max: 2_147_483_647)
+            try self.hsmClientCertificateIdentifier?.forEach {}
             try self.validate(self.hsmClientCertificateIdentifier, name: "hsmClientCertificateIdentifier", parent: name, max: 2_147_483_647)
+            try self.hsmConfigurationIdentifier?.forEach {}
             try self.validate(self.hsmConfigurationIdentifier, name: "hsmConfigurationIdentifier", parent: name, max: 2_147_483_647)
+            try self.kmsKeyId?.forEach {}
             try self.validate(self.kmsKeyId, name: "kmsKeyId", parent: name, max: 2_147_483_647)
+            try self.maintenanceTrackName?.forEach {}
             try self.validate(self.maintenanceTrackName, name: "maintenanceTrackName", parent: name, max: 2_147_483_647)
+            try self.masterUserPassword?.forEach {}
             try self.validate(self.masterUserPassword, name: "masterUserPassword", parent: name, max: 2_147_483_647)
+            try self.newClusterIdentifier?.forEach {}
             try self.validate(self.newClusterIdentifier, name: "newClusterIdentifier", parent: name, max: 2_147_483_647)
+            try self.nodeType?.forEach {}
             try self.validate(self.nodeType, name: "nodeType", parent: name, max: 2_147_483_647)
+            try self.preferredMaintenanceWindow?.forEach {}
             try self.validate(self.preferredMaintenanceWindow, name: "preferredMaintenanceWindow", parent: name, max: 2_147_483_647)
             try self.vpcSecurityGroupIds?.forEach {
                 try validate($0, name: "vpcSecurityGroupIds[]", parent: name, max: 2_147_483_647)
             }
+            try self.vpcSecurityGroupIds?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -4391,10 +4621,12 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.parameterGroupName.forEach {}
             try self.validate(self.parameterGroupName, name: "parameterGroupName", parent: name, max: 2_147_483_647)
             try self.parameters.forEach {
                 try $0.validate(name: "\(name).parameters[]")
             }
+            try self.parameters.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -4430,6 +4662,7 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.snapshotIdentifier.forEach {}
             try self.validate(self.snapshotIdentifier, name: "snapshotIdentifier", parent: name, max: 2_147_483_647)
         }
 
@@ -4467,7 +4700,9 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.clusterIdentifier.forEach {}
             try self.validate(self.clusterIdentifier, name: "clusterIdentifier", parent: name, max: 2_147_483_647)
+            try self.scheduleIdentifier?.forEach {}
             try self.validate(self.scheduleIdentifier, name: "scheduleIdentifier", parent: name, max: 2_147_483_647)
         }
 
@@ -4496,11 +4731,14 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.clusterSubnetGroupName.forEach {}
             try self.validate(self.clusterSubnetGroupName, name: "clusterSubnetGroupName", parent: name, max: 2_147_483_647)
+            try self.description?.forEach {}
             try self.validate(self.description, name: "description", parent: name, max: 2_147_483_647)
             try self.subnetIds.forEach {
                 try validate($0, name: "subnetIds[]", parent: name, max: 2_147_483_647)
             }
+            try self.subnetIds.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -4557,12 +4795,18 @@ extension Redshift {
             try self.eventCategories?.forEach {
                 try validate($0, name: "eventCategories[]", parent: name, max: 2_147_483_647)
             }
+            try self.eventCategories?.forEach {}
+            try self.severity?.forEach {}
             try self.validate(self.severity, name: "severity", parent: name, max: 2_147_483_647)
+            try self.snsTopicArn?.forEach {}
             try self.validate(self.snsTopicArn, name: "snsTopicArn", parent: name, max: 2_147_483_647)
             try self.sourceIds?.forEach {
                 try validate($0, name: "sourceIds[]", parent: name, max: 2_147_483_647)
             }
+            try self.sourceIds?.forEach {}
+            try self.sourceType?.forEach {}
             try self.validate(self.sourceType, name: "sourceType", parent: name, max: 2_147_483_647)
+            try self.subscriptionName.forEach {}
             try self.validate(self.subscriptionName, name: "subscriptionName", parent: name, max: 2_147_483_647)
         }
 
@@ -4619,11 +4863,16 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.iamRole?.forEach {}
             try self.validate(self.iamRole, name: "iamRole", parent: name, max: 2_147_483_647)
+            try self.schedule?.forEach {}
             try self.validate(self.schedule, name: "schedule", parent: name, max: 2_147_483_647)
+            try self.scheduledActionDescription?.forEach {}
             try self.validate(self.scheduledActionDescription, name: "scheduledActionDescription", parent: name, max: 2_147_483_647)
+            try self.scheduledActionName.forEach {}
             try self.validate(self.scheduledActionName, name: "scheduledActionName", parent: name, max: 2_147_483_647)
             try self.targetAction?.validate(name: "\(name).targetAction")
+            try self.targetAction?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -4653,6 +4902,7 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.clusterIdentifier.forEach {}
             try self.validate(self.clusterIdentifier, name: "clusterIdentifier", parent: name, max: 2_147_483_647)
         }
 
@@ -4693,6 +4943,8 @@ extension Redshift {
             try self.scheduleDefinitions.forEach {
                 try validate($0, name: "scheduleDefinitions[]", parent: name, max: 2_147_483_647)
             }
+            try self.scheduleDefinitions.forEach {}
+            try self.scheduleIdentifier.forEach {}
             try self.validate(self.scheduleIdentifier, name: "scheduleIdentifier", parent: name, max: 2_147_483_647)
         }
 
@@ -4717,6 +4969,7 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.usageLimitId.forEach {}
             try self.validate(self.usageLimitId, name: "usageLimitId", parent: name, max: 2_147_483_647)
         }
 
@@ -4724,6 +4977,31 @@ extension Redshift {
             case amount = "Amount"
             case breachAction = "BreachAction"
             case usageLimitId = "UsageLimitId"
+        }
+    }
+
+    public struct NetworkInterface: AWSDecodableShape {
+        /// The Availability Zone.
+        public let availabilityZone: String?
+        /// The network interface identifier.
+        public let networkInterfaceId: String?
+        /// The IPv4 address of the network interface within the subnet.
+        public let privateIpAddress: String?
+        /// The subnet identifier.
+        public let subnetId: String?
+
+        public init(availabilityZone: String? = nil, networkInterfaceId: String? = nil, privateIpAddress: String? = nil, subnetId: String? = nil) {
+            self.availabilityZone = availabilityZone
+            self.networkInterfaceId = networkInterfaceId
+            self.privateIpAddress = privateIpAddress
+            self.subnetId = subnetId
+        }
+
+        private enum CodingKeys: String, CodingKey {
+            case availabilityZone = "AvailabilityZone"
+            case networkInterfaceId = "NetworkInterfaceId"
+            case privateIpAddress = "PrivateIpAddress"
+            case subnetId = "SubnetId"
         }
     }
 
@@ -4773,6 +5051,7 @@ extension Redshift {
             try self.values?.forEach {
                 try validate($0, name: "values[]", parent: name, max: 2_147_483_647)
             }
+            try self.values?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -4865,7 +5144,7 @@ extension Redshift {
         public let minimumEngineVersion: String?
         /// The name of the parameter.
         public let parameterName: String?
-        /// The value of the parameter.
+        /// The value of the parameter. If ParameterName is wlm_json_configuration, then the maximum size of ParameterValue is 8000 characters.
         public let parameterValue: String?
         /// The source of the parameter value, such as "engine-default" or "user".
         public let source: String?
@@ -4883,12 +5162,19 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.allowedValues?.forEach {}
             try self.validate(self.allowedValues, name: "allowedValues", parent: name, max: 2_147_483_647)
+            try self.dataType?.forEach {}
             try self.validate(self.dataType, name: "dataType", parent: name, max: 2_147_483_647)
+            try self.description?.forEach {}
             try self.validate(self.description, name: "description", parent: name, max: 2_147_483_647)
+            try self.minimumEngineVersion?.forEach {}
             try self.validate(self.minimumEngineVersion, name: "minimumEngineVersion", parent: name, max: 2_147_483_647)
+            try self.parameterName?.forEach {}
             try self.validate(self.parameterName, name: "parameterName", parent: name, max: 2_147_483_647)
+            try self.parameterValue?.forEach {}
             try self.validate(self.parameterValue, name: "parameterValue", parent: name, max: 2_147_483_647)
+            try self.source?.forEach {}
             try self.validate(self.source, name: "source", parent: name, max: 2_147_483_647)
         }
 
@@ -4914,6 +5200,7 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.clusterIdentifier.forEach {}
             try self.validate(self.clusterIdentifier, name: "clusterIdentifier", parent: name, max: 2_147_483_647)
         }
 
@@ -4999,6 +5286,7 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.reservedNodeOfferingId.forEach {}
             try self.validate(self.reservedNodeOfferingId, name: "reservedNodeOfferingId", parent: name, max: 2_147_483_647)
         }
 
@@ -5029,6 +5317,7 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.clusterIdentifier.forEach {}
             try self.validate(self.clusterIdentifier, name: "clusterIdentifier", parent: name, max: 2_147_483_647)
         }
 
@@ -5234,10 +5523,12 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.parameterGroupName.forEach {}
             try self.validate(self.parameterGroupName, name: "parameterGroupName", parent: name, max: 2_147_483_647)
             try self.parameters?.forEach {
                 try $0.validate(name: "\(name).parameters[]")
             }
+            try self.parameters?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -5268,8 +5559,11 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.clusterIdentifier.forEach {}
             try self.validate(self.clusterIdentifier, name: "clusterIdentifier", parent: name, max: 2_147_483_647)
+            try self.clusterType?.forEach {}
             try self.validate(self.clusterType, name: "clusterType", parent: name, max: 2_147_483_647)
+            try self.nodeType?.forEach {}
             try self.validate(self.nodeType, name: "nodeType", parent: name, max: 2_147_483_647)
         }
 
@@ -5396,7 +5690,7 @@ extension Redshift {
         public let additionalInfo: String?
         /// If true, major version upgrades can be applied during the maintenance window to the Amazon Redshift engine that is running on the cluster.  Default: true
         public let allowVersionUpgrade: Bool?
-        /// The number of days that automated snapshots are retained. If the value is 0, automated snapshots are disabled. Even if automated snapshots are disabled, you can still create manual snapshots when you want with CreateClusterSnapshot.  Default: The value selected for the cluster from which the snapshot was taken. Constraints: Must be a value from 0 to 35.
+        /// The number of days that automated snapshots are retained. If the value is 0, automated snapshots are disabled. Even if automated snapshots are disabled, you can still create manual snapshots when you want with CreateClusterSnapshot.  You can't disable automated snapshots for RA3 node types. Set the automated retention period from 1-35 days. Default: The value selected for the cluster from which the snapshot was taken. Constraints: Must be a value from 0 to 35.
         public let automatedSnapshotRetentionPeriod: Int?
         /// The Amazon EC2 Availability Zone in which to restore the cluster. Default: A random, system-chosen Availability Zone. Example: us-east-2a
         public let availabilityZone: String?
@@ -5481,31 +5775,50 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.additionalInfo?.forEach {}
             try self.validate(self.additionalInfo, name: "additionalInfo", parent: name, max: 2_147_483_647)
+            try self.availabilityZone?.forEach {}
             try self.validate(self.availabilityZone, name: "availabilityZone", parent: name, max: 2_147_483_647)
+            try self.clusterIdentifier.forEach {}
             try self.validate(self.clusterIdentifier, name: "clusterIdentifier", parent: name, max: 2_147_483_647)
+            try self.clusterParameterGroupName?.forEach {}
             try self.validate(self.clusterParameterGroupName, name: "clusterParameterGroupName", parent: name, max: 2_147_483_647)
             try self.clusterSecurityGroups?.forEach {
                 try validate($0, name: "clusterSecurityGroups[]", parent: name, max: 2_147_483_647)
             }
+            try self.clusterSecurityGroups?.forEach {}
+            try self.clusterSubnetGroupName?.forEach {}
             try self.validate(self.clusterSubnetGroupName, name: "clusterSubnetGroupName", parent: name, max: 2_147_483_647)
+            try self.elasticIp?.forEach {}
             try self.validate(self.elasticIp, name: "elasticIp", parent: name, max: 2_147_483_647)
+            try self.hsmClientCertificateIdentifier?.forEach {}
             try self.validate(self.hsmClientCertificateIdentifier, name: "hsmClientCertificateIdentifier", parent: name, max: 2_147_483_647)
+            try self.hsmConfigurationIdentifier?.forEach {}
             try self.validate(self.hsmConfigurationIdentifier, name: "hsmConfigurationIdentifier", parent: name, max: 2_147_483_647)
             try self.iamRoles?.forEach {
                 try validate($0, name: "iamRoles[]", parent: name, max: 2_147_483_647)
             }
+            try self.iamRoles?.forEach {}
+            try self.kmsKeyId?.forEach {}
             try self.validate(self.kmsKeyId, name: "kmsKeyId", parent: name, max: 2_147_483_647)
+            try self.maintenanceTrackName?.forEach {}
             try self.validate(self.maintenanceTrackName, name: "maintenanceTrackName", parent: name, max: 2_147_483_647)
+            try self.nodeType?.forEach {}
             try self.validate(self.nodeType, name: "nodeType", parent: name, max: 2_147_483_647)
+            try self.ownerAccount?.forEach {}
             try self.validate(self.ownerAccount, name: "ownerAccount", parent: name, max: 2_147_483_647)
+            try self.preferredMaintenanceWindow?.forEach {}
             try self.validate(self.preferredMaintenanceWindow, name: "preferredMaintenanceWindow", parent: name, max: 2_147_483_647)
+            try self.snapshotClusterIdentifier?.forEach {}
             try self.validate(self.snapshotClusterIdentifier, name: "snapshotClusterIdentifier", parent: name, max: 2_147_483_647)
+            try self.snapshotIdentifier.forEach {}
             try self.validate(self.snapshotIdentifier, name: "snapshotIdentifier", parent: name, max: 2_147_483_647)
+            try self.snapshotScheduleIdentifier?.forEach {}
             try self.validate(self.snapshotScheduleIdentifier, name: "snapshotScheduleIdentifier", parent: name, max: 2_147_483_647)
             try self.vpcSecurityGroupIds?.forEach {
                 try validate($0, name: "vpcSecurityGroupIds[]", parent: name, max: 2_147_483_647)
             }
+            try self.vpcSecurityGroupIds?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -5614,13 +5927,21 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.clusterIdentifier.forEach {}
             try self.validate(self.clusterIdentifier, name: "clusterIdentifier", parent: name, max: 2_147_483_647)
+            try self.newTableName.forEach {}
             try self.validate(self.newTableName, name: "newTableName", parent: name, max: 2_147_483_647)
+            try self.snapshotIdentifier.forEach {}
             try self.validate(self.snapshotIdentifier, name: "snapshotIdentifier", parent: name, max: 2_147_483_647)
+            try self.sourceDatabaseName.forEach {}
             try self.validate(self.sourceDatabaseName, name: "sourceDatabaseName", parent: name, max: 2_147_483_647)
+            try self.sourceSchemaName?.forEach {}
             try self.validate(self.sourceSchemaName, name: "sourceSchemaName", parent: name, max: 2_147_483_647)
+            try self.sourceTableName.forEach {}
             try self.validate(self.sourceTableName, name: "sourceTableName", parent: name, max: 2_147_483_647)
+            try self.targetDatabaseName?.forEach {}
             try self.validate(self.targetDatabaseName, name: "targetDatabaseName", parent: name, max: 2_147_483_647)
+            try self.targetSchemaName?.forEach {}
             try self.validate(self.targetSchemaName, name: "targetSchemaName", parent: name, max: 2_147_483_647)
         }
 
@@ -5657,6 +5978,7 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.clusterIdentifier.forEach {}
             try self.validate(self.clusterIdentifier, name: "clusterIdentifier", parent: name, max: 2_147_483_647)
         }
 
@@ -5716,9 +6038,13 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.cidrip?.forEach {}
             try self.validate(self.cidrip, name: "cidrip", parent: name, max: 2_147_483_647)
+            try self.clusterSecurityGroupName.forEach {}
             try self.validate(self.clusterSecurityGroupName, name: "clusterSecurityGroupName", parent: name, max: 2_147_483_647)
+            try self.eC2SecurityGroupName?.forEach {}
             try self.validate(self.eC2SecurityGroupName, name: "eC2SecurityGroupName", parent: name, max: 2_147_483_647)
+            try self.eC2SecurityGroupOwnerId?.forEach {}
             try self.validate(self.eC2SecurityGroupOwnerId, name: "eC2SecurityGroupOwnerId", parent: name, max: 2_147_483_647)
         }
 
@@ -5757,8 +6083,11 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.accountWithRestoreAccess.forEach {}
             try self.validate(self.accountWithRestoreAccess, name: "accountWithRestoreAccess", parent: name, max: 2_147_483_647)
+            try self.snapshotClusterIdentifier?.forEach {}
             try self.validate(self.snapshotClusterIdentifier, name: "snapshotClusterIdentifier", parent: name, max: 2_147_483_647)
+            try self.snapshotIdentifier.forEach {}
             try self.validate(self.snapshotIdentifier, name: "snapshotIdentifier", parent: name, max: 2_147_483_647)
         }
 
@@ -5790,6 +6119,7 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.clusterIdentifier.forEach {}
             try self.validate(self.clusterIdentifier, name: "clusterIdentifier", parent: name, max: 2_147_483_647)
         }
 
@@ -5876,6 +6206,7 @@ extension Redshift {
             try self.values.forEach {
                 try validate($0, name: "values[]", parent: name, max: 2_147_483_647)
             }
+            try self.values.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -5900,8 +6231,11 @@ extension Redshift {
 
         public func validate(name: String) throws {
             try self.pauseCluster?.validate(name: "\(name).pauseCluster")
+            try self.pauseCluster?.forEach {}
             try self.resizeCluster?.validate(name: "\(name).resizeCluster")
+            try self.resizeCluster?.forEach {}
             try self.resumeCluster?.validate(name: "\(name).resumeCluster")
+            try self.resumeCluster?.forEach {}
         }
 
         private enum CodingKeys: String, CodingKey {
@@ -6376,7 +6710,9 @@ extension Redshift {
         }
 
         public func validate(name: String) throws {
+            try self.key?.forEach {}
             try self.validate(self.key, name: "key", parent: name, max: 2_147_483_647)
+            try self.value?.forEach {}
             try self.validate(self.value, name: "value", parent: name, max: 2_147_483_647)
         }
 
@@ -6534,15 +6870,26 @@ extension Redshift {
     }
 
     public struct VpcEndpoint: AWSDecodableShape {
+        public struct _NetworkInterfacesEncoding: ArrayCoderProperties { public static let member = "NetworkInterface" }
+
+        /// One or more network interfaces of the endpoint. Also known as an interface endpoint.
+        @OptionalCustomCoding<ArrayCoder<_NetworkInterfacesEncoding, NetworkInterface>>
+        public var networkInterfaces: [NetworkInterface]?
         /// The connection endpoint ID for connecting an Amazon Redshift cluster through the proxy.
         public let vpcEndpointId: String?
+        /// The VPC identifier that the endpoint is associated.
+        public let vpcId: String?
 
-        public init(vpcEndpointId: String? = nil) {
+        public init(networkInterfaces: [NetworkInterface]? = nil, vpcEndpointId: String? = nil, vpcId: String? = nil) {
+            self.networkInterfaces = networkInterfaces
             self.vpcEndpointId = vpcEndpointId
+            self.vpcId = vpcId
         }
 
         private enum CodingKeys: String, CodingKey {
+            case networkInterfaces = "NetworkInterfaces"
             case vpcEndpointId = "VpcEndpointId"
+            case vpcId = "VpcId"
         }
     }
 

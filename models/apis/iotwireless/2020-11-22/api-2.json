@@ -920,13 +920,15 @@
         "ClientRequestToken":{
           "shape":"ClientRequestToken",
           "idempotencyToken":true
-        }
+        },
+        "Tags":{"shape":"TagList"}
       }
     },
     "AssociateAwsAccountWithPartnerAccountResponse":{
       "type":"structure",
       "members":{
-        "Sidewalk":{"shape":"SidewalkAccountInfo"}
+        "Sidewalk":{"shape":"SidewalkAccountInfo"},
+        "Arn":{"shape":"PartnerAccountArn"}
       }
     },
     "AssociateWirelessDeviceWithThingRequest":{
@@ -1113,7 +1115,8 @@
           "shape":"ClientRequestToken",
           "idempotencyToken":true
         },
-        "LoRaWAN":{"shape":"LoRaWANDevice"}
+        "LoRaWAN":{"shape":"LoRaWANDevice"},
+        "Tags":{"shape":"TagList"}
       }
     },
     "CreateWirelessDeviceResponse":{
@@ -1154,13 +1157,15 @@
         "ClientRequestToken":{
           "shape":"ClientRequestToken",
           "idempotencyToken":true
-        }
+        },
+        "Tags":{"shape":"TagList"}
       }
     },
     "CreateWirelessGatewayTaskDefinitionResponse":{
       "type":"structure",
       "members":{
-        "Id":{"shape":"WirelessGatewayTaskDefinitionId"}
+        "Id":{"shape":"WirelessGatewayTaskDefinitionId"},
+        "Arn":{"shape":"WirelessGatewayTaskDefinitionArn"}
       }
     },
     "CreateWirelessGatewayTaskRequest":{
@@ -1753,7 +1758,8 @@
       "members":{
         "AutoCreateTasks":{"shape":"AutoCreateTasks"},
         "Name":{"shape":"WirelessGatewayTaskName"},
-        "Update":{"shape":"UpdateWirelessGatewayTaskCreate"}
+        "Update":{"shape":"UpdateWirelessGatewayTaskCreate"},
+        "Arn":{"shape":"WirelessGatewayTaskDefinitionArn"}
       }
     },
     "GetWirelessGatewayTaskRequest":{
@@ -2216,6 +2222,7 @@
       "max":32,
       "min":1
     },
+    "PartnerAccountArn":{"type":"string"},
     "PartnerAccountId":{
       "type":"string",
       "max":256
@@ -2332,6 +2339,7 @@
     },
     "Seq":{
       "type":"integer",
+      "max":16383,
       "min":0
     },
     "ServiceProfile":{
@@ -2382,7 +2390,8 @@
       "type":"structure",
       "members":{
         "AmazonId":{"shape":"AmazonId"},
-        "Fingerprint":{"shape":"Fingerprint"}
+        "Fingerprint":{"shape":"Fingerprint"},
+        "Arn":{"shape":"PartnerAccountArn"}
       }
     },
     "SidewalkAccountList":{
@@ -2659,7 +2668,8 @@
       "type":"structure",
       "members":{
         "Id":{"shape":"WirelessGatewayTaskDefinitionId"},
-        "LoRaWAN":{"shape":"LoRaWANUpdateGatewayTaskEntry"}
+        "LoRaWAN":{"shape":"LoRaWANUpdateGatewayTaskEntry"},
+        "Arn":{"shape":"WirelessGatewayTaskDefinitionArn"}
       }
     },
     "ValidationException":{
@@ -2750,6 +2760,7 @@
       "type":"list",
       "member":{"shape":"WirelessGatewayStatistics"}
     },
+    "WirelessGatewayTaskDefinitionArn":{"type":"string"},
     "WirelessGatewayTaskDefinitionId":{
       "type":"string",
       "max":36,
